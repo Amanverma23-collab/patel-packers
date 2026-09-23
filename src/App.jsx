@@ -1,0 +1,1254 @@
+import { useState, useEffect, useRef } from 'react'
+import './App.css'
+import AccordionGallery from './AccordionGallery'
+
+/* ─────────────── ICONS ─────────────── */
+const ArrowRightIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12" />
+    <polyline points="12 5 19 12 12 19" />
+  </svg>
+)
+
+const PhoneCallIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/>
+  </svg>
+)
+
+const TruckIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="1" y="3" width="15" height="13" />
+    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+    <circle cx="5.5" cy="18.5" r="2.5" />
+    <circle cx="18.5" cy="18.5" r="2.5" />
+  </svg>
+)
+
+const CloseIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+    <line x1="18" y1="6" x2="6" y2="18" />
+    <line x1="6" y1="6" x2="18" y2="18" />
+  </svg>
+)
+
+const MenuIcon = () => (
+  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round">
+    <line x1="3.5" y1="6.5" x2="20.5" y2="6.5" />
+    <line x1="3.5" y1="12" x2="20.5" y2="12" />
+    <line x1="3.5" y1="17.5" x2="20.5" y2="17.5" />
+  </svg>
+)
+
+const StarIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="#D97706" stroke="none">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+  </svg>
+)
+
+const ShieldCheckIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+    <path d="m9 12 2 2 4-4"/>
+  </svg>
+)
+
+const TeamUsersIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+    <circle cx="9" cy="7" r="4"/>
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+)
+
+const PackageBoxIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+    <line x1="12" y1="22.08" x2="12" y2="12"/>
+  </svg>
+)
+
+const SupportHeadsetIcon = () => (
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+  </svg>
+)
+
+/* ─────────────── GOLDEN TRUST BADGE ICONS ─────────────── */
+/* ─────────────── REAL CIRCULAR ACCREDITATION BADGES (NO BOX) ─────────────── */
+const TrustBadgesStrip = () => (
+  <div className="pure-badges-strip" aria-label="Official Accreditations & Certifications">
+    {/* Badge 1: IBA Approved */}
+    <div className="pure-badge-item" title="IBA Approved - Indian Banks' Association">
+      <img
+        src="/badge-iba-approved.png"
+        alt="IBA Approved - Indian Banks' Association Certified Movers"
+        className="pure-badge-img"
+        loading="lazy"
+      />
+    </div>
+
+    {/* Badge 2: Government Verified */}
+    <div className="pure-badge-item" title="Government Verified - ISO 9001:2015 & GST Registered">
+      <img
+        src="/badge-govt-verified.png"
+        alt="Government of India Verified - ISO 9001:2015"
+        className="pure-badge-img"
+        loading="lazy"
+      />
+    </div>
+
+    {/* Badge 3: Pan India Service */}
+    <div className="pure-badge-item" title="Pan India Service - Doorstep Delivery Across All States">
+      <img
+        src="/badge-pan-india.png"
+        alt="Pan India Service - Any City, Any Distance"
+        className="pure-badge-img"
+        loading="lazy"
+      />
+    </div>
+  </div>
+)
+
+/* ─────────────── SVG CARD BACKGROUND PATHS ─────────────── */
+/* Mathematically parallel interlocking 45° step-down geometry for Desktop & Mobile */
+const TopCardBg = () => (
+  <>
+    {/* Desktop Notch (screens > 860px) */}
+    <svg
+      className="card-bg-svg card-bg-svg--desktop"
+      viewBox="0 0 1200 580"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 552 Q 1200 580 1172 580 L 420 580 Q 405 580 395 570 L 355 530 Q 345 520 330 520 L 28 520 Q 0 520 0 492 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+    {/* Mobile Notch (screens <= 860px) */}
+    <svg
+      className="card-bg-svg card-bg-svg--mobile"
+      viewBox="0 0 390 820"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 790 Q 390 820 366 820 L 170 820 Q 158 820 150 812 L 130 792 Q 122 784 110 784 L 16 784 Q 0 784 0 768 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  </>
+)
+
+const BottomCardBg = () => (
+  <>
+    {/* Desktop Notch (screens > 860px) */}
+    <svg
+      className="card-bg-svg card-bg-svg--desktop"
+      viewBox="0 0 1200 380"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 28 Q 0 0 28 0 L 330 0 Q 345 0 355 10 L 395 50 Q 405 60 420 60 L 1172 60 Q 1200 60 1200 88 L 1200 352 Q 1200 380 1172 380 L 28 380 Q 0 380 0 352 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+    {/* Mobile Notch (screens <= 860px) */}
+    <svg
+      className="card-bg-svg card-bg-svg--mobile"
+      viewBox="0 0 390 780"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 16 Q 0 0 16 0 L 110 0 Q 122 0 130 5 L 150 18 Q 158 23 170 23 L 374 23 Q 390 23 390 39 L 390 764 Q 390 780 374 780 L 16 780 Q 0 780 0 764 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  </>
+)
+
+/* Mathematically matching dipped interlocking seam geometry for About Us & Why Choose Us (Centered at 50%) */
+const AboutCardBg = () => (
+  <>
+    {/* Desktop Notch (screens > 860px) - Centered at x = 600 */}
+    <svg
+      className="card-bg-svg card-bg-svg--desktop"
+      viewBox="0 0 1200 520"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 28 Q 0 0 28 0 L 1172 0 Q 1200 0 1200 28 L 1200 446 Q 1200 474 1172 474 L 740 474 C 715 474 710 520 685 520 L 515 520 C 490 520 485 474 460 474 L 28 474 Q 0 474 0 446 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+    {/* Mobile Notch (screens <= 860px) - Centered at x = 195 */}
+    <svg
+      className="card-bg-svg card-bg-svg--mobile"
+      viewBox="0 0 390 760"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 16 Q 0 0 16 0 L 374 0 Q 390 0 390 16 L 390 722 Q 390 738 374 738 L 241 738 C 233 738 231 760 223 760 L 167 760 C 159 760 157 738 149 738 L 16 738 Q 0 738 0 722 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  </>
+)
+
+const WhyChooseCardBg = () => (
+  <>
+    {/* Desktop Notch (screens > 860px) - Top bump + Bottom dip centered at x = 600 */}
+    <svg
+      className="card-bg-svg card-bg-svg--desktop"
+      viewBox="0 0 1200 426"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 28 Q 0 0 28 0 L 460 0 C 485 0 490 57 515 57 L 685 57 C 710 57 715 0 740 0 L 1172 0 Q 1200 0 1200 28 L 1200 352 Q 1200 380 1172 380 L 740 380 C 715 380 710 426 685 426 L 515 426 C 490 426 485 380 460 380 L 28 380 Q 0 380 0 352 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+    {/* Mobile Notch (screens <= 860px) - Top bump + Bottom dip centered at x = 195 */}
+    <svg
+      className="card-bg-svg card-bg-svg--mobile"
+      viewBox="0 0 390 802"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 16 Q 0 0 16 0 L 149 0 C 157 0 159 22 167 22 L 223 22 C 231 22 233 0 241 0 L 374 0 Q 390 0 390 16 L 390 764 Q 390 780 374 780 L 241 780 C 233 780 231 802 223 802 L 167 802 C 159 802 157 780 149 780 L 16 780 Q 0 780 0 764 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  </>
+)
+
+const GalleryCardBg = () => (
+  <>
+    {/* Desktop Notch (screens > 860px) - Top bump centered at x = 600 */}
+    <svg
+      className="card-bg-svg card-bg-svg--desktop"
+      viewBox="0 0 1200 380"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 28 Q 0 0 28 0 L 460 0 C 485 0 490 35 515 35 L 685 35 C 710 35 715 0 740 0 L 1172 0 Q 1200 0 1200 28 L 1200 352 Q 1200 380 1172 380 L 28 380 Q 0 380 0 352 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+    {/* Mobile Notch (screens <= 860px) - Top bump centered at x = 195 */}
+    <svg
+      className="card-bg-svg card-bg-svg--mobile"
+      viewBox="0 0 390 780"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 16 Q 0 0 16 0 L 149 0 C 157 0 159 22 167 22 L 223 22 C 231 22 233 0 241 0 L 374 0 Q 390 0 390 16 L 390 764 Q 390 780 374 780 L 16 780 Q 0 780 0 764 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  </>
+)
+
+/* ─────────────── MAIN APP ─────────────── */
+export default function App() {
+  const [activeNav, setActiveNav] = useState('Home')
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [quoteOpen, setQuoteOpen] = useState(false)
+  const [selectedService, setSelectedService] = useState('House Shifting')
+
+
+  const navLinks = [
+    { label: 'Home', id: 'home' },
+    { label: 'Services', id: 'services' },
+    { label: 'About', id: 'about' },
+    { label: 'Why Choose Us', id: 'why-choose-us' },
+    { label: 'Gallery', id: 'gallery' },
+    { label: 'Reviews', id: 'reviews' }
+  ]
+
+  const handleNavClick = (item) => {
+    setActiveNav(item.label)
+    if (item.id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } else {
+      const el = document.getElementById(item.id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+  }
+
+  const handleOpenQuote = (service = 'House Shifting') => {
+    setSelectedService(service)
+    setQuoteOpen(true)
+  }
+
+  // Prevent scroll when modal open
+  useEffect(() => {
+    document.body.style.overflow = quoteOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [quoteOpen])
+
+  return (
+    <div className="canvas-wrapper">
+      <div className="canvas-frame">
+
+        {/* ════════════════ TOP SECTION (TAB + HEADER + UPPER CARD) ════════════════ */}
+        <section className="hero-top-section">
+          {/* Responsive SVG Notch Background (Desktop Only) */}
+          <TopCardBg />
+
+          {/* Header Row Container */}
+          <div className="top-header-row">
+            {/* Top-Left Raised Logo Tab */}
+            <div className="logo-tab">
+              <a href="#home" className="brand-link" aria-label="Patel Packers and Movers Home">
+                <img
+                  src="/logo-ppm-transparent.png"
+                  alt="Patel Packers & Movers Logo"
+                  className="ppm-logo-img"
+                />
+                <div className="brand-text">
+                  <span className="brand-title">PATEL</span>
+                  <span className="brand-sub">PACKERS & MOVERS</span>
+                </div>
+              </a>
+            </div>
+
+            {/* Floating Dark Navigation Header */}
+            <header className="dark-nav-header">
+              <nav className="nav-items" aria-label="Main Navigation">
+                {navLinks.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavClick(item)}
+                    className={`nav-link-btn ${activeNav === item.label ? 'nav-link-btn--active' : ''}`}
+                  >
+                    {item.label}
+                    {activeNav === item.label && <span className="nav-active-pill" />}
+                  </button>
+                ))}
+              </nav>
+
+              <div className="nav-actions">
+                <button
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && window.innerWidth <= 860) {
+                      window.location.href = 'tel:+919876543210'
+                    } else {
+                      handleOpenQuote('General Inquiry')
+                    }
+                  }}
+                  className="btn-pill-light"
+                  id="btn-nav-quote"
+                  aria-label="Order Now or Call"
+                >
+                  <span className="btn-label-desktop">ORDER NOW</span>
+                  <span className="btn-label-mobile">CALL</span>
+                  <span className="pill-arrow-circle pill-icon--desktop">
+                    <ArrowRightIcon />
+                  </span>
+                  <span className="pill-arrow-circle pill-icon--mobile">
+                    <PhoneCallIcon />
+                  </span>
+                </button>
+
+                <button
+                  className="mobile-toggle"
+                  onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                  aria-label="Toggle Navigation"
+                >
+                  {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
+                </button>
+              </div>
+            </header>
+
+            {/* Mobile dropdown menu */}
+            {mobileMenuOpen && (
+              <div className="mobile-nav-popup">
+                {navLinks.map((item) => (
+                  <button
+                    key={item.label}
+                    onClick={() => { handleNavClick(item); setMobileMenuOpen(false) }}
+                    className="mobile-nav-link"
+                  >
+                    {item.label}
+                  </button>
+                ))}
+                <button
+                  onClick={() => { handleOpenQuote(); setMobileMenuOpen(false) }}
+                  className="btn-pill-dark mobile-quote-btn"
+                >
+                  Get Free Quote <ArrowRightIcon />
+                </button>
+              </div>
+            )}
+          </div>
+
+          {/* Upper Card Main Content Layout */}
+          <div className="top-card-content">
+            {/* Left: Headline + Subtitle + Action Buttons */}
+            <div className="top-card-left">
+              <h1 className="display-h1">
+                A SAFER CHOICE<br />
+                FOR EVERY MOVE
+              </h1>
+
+              <p className="display-sub">
+                Professional packing, damage-free transit, and verified doorstep delivery across India.
+              </p>
+
+              <div className="action-button-group">
+                <button
+                  onClick={() => handleOpenQuote('House Shifting')}
+                  className="btn-pill-dark"
+                  id="btn-hero-start"
+                >
+                  <span>Start Booking</span>
+                  <ArrowRightIcon />
+                </button>
+
+                <a
+                  href="tel:+919876543210"
+                  className="btn-circle-dark"
+                  aria-label="Call Patel Packers & Movers"
+                  title="Call Patel Packers & Movers"
+                >
+                  <PhoneCallIcon />
+                </a>
+              </div>
+            </div>
+
+            {/* Middle: Rotating Circular Stamp Badge */}
+            <div className="rotating-badge-container">
+              <svg className="rotating-text-ring" viewBox="0 0 140 140">
+                <path
+                  id="circleTextPath"
+                  d="M 70,70 m -48,0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"
+                  fill="none"
+                />
+                <text className="stamp-text">
+                  <textPath href="#circleTextPath" startOffset="0%">
+                    ★ 100% DAMAGE FREE ★ TOP RATED MOVERS ★ ALL INDIA ★
+                  </textPath>
+                </text>
+              </svg>
+              <div className="badge-center-icon">
+                <TruckIcon />
+              </div>
+            </div>
+
+            {/* Right: Sage Card with Studio Moving Flatlay Image */}
+            <div className="top-card-right">
+              <div className="sage-showcase-box">
+                <img
+                  src="/ppm-hero-flatlay.jpg"
+                  alt="Patel Packers and Movers Relocation Supplies & Fleet"
+                  className="sage-showcase-img"
+                />
+                {/* Floating Rating Chip */}
+                <div className="showcase-rating-chip">
+                  <div className="rating-stars">
+                    {[...Array(5)].map((_, i) => (
+                      <StarIcon key={i} />
+                    ))}
+                  </div>
+                  <span className="rating-text">4.9 · 15,000+ Safe Moves</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════ BOTTOM SECTION (LOWER CARD + 3 TILES) ════════════════ */}
+        <section id="services" className="hero-bottom-section">
+          {/* Responsive SVG Matching Notch Background */}
+          <BottomCardBg />
+
+          <div className="bottom-card-content">
+            {/* Left: Tagline + Subtitle + Explore Button */}
+            <div className="bottom-card-left">
+              <div className="outline-tag-badge">
+                <span>THE BEST CHOICE</span>
+              </div>
+
+              <h2 className="display-h2">
+                KEEP IT SAFE,<br />
+                KEEP IT SIMPLE.
+              </h2>
+
+              <p className="bottom-sub">
+                Multi-layer bubble wrap + certified handlers. Nothing left to chance.
+              </p>
+
+              <div className="bottom-action-row">
+                <button
+                  onClick={() => handleOpenQuote('Explore Services')}
+                  className="btn-outline-pill"
+                  id="btn-explore-services"
+                >
+                  <span>Explore services</span>
+                  <ArrowRightIcon />
+                </button>
+
+                <button
+                  onClick={() => handleOpenQuote('Instant Quote')}
+                  className="btn-circle-outline"
+                  aria-label="Instant Quote"
+                >
+                  <ArrowRightIcon />
+                </button>
+              </div>
+            </div>
+
+            {/* Right: 3 Rounded Vertical Service Cards */}
+            <div className="bottom-card-right">
+              <div className="service-tiles-grid">
+                {/* Tile 1: House Shifting */}
+                <div
+                  className="service-tile-card"
+                  onClick={() => handleOpenQuote('House Shifting')}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <img
+                    src="/tile-packing.jpg"
+                    alt="House Shifting Packing"
+                    className="tile-img"
+                  />
+                  <div className="tile-overlay" />
+                  <span className="tile-label">HOUSE SHIFTING</span>
+                </div>
+
+                {/* Tile 2: Office Relocation */}
+                <div
+                  className="service-tile-card"
+                  onClick={() => handleOpenQuote('Office Relocation')}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <img
+                    src="/tile-loading.jpg"
+                    alt="Office Relocation & Safe Loading"
+                    className="tile-img"
+                  />
+                  <div className="tile-overlay" />
+                  <span className="tile-label">OFFICE RELOCATION</span>
+                </div>
+
+                {/* Tile 3: Vehicle Transport */}
+                <div
+                  className="service-tile-card"
+                  onClick={() => handleOpenQuote('Vehicle Transport')}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <img
+                    src="/tile-delivery.jpg"
+                    alt="Vehicle Transport & Doorstep Delivery"
+                    className="tile-img"
+                  />
+                  <div className="tile-overlay" />
+                  <span className="tile-label">VEHICLE TRANSPORT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════ GOLDEN ACCREDITATIONS & TRUST BADGES ════════════════ */}
+        <TrustBadgesStrip />
+
+        {/* ════════════════ ABOUT US SECTION ════════════════ */}
+        <section id="about" className="about-section">
+          {/* Responsive SVG Matching Notch Background (Upper Card of Seam) */}
+          <AboutCardBg />
+
+          <div className="about-card">
+            <div className="about-compact-grid">
+              {/* Left Column: Brand Story + Core Stats + Actions */}
+              <div className="about-compact-left">
+                <div className="outline-tag-badge">
+                  <span>ABOUT PATEL PACKERS & MOVERS</span>
+                </div>
+
+                <h2 className="display-h2 about-compact-title">
+                  OVER A DECADE OF TRUST,<br />
+                  YOUR GOODS — OUR RESPONSIBILITY.
+                </h2>
+
+                <p className="about-compact-desc">
+                  Headquartered in Mangalore and operating across Pan-India, <strong>Patel Packers and Movers</strong> has spent over a decade perfecting safe, reliable, and stress-free relocations. From family homes to corporate offices and personal vehicles, our trained specialists handle every move with multi-layer protective packaging and guaranteed transit insurance.
+                </p>
+
+                {/* 3 Compact Metrics */}
+                <div className="about-metrics-row">
+                  <div className="about-metric-pill">
+                    <span className="metric-num">10+</span>
+                    <span className="metric-txt">Years Experience</span>
+                  </div>
+                  <div className="about-metric-pill">
+                    <span className="metric-num">15,000+</span>
+                    <span className="metric-txt">Successful Moves</span>
+                  </div>
+                  <div className="about-metric-pill">
+                    <span className="metric-num">100%</span>
+                    <span className="metric-txt">Transit Insured</span>
+                  </div>
+                </div>
+
+                {/* Compact Action Buttons */}
+                <div className="about-compact-actions">
+                  <a
+                    href="tel:+918789227023"
+                    className="btn-pill-dark"
+                    id="btn-about-call"
+                  >
+                    <PhoneCallIcon />
+                    <span>Call 87892 27023</span>
+                  </a>
+                  <button
+                    onClick={() => handleOpenQuote('About Us Section')}
+                    className="btn-outline-pill"
+                    id="btn-about-quote"
+                  >
+                    <span>Get Moving Quote</span>
+                    <ArrowRightIcon />
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Column: Visual Image Showcase + Trust Badges */}
+              <div className="about-compact-right">
+                <div className="about-compact-img-frame">
+                  <img
+                    src="/ppm-team-work.jpg"
+                    alt="Patel Packers and Movers Relocation Specialists"
+                    className="about-compact-img"
+                  />
+                  <div className="about-compact-badge">
+                    <div className="compact-badge-icon">
+                      <TruckIcon />
+                    </div>
+                    <div className="compact-badge-text">
+                      <span className="compact-badge-title">GSTIN: 29BVKPP9967M1Z7</span>
+                      <span className="compact-badge-sub">ISO 9001:2015 Certified • IBA Approved Transport</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trust Pills Strip */}
+                <div className="about-compact-trust-strip">
+                  <span className="trust-pill-tag">✓ Household & Office Relocation</span>
+                  <span className="trust-pill-tag">✓ Car & Bike Carriers</span>
+                  <span className="trust-pill-tag">✓ All Cards & UPI Accepted</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════ WHY CHOOSE US SECTION ════════════════ */}
+        <section id="why-choose-us" className="why-choose-section">
+          {/* Responsive SVG Matching Notch Background (Lower Card of Seam) */}
+          <WhyChooseCardBg />
+
+          <div className="why-choose-content">
+            {/* Left Column: Tagline + Headline + Description + Know More Button */}
+            <div className="why-choose-left">
+              <div className="outline-tag-badge">
+                <span>WHY CHOOSE US</span>
+              </div>
+
+              <h2 className="display-h2 why-choose-title">
+                MOVING WITH<br />
+                A HIGHER STANDARD
+              </h2>
+
+              <p className="why-choose-sub">
+                We go beyond just moving boxes — we deliver peace of mind, with trusted service, trained professionals, and end-to-end support.
+              </p>
+
+              <button
+                onClick={() => handleOpenQuote('Why Choose Us')}
+                className="btn-pill-dark why-know-more-btn"
+                id="btn-why-know-more"
+              >
+                <span>Know More</span>
+                <ArrowRightIcon />
+              </button>
+            </div>
+
+            {/* Right Column: 4 Feature Cards Row */}
+            <div className="why-choose-right">
+              <div className="why-cards-grid">
+                {/* Card 1: Safe & Secure Handling */}
+                <div className="why-box-card">
+                  <div className="why-box-icon">
+                    <ShieldCheckIcon />
+                  </div>
+                  <h3 className="why-box-title">Safe & Secure Handling</h3>
+                  <p className="why-box-text">Your belongings are in expert hands.</p>
+                </div>
+
+                {/* Card 2: Experienced Team */}
+                <div className="why-box-card">
+                  <div className="why-box-icon">
+                    <TeamUsersIcon />
+                  </div>
+                  <h3 className="why-box-title">Experienced Team</h3>
+                  <p className="why-box-text">Trained and verified professionals.</p>
+                </div>
+
+                {/* Card 3: Quality Packing Materials */}
+                <div className="why-box-card">
+                  <div className="why-box-icon">
+                    <PackageBoxIcon />
+                  </div>
+                  <h3 className="why-box-title">Quality Packing Materials</h3>
+                  <p className="why-box-text">High-grade materials for extra safety.</p>
+                </div>
+
+                {/* Card 4: End-to-End Support */}
+                <div className="why-box-card">
+                  <div className="why-box-icon">
+                    <SupportHeadsetIcon />
+                  </div>
+                  <h3 className="why-box-title">End-to-End Support</h3>
+                  <p className="why-box-text">From packing to unpacking, we're with you.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════ GALLERY SECTION ════════════════ */}
+        <section id="gallery" className="gallery-section">
+          {/* Responsive SVG Matching Top Bump Background */}
+          <GalleryCardBg />
+
+          <div className="gallery-inner">
+            {/* Left: Headline Panel */}
+            <div className="gallery-headline-panel">
+              <div className="outline-tag-badge">
+                <span>OUR GALLERY</span>
+              </div>
+
+              <h2 className="display-h2 gallery-title">
+                GLIMPSES OF<br />
+                OUR WORK
+              </h2>
+
+              <p className="gallery-sub">
+                Take a look at some of our recent relocations across homes, offices, and vehicles.
+              </p>
+            </div>
+
+            {/* Accordion Gallery */}
+            <AccordionGallery
+              items={[
+                { image: '/gallery-warehouse.jpg', label: 'Warehouse Storage', link: '#' },
+                { image: '/gallery-parcel.jpg', label: 'Secure Packaging', link: '#' },
+                { image: '/gallery-sofa.jpg', label: 'Furniture Protection', link: '#' },
+                { image: '/tile-packing.jpg', label: 'Professional Packing', link: '#' },
+                { image: '/tile-loading.jpg', label: 'Safe Loading', link: '#' }
+              ]}
+              defaultIndex={2}
+              expandRatio={0.52}
+              trigger="hover"
+              accentColor="#ffffff"
+              overlayColor="#060010"
+              textColor="#ffffff"
+              grayscale
+              showLabels
+              duration={0.6}
+              ease="power3.out"
+              parallax={0.5}
+              tilt={8}
+              stagger={0.06}
+              height={460}
+              gap={10}
+              radius={16}
+              orientation="horizontal"
+            />
+          </div>
+        </section>
+
+        {/* ════════════════ CUSTOMER REVIEWS SECTION ════════════════ */}
+        <section id="reviews" className="reviews-section">
+          <div className="reviews-inner">
+            {/* Left: Headline Panel */}
+            <div className="reviews-headline-panel">
+              <div className="outline-tag-badge">
+                <span>CUSTOMER REVIEWS</span>
+              </div>
+
+              <h2 className="display-h2 reviews-title">
+                WHAT OUR<br />
+                CUSTOMERS SAY
+              </h2>
+
+              <p className="reviews-sub">
+                Trusted by hundreds of happy — customers across India.
+              </p>
+
+              <button
+                onClick={() => {
+                  const el = document.getElementById('reviews')
+                  if (el) el.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="btn-pill-dark reviews-viewall-btn"
+                id="btn-reviews-viewall"
+              >
+                <span>View All Reviews</span>
+                <ArrowRightIcon />
+              </button>
+            </div>
+
+            {/* Right: 3 Testimonial Cards */}
+            <div className="reviews-cards-row">
+              {/* Review Card 1 */}
+              <div className="review-card">
+                <div className="review-quote-icon">"</div>
+                <div className="review-stars-row">
+                  {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+                </div>
+                <p className="review-text">
+                  Excellent service! The team was professional, punctual and handled everything with care. Highly recommended!
+                </p>
+                <div className="review-author-row">
+                  <div className="review-avatar">RM</div>
+                  <div className="review-author-info">
+                    <span className="review-author-name">Rahul Mehta</span>
+                    <span className="review-author-city">Bengaluru</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review Card 2 */}
+              <div className="review-card">
+                <div className="review-quote-icon">"</div>
+                <div className="review-stars-row">
+                  {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+                </div>
+                <p className="review-text">
+                  Smooth and hassle-free experience. My home shifting was completed on time with no damage. Great team!
+                </p>
+                <div className="review-author-row">
+                  <div className="review-avatar">SI</div>
+                  <div className="review-author-info">
+                    <span className="review-author-name">Sneha Iyer</span>
+                    <span className="review-author-city">Mumbai</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Review Card 3 */}
+              <div className="review-card">
+                <div className="review-quote-icon">"</div>
+                <div className="review-stars-row">
+                  {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+                </div>
+                <p className="review-text">
+                  Very professional and supportive staff. They made our office relocation so easy. Truly reliable service!
+                </p>
+                <div className="review-author-row">
+                  <div className="review-avatar">AS</div>
+                  <div className="review-author-info">
+                    <span className="review-author-name">Amit Sharma</span>
+                    <span className="review-author-city">Delhi</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════ GET A FREE QUOTE (CTA) SECTION ════════════════ */}
+        <section id="cta-quote" className="cta-quote-section">
+          <div className="cta-quote-inner">
+            {/* Left: Headline */}
+            <div className="cta-quote-left">
+              <div className="outline-tag-badge">
+                <span>GET A FREE QUOTE</span>
+              </div>
+
+              <h2 className="display-h2 cta-quote-title">
+                Move Smarter.<br />
+                Get a Free Quote.
+              </h2>
+
+              <p className="cta-quote-sub">
+                Tell us your requirements and we'll get back with the best quote for your move.
+              </p>
+            </div>
+
+            {/* Center: Inline Quote Form */}
+            <div className="cta-quote-form-area">
+              <form className="cta-inline-form" onSubmit={(e) => { e.preventDefault(); handleOpenQuote('CTA Form') }}>
+                <div className="cta-form-row">
+                  <div className="cta-field">
+                    <span className="cta-field-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </span>
+                    <input type="text" placeholder="Your Name" className="cta-input" />
+                  </div>
+                  <div className="cta-field">
+                    <span className="cta-field-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/></svg>
+                    </span>
+                    <input type="tel" placeholder="Phone Number" className="cta-input" />
+                  </div>
+                </div>
+                <div className="cta-form-row">
+                  <div className="cta-field">
+                    <span className="cta-field-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </span>
+                    <input type="text" placeholder="From Location" className="cta-input" />
+                  </div>
+                  <div className="cta-field">
+                    <span className="cta-field-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </span>
+                    <input type="text" placeholder="To Location" className="cta-input" />
+                  </div>
+                </div>
+                <div className="cta-form-row cta-form-row--submit">
+                  <div className="cta-field">
+                    <span className="cta-field-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                    </span>
+                    <select className="cta-input cta-select">
+                      <option value="">Select Moving Type</option>
+                      <option value="house">House Shifting</option>
+                      <option value="office">Office Relocation</option>
+                      <option value="vehicle">Vehicle Transport</option>
+                      <option value="warehouse">Warehouse Storage</option>
+                    </select>
+                  </div>
+                  <button type="submit" className="btn-pill-dark cta-submit-btn">
+                    <span>Get Free Quote</span>
+                    <ArrowRightIcon />
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            {/* Right: Delivery Person Image + "Let's Move Together" */}
+            <div className="cta-quote-right">
+              <div className="cta-person-wrapper">
+                <div className="cta-speech-bubble">
+                  <span>Let's</span>
+                  <span>Move</span>
+                  <span>Together</span>
+                </div>
+                <img
+                  src="/delivery-person.jpg"
+                  alt="Patel Packers & Movers Delivery Professional"
+                  className="cta-person-img"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Stats Strip */}
+          <div className="cta-stats-strip">
+            <div className="cta-stat-item">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              <div className="cta-stat-text">
+                <span className="cta-stat-num">10,000+</span>
+                <span className="cta-stat-label">Happy Customers</span>
+              </div>
+            </div>
+            <div className="cta-stat-divider" />
+            <div className="cta-stat-item">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <div className="cta-stat-text">
+                <span className="cta-stat-num">700+</span>
+                <span className="cta-stat-label">Cities Covered</span>
+              </div>
+            </div>
+            <div className="cta-stat-divider" />
+            <div className="cta-stat-item">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              <div className="cta-stat-text">
+                <span className="cta-stat-num">IBA Approved</span>
+                <span className="cta-stat-label">Certified Packers & Movers</span>
+              </div>
+            </div>
+            <div className="cta-stat-divider" />
+            <div className="cta-stat-item">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              <div className="cta-stat-text">
+                <span className="cta-stat-num">PAN India</span>
+                <span className="cta-stat-label">Service</span>
+              </div>
+            </div>
+            <div className="cta-stat-divider" />
+            <div className="cta-stat-item">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 14.83 4.24 4.24"/></svg>
+              <div className="cta-stat-text">
+                <span className="cta-stat-num">Worldwide Service</span>
+                <span className="cta-stat-label">International Shipping</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════ FOOTER ════════════════ */}
+        <footer className="site-footer" id="footer">
+          <div className="footer-main">
+            {/* Column 1: Brand */}
+            <div className="footer-col footer-col--brand">
+              <div className="footer-logo">
+                <img src="/ppm-logo.jpg" alt="PPM Packers & Movers Logo" className="footer-logo-img" />
+              </div>
+              <p className="footer-brand-desc">
+                India's most trusted packers and movers. We provide safe, reliable and affordable moving solutions across 700+ cities nationwide.
+              </p>
+              <div className="footer-social-row">
+                <a href="#" className="footer-social-link footer-social--fb" aria-label="Facebook">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <a href="#" className="footer-social-link footer-social--ig" aria-label="Instagram">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                </a>
+                <a href="#" className="footer-social-link footer-social--x" aria-label="Twitter/X">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                </a>
+                <a href="#" className="footer-social-link footer-social--yt" aria-label="YouTube">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12z"/></svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Column 2: Quick Links */}
+            <div className="footer-col">
+              <h4 className="footer-col-title">Quick Links</h4>
+              <ul className="footer-links">
+                <li><a href="#home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Home</a></li>
+                <li><a href="#about" onClick={(e) => { e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }) }}>About Us</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }}>Services</a></li>
+                <li><a href="#gallery" onClick={(e) => { e.preventDefault(); document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' }) }}>Gallery</a></li>
+                <li><a href="#reviews" onClick={(e) => { e.preventDefault(); document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }) }}>Reviews</a></li>
+                <li><a href="#cta-quote" onClick={(e) => { e.preventDefault(); document.getElementById('cta-quote')?.scrollIntoView({ behavior: 'smooth' }) }}>Get a Quote</a></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Our Services */}
+            <div className="footer-col">
+              <h4 className="footer-col-title">Our Services</h4>
+              <ul className="footer-links">
+                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('House Shifting') }}>House Shifting</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Office Relocation') }}>Office Relocation</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Vehicle Transport') }}>Vehicle Transport</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Warehouse Storage') }}>Warehouse &amp; Storage</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('International Shipping') }}>All India Express</a></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Contact Info */}
+            <div className="footer-col">
+              <h4 className="footer-col-title">Contact Us</h4>
+              <ul className="footer-contact-list">
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>123, Industrial Area, Andheri East, Mumbai — 400069</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/></svg>
+                  <span>+91 98765 43210</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <span>info@patelpackers.in</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="footer-bottom">
+            <p className="footer-copyright">© {new Date().getFullYear()} Patel Packers &amp; Movers. All Rights Reserved.</p>
+            <div className="footer-bottom-links">
+              <a href="#">Privacy Policy</a>
+              <span className="footer-dot">·</span>
+              <a href="#">Terms of Service</a>
+              <span className="footer-dot">·</span>
+              <a href="#">Sitemap</a>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+
+      {/* ════════════════ INTERACTIVE QUOTE MODAL ════════════════ */}
+      <QuoteModal
+        open={quoteOpen}
+        onClose={() => setQuoteOpen(false)}
+        initialService={selectedService}
+      />
+    </div>
+  )
+}
+
+/* ─────────────── QUOTE MODAL COMPONENT ─────────────── */
+function QuoteModal({ open, onClose, initialService }) {
+  const [form, setForm] = useState({
+    name: '',
+    phone: '',
+    fromCity: '',
+    toCity: '',
+    date: '',
+    serviceType: initialService || 'House Shifting',
+  })
+  const [submitted, setSubmitted] = useState(false)
+
+  useEffect(() => {
+    if (initialService) {
+      setForm((f) => ({ ...f, serviceType: initialService }))
+    }
+  }, [initialService])
+
+  if (!open) return null
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setSubmitted(true)
+    setTimeout(() => {
+      onClose()
+      setSubmitted(false)
+    }, 2400)
+  }
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <div className="quote-modal-card" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close-btn" onClick={onClose} aria-label="Close modal">
+          <CloseIcon />
+        </button>
+
+        {submitted ? (
+          <div className="modal-success-state">
+            <div className="success-icon-badge">✓</div>
+            <h3 className="modal-title">Quote Request Received!</h3>
+            <p className="modal-subtext">
+              Our relocation specialist will call <strong>{form.phone || 'you'}</strong> within 30 minutes with guaranteed best pricing.
+            </p>
+          </div>
+        ) : (
+          <>
+            <div className="modal-header-block">
+              <img src="/logo-ppm-transparent.png" alt="PPM Logo" className="modal-ppm-logo" />
+              <div>
+                <h2 className="modal-title">Get Instant Moving Quote</h2>
+                <p className="modal-subtext">Zero obligation · Guaranteed safe transit</p>
+              </div>
+            </div>
+
+            <form className="modal-quote-form" onSubmit={handleSubmit}>
+              <div className="form-grid-2">
+                <div className="form-field">
+                  <label className="field-label">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Rahul Sharma"
+                    className="field-input"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
+                  />
+                </div>
+                <div className="form-field">
+                  <label className="field-label">Phone Number</label>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+91 98765 43210"
+                    className="field-input"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="form-grid-2">
+                <div className="form-field">
+                  <label className="field-label">Moving From (City / Area)</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Mumbai, Andheri"
+                    className="field-input"
+                    value={form.fromCity}
+                    onChange={(e) => setForm({ ...form, fromCity: e.target.value })}
+                  />
+                </div>
+                <div className="form-field">
+                  <label className="field-label">Moving To (City / Area)</label>
+                  <input
+                    type="text"
+                    required
+                    placeholder="e.g. Bengaluru, Whitefield"
+                    className="field-input"
+                    value={form.toCity}
+                    onChange={(e) => setForm({ ...form, toCity: e.target.value })}
+                  />
+                </div>
+              </div>
+
+              <div className="form-grid-2">
+                <div className="form-field">
+                  <label className="field-label">Expected Shifting Date</label>
+                  <input
+                    type="date"
+                    required
+                    className="field-input"
+                    value={form.date}
+                    onChange={(e) => setForm({ ...form, date: e.target.value })}
+                  />
+                </div>
+                <div className="form-field">
+                  <label className="field-label">Service Type</label>
+                  <select
+                    className="field-input field-select"
+                    value={form.serviceType}
+                    onChange={(e) => setForm({ ...form, serviceType: e.target.value })}
+                  >
+                    <option value="House Shifting">House Shifting</option>
+                    <option value="Office Relocation">Office Relocation</option>
+                    <option value="Vehicle Transport">Vehicle Transport</option>
+                    <option value="Warehouse Storage">Warehouse & Storage</option>
+                    <option value="International Shipping">All India Express</option>
+                  </select>
+                </div>
+              </div>
+
+              <button type="submit" className="btn-modal-submit">
+                <span>Request Free Estimate</span>
+                <ArrowRightIcon />
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
