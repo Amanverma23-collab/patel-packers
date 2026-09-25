@@ -663,23 +663,23 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
-/* ─── BOTTOM SECTION: LOWER CARD + 3 TILES ─── */
+/* ─── BOTTOM SECTION: LOWER CARD + 4 TILES ─── */
 .hero-bottom-section {
   position: relative;
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: -38px; /* Tightens the 60px step to a sleek ~16px parallel ribbon */
+  margin-top: -38px;
 }
 
 .bottom-card-content {
   position: relative;
   z-index: 2;
-  padding: 24px 38px 30px 38px;
+  padding: 24px 34px 30px 34px;
   display: grid;
-  grid-template-columns: 0.9fr 1.6fr;
+  grid-template-columns: 0.78fr 1.82fr;
   align-items: center;
-  gap: 36px;
+  gap: 28px;
 }
 
 /* Left block of bottom card */
@@ -775,7 +775,7 @@
   transform: translateY(-1px) scale(1.05);
 }
 
-/* ─── 3 SERVICE PHOTO TILES GRID ─── */
+/* ─── 4 SERVICE PHOTO TILES GRID ─── */
 .bottom-card-right {
   width: 100%;
   padding-top: clamp(40px, 4.2vw, 54px); /* Clears the 45° step-down top cut completely */
@@ -784,8 +784,8 @@
 
 .service-tiles-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
 }
 
 .service-tile-card {
@@ -825,18 +825,19 @@
 
 .tile-label {
   position: absolute;
-  bottom: 12px;
-  left: 0;
-  right: 0;
+  bottom: 10px;
+  left: 4px;
+  right: 4px;
   text-align: center;
   color: #FFFFFF;
   font-family: var(--font-body);
-  font-size: 0.68rem;
+  font-size: clamp(0.58rem, 0.72vw, 0.66rem);
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   z-index: 2;
   transition: transform 0.2s ease;
+  line-height: 1.15;
 }
 
 .service-tile-card:hover .tile-label {
@@ -1335,15 +1336,15 @@
 
   .service-tiles-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
     width: 100%;
   }
 
   .service-tile-card {
-    aspect-ratio: 16 / 10;
-    max-height: 185px;
-    border-radius: 16px;
+    aspect-ratio: 16 / 11;
+    max-height: 165px;
+    border-radius: 14px;
   }
 
   .about-section {

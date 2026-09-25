@@ -456,6 +456,16 @@ const MOVING_OPTIONS = [
     )
   },
   {
+    value: 'loading',
+    label: 'Loading & Unloading',
+    badge: 'Safe Care',
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 2v20M17 5l-5-3-5 3M17 19l-5 3-5-3"/>
+      </svg>
+    )
+  },
+  {
     value: 'office',
     label: 'Office Relocation',
     badge: 'Corporate',
@@ -857,7 +867,23 @@ export default function App() {
                   <span className="tile-label">HOUSE SHIFTING</span>
                 </div>
 
-                {/* Tile 2: Office Relocation */}
+                {/* Tile 2: Loading & Unloading */}
+                <div
+                  className="service-tile-card"
+                  onClick={() => handleOpenQuote('Loading & Unloading')}
+                  role="button"
+                  tabIndex={0}
+                >
+                  <img
+                    src="/tile-loading.jpg"
+                    alt="Safe Loading and Unloading Services"
+                    className="tile-img"
+                  />
+                  <div className="tile-overlay" />
+                  <span className="tile-label">LOADING & UNLOADING</span>
+                </div>
+
+                {/* Tile 3: Office Relocation */}
                 <div
                   className="service-tile-card"
                   onClick={() => handleOpenQuote('Office Relocation')}
@@ -865,15 +891,15 @@ export default function App() {
                   tabIndex={0}
                 >
                   <img
-                    src="/tile-loading.jpg"
-                    alt="Office Relocation & Safe Loading"
+                    src="/ppm-team-work.jpg"
+                    alt="Office Relocation & Corporate Moving"
                     className="tile-img"
                   />
                   <div className="tile-overlay" />
                   <span className="tile-label">OFFICE RELOCATION</span>
                 </div>
 
-                {/* Tile 3: Vehicle Transport */}
+                {/* Tile 4: Vehicle Transport */}
                 <div
                   className="service-tile-card"
                   onClick={() => handleOpenQuote('Vehicle Transport')}
@@ -1483,6 +1509,7 @@ export default function App() {
               <h4 className="footer-col-title">Our Services</h4>
               <ul className="footer-links">
                 <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('House Shifting') }}>House Shifting</a></li>
+                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Loading & Unloading') }}>Loading &amp; Unloading</a></li>
                 <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Office Relocation') }}>Office Relocation</a></li>
                 <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Vehicle Transport') }}>Vehicle Transport</a></li>
                 <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Warehouse Storage') }}>Warehouse &amp; Storage</a></li>
@@ -1663,6 +1690,7 @@ function QuoteModal({ open, onClose, initialService }) {
                     onChange={(e) => setForm({ ...form, serviceType: e.target.value })}
                   >
                     <option value="House Shifting">House Shifting</option>
+                    <option value="Loading & Unloading">Loading & Unloading</option>
                     <option value="Office Relocation">Office Relocation</option>
                     <option value="Vehicle Transport">Vehicle Transport</option>
                     <option value="Warehouse Storage">Warehouse & Storage</option>
