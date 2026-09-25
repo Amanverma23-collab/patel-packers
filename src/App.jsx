@@ -1417,18 +1417,22 @@ export default function App() {
             </div>
 
             <div className="branches-grid">
-              {BRANCH_CITIES.map((city, idx) => (
-                <button
-                  key={`${city}-${idx}`}
-                  type="button"
-                  onClick={() => handleOpenQuote(`${city} Branch`)}
-                  className="branch-city-btn"
-                  title={`Book relocation in ${city}`}
-                  aria-label={`Patel Packers and Movers branch in ${city}`}
-                >
-                  {city}
-                </button>
-              ))}
+              {BRANCH_CITIES.map((city, idx) => {
+                const len = city.length
+                const lenClass = len >= 11 ? 'branch-city--xlong' : len >= 9 ? 'branch-city--long' : ''
+                return (
+                  <button
+                    key={`${city}-${idx}`}
+                    type="button"
+                    onClick={() => handleOpenQuote(`${city} Branch`)}
+                    className={`branch-city-btn ${lenClass}`}
+                    title={`Book relocation in ${city}`}
+                    aria-label={`Patel Packers and Movers branch in ${city}`}
+                  >
+                    <span>{city}</span>
+                  </button>
+                )
+              })}
             </div>
           </div>
         </section>
