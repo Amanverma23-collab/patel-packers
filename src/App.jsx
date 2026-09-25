@@ -114,9 +114,72 @@ const TrustBadgesStrip = () => (
   </div>
 )
 
+/* ─────────────── HERO SLIDES (AUTO-ROTATING EVERY 5 SECONDS) ─────────────── */
+const HERO_SLIDES = [
+  {
+    id: 0,
+    tag: 'Govt. Verified & IBA Approved Movers',
+    headlineLead: 'Quality Moving Services',
+    headlineRest: 'At Competitive Prices',
+    subtitle: 'Patel Packers and Movers is one of India’s most trusted relocation companies with verified doorstep delivery and damage-free moving experience.',
+    btnLabel: 'Get Free Quote',
+    serviceName: 'House Shifting',
+    stampText: '★ 100% DAMAGE FREE ★ TOP RATED MOVERS ★ ALL INDIA ★',
+    stampIcon: 'truck',
+    image: '/ppm-hero-flatlay.jpg',
+    alt: 'Patel Packers and Movers Relocation Supplies & Fleet',
+    ratingScore: '4.9',
+    ratingText: '15,000+ Safe Moves'
+  },
+  {
+    id: 1,
+    tag: 'Zero-Damage 5-Layer Packing Guarantee',
+    headlineLead: 'Expert Packing & Secure Transit',
+    headlineRest: 'For Complete Peace of Mind',
+    subtitle: 'Multi-layered bubble wrap, customized wooden crates, and certified professional handling for all your household and corporate valuables.',
+    btnLabel: 'Get Packing Quote',
+    serviceName: 'Packing & Unpacking',
+    stampText: '★ 5-LAYER PACKING ★ FRAGILE CARE ★ CERTIFIED TEAM ★',
+    stampIcon: 'package',
+    image: '/tile-packing.jpg',
+    alt: 'Professional packing team wrapping and boxing household goods',
+    ratingScore: '5.0',
+    ratingText: 'Zero Breakage Guarantee'
+  },
+  {
+    id: 2,
+    tag: 'Pan-India Express Logistics',
+    headlineLead: 'Seamless Express Relocation',
+    headlineRest: 'Across 700+ Cities Nationwide',
+    subtitle: 'GPS-tracked dedicated fleet, guaranteed on-time delivery commitment, and complete doorstep setup anywhere across India.',
+    btnLabel: 'Book Express Move',
+    serviceName: 'Domestic Relocation',
+    stampText: '★ ON-TIME DELIVERY ★ GPS TRACKED FLEET ★ 700+ CITIES ★',
+    stampIcon: 'map',
+    image: '/tile-delivery.jpg',
+    alt: 'Doorstep delivery and swift unloading team at new home',
+    ratingScore: '4.9',
+    ratingText: '700+ Cities Network'
+  }
+]
+
+/* ─────────────── OUR BRANCHES (60 CITIES GRID) ─────────────── */
+const BRANCH_CITIES = [
+  'AJMER', 'BHILWARA', 'BHIWANDI', 'GUWAHATI', 'JAISALMER', 'MADURAI',
+  'AMBALA', 'BHIWANI', 'BOKARO', 'GAUTAN', 'JALANDHAR', 'MANGALORE',
+  'AGRA', 'BHUBANESHWAR', 'COIMBATORE', 'GORAKHPUR', 'JAIPUR', 'MOHALI',
+  'ALIGARH', 'BATHINDA', 'CHANDIGARH', 'GURGAON', 'JAMMU', 'MATHURA',
+  'AMRITSAR', 'BADDI', 'CHENNAI', 'HUBLI', 'KRISHNAGIRI', 'MANIPAL',
+  'AHMEDNAGAR', 'BHOPAL', 'CHITTORGARH', 'HARIDWAR', 'KANPUR', 'MUMBAI',
+  'BALOTRA', 'BHUBANESHWAR', 'DELHI', 'HYDERABAD', 'KARNAL', 'MEERUT',
+  'BHINMAL', 'BARMER', 'DEHRADUN', 'INDORE', 'KOLKATA', 'NAGPUR',
+  'BHILAI', 'BAREILLY', 'DHARAMSHALA', 'HISAR', 'LUCKNOW', 'NEEMUCH',
+  'BIKANER', 'BHIWADI', 'FARIDABAD', 'HOOGHLY', 'LUDHIANA', 'NAGAUR'
+]
+
 /* ─────────────── SVG CARD BACKGROUND PATHS ─────────────── */
 /* Mathematically parallel interlocking 45° step-down geometry for Desktop & Mobile */
-const TopCardBg = () => (
+const TopCardBg = ({ heroSlide = 0 }) => (
   <>
     {/* Desktop Notch (screens > 860px) */}
     <svg
@@ -125,11 +188,42 @@ const TopCardBg = () => (
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      <path
-        d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 552 Q 1200 580 1172 580 L 420 580 Q 405 580 395 570 L 355 530 Q 345 520 330 520 L 28 520 Q 0 520 0 492 Z"
-        fill="#FFFFFF"
-      />
+      <defs>
+        <clipPath id="desktopHeroNotchClip">
+          <path d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 552 Q 1200 580 1172 580 L 420 580 Q 405 580 395 570 L 355 530 Q 345 520 330 520 L 28 520 Q 0 520 0 492 Z" />
+        </clipPath>
+        <linearGradient id="heroDesktopScrim" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#000000" stopOpacity="0.60" />
+          <stop offset="45%" stopColor="#000000" stopOpacity="0.45" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0.65" />
+        </linearGradient>
+      </defs>
+
+      <g clipPath="url(#desktopHeroNotchClip)">
+        {/* Base fill */}
+        <rect width="1200" height="580" fill="#0E1C14" />
+
+        {/* Full-bleed background hero photos */}
+        {HERO_SLIDES.map((slide, idx) => (
+          <image
+            key={slide.id}
+            href={slide.image}
+            xlinkHref={slide.image}
+            width="1200"
+            height="580"
+            preserveAspectRatio="xMidYMid slice"
+            style={{
+              opacity: heroSlide === idx ? 1 : 0,
+              transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          />
+        ))}
+
+        {/* Uniform clear dark scrim for centered white typography */}
+        <rect width="1200" height="580" fill="url(#heroDesktopScrim)" />
+      </g>
     </svg>
+
     {/* Mobile Notch (screens <= 860px) */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
@@ -137,10 +231,38 @@ const TopCardBg = () => (
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      <path
-        d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 790 Q 390 820 366 820 L 170 820 Q 158 820 150 812 L 130 792 Q 122 784 110 784 L 16 784 Q 0 784 0 768 Z"
-        fill="#FFFFFF"
-      />
+      <defs>
+        <clipPath id="mobileHeroNotchClip">
+          <path d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 790 Q 390 820 366 820 L 170 820 Q 158 820 150 812 L 130 792 Q 122 784 110 784 L 16 784 Q 0 784 0 768 Z" />
+        </clipPath>
+        <linearGradient id="heroMobileScrim" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#000000" stopOpacity="0.55" />
+          <stop offset="42%" stopColor="#000000" stopOpacity="0.30" />
+          <stop offset="70%" stopColor="#000000" stopOpacity="0.0" />
+          <stop offset="100%" stopColor="#000000" stopOpacity="0.25" />
+        </linearGradient>
+      </defs>
+
+      <g clipPath="url(#mobileHeroNotchClip)">
+        <rect width="390" height="820" fill="#0E1C14" />
+
+        {HERO_SLIDES.map((slide, idx) => (
+          <image
+            key={slide.id}
+            href={slide.image}
+            xlinkHref={slide.image}
+            width="390"
+            height="820"
+            preserveAspectRatio="xMidYMid slice"
+            style={{
+              opacity: heroSlide === idx ? 1 : 0,
+              transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}
+          />
+        ))}
+
+        <rect width="390" height="820" fill="url(#heroMobileScrim)" />
+      </g>
     </svg>
   </>
 )
@@ -382,6 +504,35 @@ export default function App() {
   const selectRef = useRef(null)
   const selectedMovingOption = MOVING_OPTIONS.find(opt => opt.value === movingType)
 
+  /* Hero Carousel State - Auto-switch every 5000ms */
+  const [heroSlide, setHeroSlide] = useState(0)
+  const [timerKey, setTimerKey] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length)
+      setTimerKey((k) => k + 1)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [timerKey])
+
+  const goToHeroSlide = (idx) => {
+    setHeroSlide(idx)
+    setTimerKey((k) => k + 1)
+  }
+
+  const prevHeroSlide = () => {
+    setHeroSlide((prev) => (prev - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)
+    setTimerKey((k) => k + 1)
+  }
+
+  const nextHeroSlide = () => {
+    setHeroSlide((prev) => (prev + 1) % HERO_SLIDES.length)
+    setTimerKey((k) => k + 1)
+  }
+
+  const activeHero = HERO_SLIDES[heroSlide]
+
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (selectRef.current && !selectRef.current.contains(e.target)) {
@@ -403,7 +554,8 @@ export default function App() {
     { label: 'About', id: 'about' },
     { label: 'Why Choose Us', id: 'why-choose-us' },
     { label: 'Gallery', id: 'gallery' },
-    { label: 'Reviews', id: 'reviews' }
+    { label: 'Reviews', id: 'reviews' },
+    { label: 'Branches', id: 'branches' }
   ]
 
   const handleNavClick = (item) => {
@@ -435,8 +587,8 @@ export default function App() {
 
         {/* ════════════════ TOP SECTION (TAB + HEADER + UPPER CARD) ════════════════ */}
         <section className="hero-top-section">
-          {/* Responsive SVG Notch Background (Desktop Only) */}
-          <TopCardBg />
+          {/* Responsive SVG Notch Background with Full-Bleed Hero Photos */}
+          <TopCardBg heroSlide={heroSlide} />
 
           {/* Header Row Container */}
           <div className="top-header-row">
@@ -525,41 +677,93 @@ export default function App() {
             )}
           </div>
 
-          {/* Upper Card Main Content Layout */}
-          <div className="top-card-content">
-            {/* Left: Headline + Subtitle + Action Buttons */}
-            <div className="top-card-left">
+          {/* Upper Card Main Content Layout (Centered in Middle) */}
+          <div className="top-card-content top-card-content--centered">
+            <div key={heroSlide} className="hero-center-content hero-text-fade">
+              {/* Centered Rating / Tag Badge */}
+              <div className="hero-slide-tag">
+                <span className="hero-tag-pulse" />
+                <span>★ {activeHero.ratingScore} · {activeHero.tag}</span>
+              </div>
+
+              {/* Centered Main Headline */}
               <h1 className="display-h1">
-                A SAFER CHOICE<br />
-                FOR EVERY MOVE
+                {activeHero.headlineLead}<br />
+                {activeHero.headlineRest}
               </h1>
 
+              {/* Centered Subtitle */}
               <p className="display-sub">
-                Professional packing, damage-free transit, and verified doorstep delivery across India.
+                {activeHero.subtitle}
               </p>
 
+              {/* Centered Dual Action Buttons */}
               <div className="action-button-group">
                 <button
-                  onClick={() => handleOpenQuote('House Shifting')}
-                  className="btn-pill-dark"
+                  onClick={() => handleOpenQuote(activeHero.serviceName)}
+                  className="btn-pill-primary hero-btn-quote"
                   id="btn-hero-start"
                 >
-                  <span>Start Booking</span>
+                  <span>{activeHero.btnLabel}</span>
                   <ArrowRightIcon />
                 </button>
 
                 <a
                   href="tel:+919876543210"
-                  className="btn-circle-dark"
+                  className="btn-pill-secondary hero-btn-call"
                   aria-label="Call Patel Packers & Movers"
                   title="Call Patel Packers & Movers"
                 >
                   <PhoneCallIcon />
+                  <span>Call Now</span>
                 </a>
+              </div>
+
+              {/* Centered 5-Second Carousel Progress Bar & Controls */}
+              <div className="hero-indicators-bar" aria-label="Hero slide indicators">
+                <button
+                  type="button"
+                  className="hero-nav-arrow"
+                  onClick={prevHeroSlide}
+                  aria-label="Previous Slide"
+                  title="Previous Slide"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                </button>
+
+                {HERO_SLIDES.map((slide, idx) => (
+                  <button
+                    key={slide.id}
+                    type="button"
+                    onClick={() => goToHeroSlide(idx)}
+                    className={`hero-indicator-pill ${heroSlide === idx ? 'hero-indicator-pill--active' : ''}`}
+                    aria-label={`Slide ${idx + 1}: ${slide.headlineLead} ${slide.headlineRest}`}
+                    title={`Slide ${idx + 1}`}
+                  >
+                    <span
+                      className="hero-indicator-progress-fill"
+                      key={heroSlide === idx ? `fill-${heroSlide}-${timerKey}` : `inactive-${idx}`}
+                    />
+                  </button>
+                ))}
+
+                <button
+                  type="button"
+                  className="hero-nav-arrow"
+                  onClick={nextHeroSlide}
+                  aria-label="Next Slide"
+                  title="Next Slide"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </button>
               </div>
             </div>
 
-            {/* Middle: Rotating Circular Stamp Badge */}
+            {/* Floating Circular Stamp Badge on Corner */}
             <div className="rotating-badge-container">
               <svg className="rotating-text-ring" viewBox="0 0 140 140">
                 <path
@@ -568,33 +772,26 @@ export default function App() {
                   fill="none"
                 />
                 <text className="stamp-text">
-                  <textPath href="#circleTextPath" startOffset="0%">
-                    ★ 100% DAMAGE FREE ★ TOP RATED MOVERS ★ ALL INDIA ★
+                  <textPath href="#circleTextPath" startOffset="0%" key={activeHero.stampText}>
+                    {activeHero.stampText}
                   </textPath>
                 </text>
               </svg>
               <div className="badge-center-icon">
-                <TruckIcon />
-              </div>
-            </div>
-
-            {/* Right: Sage Card with Studio Moving Flatlay Image */}
-            <div className="top-card-right">
-              <div className="sage-showcase-box">
-                <img
-                  src="/ppm-hero-flatlay.jpg"
-                  alt="Patel Packers and Movers Relocation Supplies & Fleet"
-                  className="sage-showcase-img"
-                />
-                {/* Floating Rating Chip */}
-                <div className="showcase-rating-chip">
-                  <div className="rating-stars">
-                    {[...Array(5)].map((_, i) => (
-                      <StarIcon key={i} />
-                    ))}
-                  </div>
-                  <span className="rating-text">4.9 · 15,000+ Safe Moves</span>
-                </div>
+                {activeHero.stampIcon === 'truck' && <TruckIcon />}
+                {activeHero.stampIcon === 'package' && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                  </svg>
+                )}
+                {activeHero.stampIcon === 'map' && (
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                )}
               </div>
             </div>
           </div>
@@ -1210,6 +1407,32 @@ export default function App() {
           </div>
         </section>
 
+        {/* ════════════════ OUR BRANCHES SECTION ════════════════ */}
+        <section id="branches" className="branches-section">
+          <div className="branches-inner">
+            <h2 className="branches-title">Our Branches</h2>
+            <div className="branches-decor-dash" aria-hidden="true">
+              <span className="dash-bar" />
+              <span className="dash-bar" />
+            </div>
+
+            <div className="branches-grid">
+              {BRANCH_CITIES.map((city, idx) => (
+                <button
+                  key={`${city}-${idx}`}
+                  type="button"
+                  onClick={() => handleOpenQuote(`${city} Branch`)}
+                  className="branch-city-btn"
+                  title={`Book relocation in ${city}`}
+                  aria-label={`Patel Packers and Movers branch in ${city}`}
+                >
+                  {city}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* ════════════════ FOOTER ════════════════ */}
         <footer className="site-footer" id="footer">
           <div className="footer-main">
@@ -1246,6 +1469,7 @@ export default function App() {
                 <li><a href="#services" onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }}>Services</a></li>
                 <li><a href="#gallery" onClick={(e) => { e.preventDefault(); document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' }) }}>Gallery</a></li>
                 <li><a href="#reviews" onClick={(e) => { e.preventDefault(); document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }) }}>Reviews</a></li>
+                <li><a href="#branches" onClick={(e) => { e.preventDefault(); document.getElementById('branches')?.scrollIntoView({ behavior: 'smooth' }) }}>Our Branches</a></li>
                 <li><a href="#cta-quote" onClick={(e) => { e.preventDefault(); document.getElementById('cta-quote')?.scrollIntoView({ behavior: 'smooth' }) }}>Get a Quote</a></li>
               </ul>
             </div>
