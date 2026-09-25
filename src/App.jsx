@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import AccordionGallery from './AccordionGallery'
+import footerLogo from './assets/footer-logo.png'
 
 /* ─────────────── ICONS ─────────────── */
 const ArrowRightIcon = () => (
@@ -179,24 +180,24 @@ const AboutCardBg = () => (
     {/* Desktop Notch (screens > 860px) - Centered at x = 600 */}
     <svg
       className="card-bg-svg card-bg-svg--desktop"
-      viewBox="0 0 1200 520"
+      viewBox="0 0 1200 492"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M 0 28 Q 0 0 28 0 L 1172 0 Q 1200 0 1200 28 L 1200 446 Q 1200 474 1172 474 L 740 474 C 715 474 710 520 685 520 L 515 520 C 490 520 485 474 460 474 L 28 474 Q 0 474 0 446 Z"
+        d="M 0 28 Q 0 0 28 0 L 1172 0 Q 1200 0 1200 28 L 1200 428 Q 1200 456 1172 456 L 750 456 C 715 456 715 492 680 492 L 520 492 C 485 492 485 456 450 456 L 28 456 Q 0 456 0 428 Z"
         fill="#FFFFFF"
       />
     </svg>
     {/* Mobile Notch (screens <= 860px) - Centered at x = 195 */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
-      viewBox="0 0 390 760"
+      viewBox="0 0 390 880"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M 0 16 Q 0 0 16 0 L 374 0 Q 390 0 390 16 L 390 722 Q 390 738 374 738 L 241 738 C 233 738 231 760 223 760 L 167 760 C 159 760 157 738 149 738 L 16 738 Q 0 738 0 722 Z"
+        d="M 0 16 Q 0 0 16 0 L 374 0 Q 390 0 390 16 L 390 844 Q 390 860 374 860 L 245 860 C 230 860 230 880 215 880 L 175 880 C 160 880 160 860 145 860 L 16 860 Q 0 860 0 844 Z"
         fill="#FFFFFF"
       />
     </svg>
@@ -208,24 +209,24 @@ const WhyChooseCardBg = () => (
     {/* Desktop Notch (screens > 860px) - Top bump + Bottom dip centered at x = 600 */}
     <svg
       className="card-bg-svg card-bg-svg--desktop"
-      viewBox="0 0 1200 426"
+      viewBox="0 0 1200 340"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M 0 28 Q 0 0 28 0 L 460 0 C 485 0 490 57 515 57 L 685 57 C 710 57 715 0 740 0 L 1172 0 Q 1200 0 1200 28 L 1200 352 Q 1200 380 1172 380 L 740 380 C 715 380 710 426 685 426 L 515 426 C 490 426 485 380 460 380 L 28 380 Q 0 380 0 352 Z"
+        d="M 0 28 Q 0 0 28 0 L 450 0 C 485 0 485 36 520 36 L 680 36 C 715 36 715 0 750 0 L 1172 0 Q 1200 0 1200 28 L 1200 276 Q 1200 304 1172 304 L 750 304 C 715 304 715 340 680 340 L 520 340 C 485 340 485 304 450 304 L 28 304 Q 0 304 0 276 Z"
         fill="#FFFFFF"
       />
     </svg>
     {/* Mobile Notch (screens <= 860px) - Top bump + Bottom dip centered at x = 195 */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
-      viewBox="0 0 390 802"
+      viewBox="0 0 390 896"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M 0 16 Q 0 0 16 0 L 149 0 C 157 0 159 22 167 22 L 223 22 C 231 22 233 0 241 0 L 374 0 Q 390 0 390 16 L 390 764 Q 390 780 374 780 L 241 780 C 233 780 231 802 223 802 L 167 802 C 159 802 157 780 149 780 L 16 780 Q 0 780 0 764 Z"
+        d="M 0 16 Q 0 0 16 0 L 145 0 C 160 0 160 20 175 20 L 215 20 C 230 20 230 0 245 0 L 374 0 Q 390 0 390 16 L 390 860 Q 390 876 374 876 L 245 876 C 230 876 230 896 215 896 L 175 896 C 160 896 160 876 145 876 L 16 876 Q 0 876 0 860 Z"
         fill="#FFFFFF"
       />
     </svg>
@@ -234,32 +235,141 @@ const WhyChooseCardBg = () => (
 
 const GalleryCardBg = () => (
   <>
-    {/* Desktop Notch (screens > 860px) - Top bump centered at x = 600 */}
+    {/* Desktop Notch (screens > 860px) - Top bump centered at x = 600, mirror contour of Why Choose Us */}
     <svg
       className="card-bg-svg card-bg-svg--desktop"
-      viewBox="0 0 1200 380"
+      viewBox="0 0 1200 564"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M 0 28 Q 0 0 28 0 L 460 0 C 485 0 490 35 515 35 L 685 35 C 710 35 715 0 740 0 L 1172 0 Q 1200 0 1200 28 L 1200 352 Q 1200 380 1172 380 L 28 380 Q 0 380 0 352 Z"
+        d="M 0 28 Q 0 0 28 0 L 450 0 C 485 0 485 36 520 36 L 680 36 C 715 36 715 0 750 0 L 1172 0 Q 1200 0 1200 28 L 1200 536 Q 1200 564 1172 564 L 28 564 Q 0 564 0 536 Z"
         fill="#FFFFFF"
       />
     </svg>
     {/* Mobile Notch (screens <= 860px) - Top bump centered at x = 195 */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
-      viewBox="0 0 390 780"
+      viewBox="0 0 390 698"
       preserveAspectRatio="none"
       aria-hidden="true"
     >
       <path
-        d="M 0 16 Q 0 0 16 0 L 149 0 C 157 0 159 22 167 22 L 223 22 C 231 22 233 0 241 0 L 374 0 Q 390 0 390 16 L 390 764 Q 390 780 374 780 L 16 780 Q 0 780 0 764 Z"
+        d="M 0 16 Q 0 0 16 0 L 145 0 C 160 0 160 20 175 20 L 215 20 C 230 20 230 0 245 0 L 374 0 Q 390 0 390 16 L 390 682 Q 390 698 374 698 L 16 698 Q 0 698 0 682 Z"
         fill="#FFFFFF"
       />
     </svg>
   </>
 )
+
+/* Mathematically matching stepped-down interlocking seam geometry for Customer Reviews & Free Quote */
+const ReviewsCardBg = () => (
+  <>
+    {/* Desktop Notch (screens > 860px) - Symmetrical rounded corners with balanced ribbon gap */}
+    <svg
+      className="card-bg-svg card-bg-svg--desktop"
+      viewBox="0 0 1200 360"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 28 Q 0 0 28 0 L 1172 0 Q 1200 0 1200 28 L 1200 326 Q 1200 350 1176 342 L 1110 320 Q 1080 310 1050 310 L 150 310 Q 120 310 90 300 L 24 278 Q 0 270 0 246 L 0 28 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+    {/* Mobile (screens <= 860px) - Exact Desktop-Matching 3-Stage Wave (High-Left -> Flat Middle -> Dip at Right) */}
+    <svg
+      className="card-bg-svg card-bg-svg--mobile"
+      viewBox="0 0 390 316"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 16 Q 0 0 16 0 L 374 0 Q 390 0 390 16 L 390 284 Q 390 300 374 300 L 340 300 C 320 300 310 288 290 288 L 100 288 C 80 288 70 276 50 276 L 16 276 Q 0 276 0 260 L 0 16 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  </>
+)
+
+const QuoteCardBg = () => (
+  <>
+    {/* Desktop Notch (screens > 860px) - Symmetrical rounded corners with balanced ribbon gap */}
+    <svg
+      className="card-bg-svg card-bg-svg--desktop"
+      viewBox="0 0 1200 360"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 34 Q 0 10 24 18 L 90 40 Q 120 50 150 50 L 1050 50 Q 1080 50 1110 60 L 1176 82 Q 1200 90 1200 114 L 1200 332 Q 1200 360 1172 360 L 28 360 Q 0 360 0 332 L 0 34 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+    {/* Mobile (screens <= 860px) - Exact Desktop-Matching 3-Stage Wave (High-Left -> Flat Middle -> Dip at Right) */}
+    <svg
+      className="card-bg-svg card-bg-svg--mobile"
+      viewBox="0 0 390 355"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M 0 32 Q 0 16 16 16 L 50 16 C 70 16 80 28 100 28 L 290 28 C 310 28 320 40 340 40 L 374 40 Q 390 40 390 56 L 390 339 Q 390 355 374 355 L 16 355 Q 0 355 0 339 L 0 32 Z"
+        fill="#FFFFFF"
+      />
+    </svg>
+  </>
+)
+
+const MOVING_OPTIONS = [
+  {
+    value: 'house',
+    label: 'House Shifting',
+    badge: 'Popular',
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+        <polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+    )
+  },
+  {
+    value: 'office',
+    label: 'Office Relocation',
+    badge: 'Corporate',
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+      </svg>
+    )
+  },
+  {
+    value: 'vehicle',
+    label: 'Vehicle Transport',
+    badge: 'Carrier',
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="3" width="15" height="13"/>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 8"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/>
+        <circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+    )
+  },
+  {
+    value: 'warehouse',
+    label: 'Warehouse Storage',
+    badge: 'Secure',
+    icon: (
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="21 8 21 21 3 21 3 8"/>
+        <rect x="1" y="3" width="22" height="5"/>
+        <line x1="10" y1="12" x2="14" y2="12"/>
+      </svg>
+    )
+  }
+]
 
 /* ─────────────── MAIN APP ─────────────── */
 export default function App() {
@@ -267,6 +377,24 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [quoteOpen, setQuoteOpen] = useState(false)
   const [selectedService, setSelectedService] = useState('House Shifting')
+  const [movingType, setMovingType] = useState('')
+  const [selectOpen, setSelectOpen] = useState(false)
+  const selectRef = useRef(null)
+  const selectedMovingOption = MOVING_OPTIONS.find(opt => opt.value === movingType)
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (selectRef.current && !selectRef.current.contains(e.target)) {
+        setSelectOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('touchstart', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('touchstart', handleClickOutside)
+    }
+  }, [])
 
 
   const navLinks = [
@@ -788,6 +916,9 @@ export default function App() {
 
         {/* ════════════════ CUSTOMER REVIEWS SECTION ════════════════ */}
         <section id="reviews" className="reviews-section">
+          {/* Responsive SVG Stepped Transition Seam Background (Upper Card) */}
+          <ReviewsCardBg />
+
           <div className="reviews-inner">
             {/* Left: Headline Panel */}
             <div className="reviews-headline-panel">
@@ -801,7 +932,7 @@ export default function App() {
               </h2>
 
               <p className="reviews-sub">
-                Trusted by hundreds of happy — customers across India.
+                Trusted by hundreds of happy customers across India.
               </p>
 
               <button
@@ -878,6 +1009,9 @@ export default function App() {
 
         {/* ════════════════ GET A FREE QUOTE (CTA) SECTION ════════════════ */}
         <section id="cta-quote" className="cta-quote-section">
+          {/* Responsive SVG Stepped Transition Seam Background (Lower Card) */}
+          <QuoteCardBg />
+
           <div className="cta-quote-inner">
             {/* Left: Headline */}
             <div className="cta-quote-left">
@@ -905,11 +1039,21 @@ export default function App() {
                     </span>
                     <input type="text" placeholder="Your Name" className="cta-input" />
                   </div>
-                  <div className="cta-field">
-                    <span className="cta-field-icon">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/></svg>
-                    </span>
-                    <input type="tel" placeholder="Phone Number" className="cta-input" />
+                  <div className="cta-field-phone-wrap">
+                    <div className="cta-field">
+                      <span className="cta-field-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/></svg>
+                      </span>
+                      <input type="tel" placeholder="Phone Number" className="cta-input" />
+                    </div>
+                    {/* Mobile: Delivery person image set directly above phone number box */}
+                    <div className="cta-phone-delivery-person" aria-hidden="true">
+                      <img
+                        src="/delivery-person-transparent.png"
+                        alt="Patel Packers & Movers Professional"
+                        className="cta-phone-person-img"
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className="cta-form-row">
@@ -927,17 +1071,75 @@ export default function App() {
                   </div>
                 </div>
                 <div className="cta-form-row cta-form-row--submit">
-                  <div className="cta-field">
-                    <span className="cta-field-icon">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-                    </span>
-                    <select className="cta-input cta-select">
-                      <option value="">Select Moving Type</option>
-                      <option value="house">House Shifting</option>
-                      <option value="office">Office Relocation</option>
-                      <option value="vehicle">Vehicle Transport</option>
-                      <option value="warehouse">Warehouse Storage</option>
-                    </select>
+                  <div
+                    ref={selectRef}
+                    className={"cta-field cta-custom-select " + (selectOpen ? "cta-custom-select--open" : "")}
+                  >
+                    <button
+                      type="button"
+                      className="cta-select-trigger"
+                      onClick={() => setSelectOpen(!selectOpen)}
+                      aria-haspopup="listbox"
+                      aria-expanded={selectOpen}
+                    >
+                      <span className="cta-field-icon">
+                        {selectedMovingOption ? (
+                          selectedMovingOption.icon
+                        ) : (
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                        )}
+                      </span>
+                      <span className={"cta-select-label " + (selectedMovingOption ? "cta-select-label--selected" : "")}>
+                        {selectedMovingOption ? selectedMovingOption.label : "Select Moving Type"}
+                      </span>
+                      <span className={"cta-select-chevron " + (selectOpen ? "cta-select-chevron--open" : "")}>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                      </span>
+                    </button>
+                    <input type="hidden" name="movingType" value={movingType} />
+
+                    {selectOpen && (
+                      <div className="cta-select-dropdown" role="listbox">
+                        <div className="cta-select-dropdown-header">
+                          <span>Select Moving Service</span>
+                        </div>
+                        <div className="cta-select-dropdown-list">
+                          {MOVING_OPTIONS.map((opt) => {
+                            const isSelected = movingType === opt.value
+                            return (
+                              <button
+                                key={opt.value}
+                                type="button"
+                                className={"cta-select-option " + (isSelected ? "cta-select-option--active" : "")}
+                                role="option"
+                                aria-selected={isSelected}
+                                onClick={() => {
+                                  setMovingType(opt.value)
+                                  setSelectOpen(false)
+                                }}
+                              >
+                                <div className="cta-option-icon-box">
+                                  {opt.icon}
+                                </div>
+                                <div className="cta-option-info">
+                                  <span className="cta-option-name">{opt.label}</span>
+                                  {opt.badge && <span className="cta-option-badge">{opt.badge}</span>}
+                                </div>
+                                {isSelected && (
+                                  <span className="cta-option-check">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                                      <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                  </span>
+                                )}
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
                   <button type="submit" className="btn-pill-dark cta-submit-btn">
                     <span>Get Free Quote</span>
@@ -956,8 +1158,8 @@ export default function App() {
                   <span>Together</span>
                 </div>
                 <img
-                  src="/delivery-person.jpg"
-                  alt="Patel Packers & Movers Delivery Professional"
+                  src="/delivery-person-transparent.png"
+                  alt="Patel Packers & Movers Professional"
                   className="cta-person-img"
                 />
               </div>
@@ -1014,7 +1216,7 @@ export default function App() {
             {/* Column 1: Brand */}
             <div className="footer-col footer-col--brand">
               <div className="footer-logo">
-                <img src="/ppm-logo.jpg" alt="PPM Packers & Movers Logo" className="footer-logo-img" />
+                <img src={footerLogo} alt="Patel Packers & Movers Logo" className="footer-logo-img" />
               </div>
               <p className="footer-brand-desc">
                 India's most trusted packers and movers. We provide safe, reliable and affordable moving solutions across 700+ cities nationwide.
@@ -1036,7 +1238,7 @@ export default function App() {
             </div>
 
             {/* Column 2: Quick Links */}
-            <div className="footer-col">
+            <div className="footer-col footer-col--links">
               <h4 className="footer-col-title">Quick Links</h4>
               <ul className="footer-links">
                 <li><a href="#home" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }) }}>Home</a></li>
@@ -1049,7 +1251,7 @@ export default function App() {
             </div>
 
             {/* Column 3: Our Services */}
-            <div className="footer-col">
+            <div className="footer-col footer-col--services">
               <h4 className="footer-col-title">Our Services</h4>
               <ul className="footer-links">
                 <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('House Shifting') }}>House Shifting</a></li>
@@ -1061,22 +1263,22 @@ export default function App() {
             </div>
 
             {/* Column 4: Contact Info */}
-            <div className="footer-col">
+            <div className="footer-col footer-col--contact">
               <h4 className="footer-col-title">Contact Us</h4>
               <ul className="footer-contact-list">
-                <li>
+                <li className="footer-contact-item footer-contact--address">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                   <span>123, Industrial Area, Andheri East, Mumbai — 400069</span>
                 </li>
-                <li>
+                <li className="footer-contact-item footer-contact--phone">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/></svg>
-                  <span>+91 98765 43210</span>
+                  <a href="tel:+919876543210">+91 98765 43210</a>
                 </li>
-                <li>
+                <li className="footer-contact-item footer-contact--email">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  <span>info@patelpackers.in</span>
+                  <a href="mailto:info@patelpackers.in">info@patelpackers.in</a>
                 </li>
-                <li>
+                <li className="footer-contact-item footer-contact--hours">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
                 </li>
