@@ -178,10 +178,10 @@ const BRANCH_CITIES = [
 ]
 
 /* ─────────────── SVG CARD BACKGROUND PATHS ─────────────── */
-/* Mathematically parallel interlocking 45° step-down geometry for Desktop & Mobile */
+/* Mathematically matching centered symmetrical notch geometry (Desktop & Mobile) */
 const TopCardBg = () => (
   <>
-    {/* Desktop Notch (screens > 860px) */}
+    {/* Desktop Notch (screens > 860px) - Symmetrical centered notch at x = 600 */}
     <svg
       className="card-bg-svg card-bg-svg--desktop"
       viewBox="0 0 1200 580"
@@ -189,12 +189,12 @@ const TopCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 552 Q 1200 580 1172 580 L 420 580 Q 405 580 395 570 L 355 530 Q 345 520 330 520 L 28 520 Q 0 520 0 492 Z"
+        d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 516 Q 1200 544 1172 544 L 750 544 C 715 544 715 580 680 580 L 520 580 C 485 580 485 544 450 544 L 28 544 Q 0 544 0 516 Z"
         fill="#FFFFFF"
       />
     </svg>
 
-    {/* Mobile Notch (screens <= 860px) */}
+    {/* Mobile Notch (screens <= 860px) - Symmetrical centered notch at x = 195 */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
       viewBox="0 0 390 820"
@@ -202,7 +202,7 @@ const TopCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 790 Q 390 820 366 820 L 170 820 Q 158 820 150 812 L 130 792 Q 122 784 110 784 L 16 784 Q 0 784 0 768 Z"
+        d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 784 Q 390 800 374 800 L 245 800 C 230 800 230 820 215 820 L 175 820 C 160 820 160 800 145 800 L 16 800 Q 0 800 0 784 Z"
         fill="#FFFFFF"
       />
     </svg>
@@ -211,7 +211,7 @@ const TopCardBg = () => (
 
 const BottomCardBg = () => (
   <>
-    {/* Desktop Notch (screens > 860px) */}
+    {/* Desktop Notch (screens > 860px) - Symmetrical centered notch matching Hero bottom */}
     <svg
       className="card-bg-svg card-bg-svg--desktop"
       viewBox="0 0 1200 380"
@@ -219,11 +219,11 @@ const BottomCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 28 Q 0 0 28 0 L 330 0 Q 345 0 355 10 L 395 50 Q 405 60 420 60 L 1172 60 Q 1200 60 1200 88 L 1200 352 Q 1200 380 1172 380 L 28 380 Q 0 380 0 352 Z"
+        d="M 0 28 Q 0 0 28 0 L 450 0 C 485 0 485 36 520 36 L 680 36 C 715 36 715 0 750 0 L 1172 0 Q 1200 0 1200 28 L 1200 352 Q 1200 380 1172 380 L 28 380 Q 0 380 0 352 Z"
         fill="#FFFFFF"
       />
     </svg>
-    {/* Mobile Notch (screens <= 860px) */}
+    {/* Mobile Notch (screens <= 860px) - Symmetrical centered notch matching Hero bottom */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
       viewBox="0 0 390 780"
@@ -231,7 +231,7 @@ const BottomCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 16 Q 0 0 16 0 L 110 0 Q 122 0 130 5 L 150 18 Q 158 23 170 23 L 374 23 Q 390 23 390 39 L 390 764 Q 390 780 374 780 L 16 780 Q 0 780 0 764 Z"
+        d="M 0 16 Q 0 0 16 0 L 145 0 C 160 0 160 20 175 20 L 215 20 C 230 20 230 0 245 0 L 374 0 Q 390 0 390 16 L 390 764 Q 390 780 374 780 L 16 780 Q 0 780 0 764 Z"
         fill="#FFFFFF"
       />
     </svg>

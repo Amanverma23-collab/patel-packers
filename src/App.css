@@ -27,7 +27,8 @@
   --hero-image-padding: 14px;
   --hero-card-radius:   20px;
   --hero-top-notch:     60px;
-  --hero-bottom-notch:  60px;
+  --hero-bottom-notch:  36px;
+  --hero-card-height:   460px;
 }
 
 /* ─── FULL VIEWPORT CANVAS WRAPPER ─── */
@@ -315,6 +316,9 @@
 .hero-inset-card {
   position: relative;
   width: 100%;
+  height: var(--hero-card-height);
+  min-height: var(--hero-card-height);
+  max-height: var(--hero-card-height);
   border-radius: var(--hero-card-radius);
   overflow: hidden;
   display: flex;
@@ -322,8 +326,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: clamp(34px, 4.5vw, 52px) clamp(20px, 3.5vw, 40px) clamp(28px, 3.5vw, 40px);
-  min-height: 440px;
+  padding: clamp(28px, 4vw, 44px) clamp(20px, 3.5vw, 40px) clamp(24px, 3.5vw, 36px);
   box-sizing: border-box;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   background-color: #0E1C14;
@@ -336,6 +339,7 @@
   height: 100%;
   z-index: 0;
   pointer-events: none;
+  overflow: hidden;
 }
 
 .hero-inset-photo {
@@ -729,13 +733,13 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: -38px;
+  margin-top: calc(-52px + var(--section-gap, 28px)); /* 16px frame gap + 36px notch dip = 52px base */
 }
 
 .bottom-card-content {
   position: relative;
   z-index: 2;
-  padding: 24px 34px 30px 34px;
+  padding: 46px 34px 30px 34px;
   display: grid;
   grid-template-columns: 0.78fr 1.82fr;
   align-items: center;
@@ -1089,7 +1093,8 @@
     --hero-image-padding: 12px;
     --hero-card-radius:   16px;
     --hero-top-notch:     56px;
-    --hero-bottom-notch:  56px;
+    --hero-bottom-notch:  36px;
+    --hero-card-height:   450px;
   }
 
   .hero-top-section .rotating-badge-container,
@@ -1107,7 +1112,8 @@
     --hero-image-padding: 8px;
     --hero-card-radius:   14px;
     --hero-top-notch:     46px;
-    --hero-bottom-notch:  36px;
+    --hero-bottom-notch:  20px;
+    --hero-card-height:   430px;
   }
 
   .canvas-wrapper {
@@ -1320,7 +1326,9 @@
   }
 
   .hero-inset-card {
-    min-height: auto;
+    height: var(--hero-card-height);
+    min-height: var(--hero-card-height);
+    max-height: var(--hero-card-height);
     padding: 24px 14px 20px 14px;
     border-radius: var(--hero-card-radius);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
@@ -1378,7 +1386,7 @@
     border-radius: 0 !important;
     box-shadow: none !important;
     overflow: visible;
-    margin-top: -6px !important; /* Widened to a distinct, prominent ~19px parallel ribbon gap */
+    margin-top: calc(-20px + var(--section-gap, 16px)) !important; /* Uniform symmetrical ribbon gap */
   }
 
   .bottom-card-content {
@@ -3154,10 +3162,14 @@
     --hero-image-padding: 6px;
     --hero-card-radius:   12px;
     --hero-top-notch:     46px;
-    --hero-bottom-notch:  34px;
+    --hero-bottom-notch:  20px;
+    --hero-card-height:   420px;
   }
 
   .hero-inset-card {
+    height: var(--hero-card-height);
+    min-height: var(--hero-card-height);
+    max-height: var(--hero-card-height);
     padding: 20px 10px 16px 10px;
   }
 
