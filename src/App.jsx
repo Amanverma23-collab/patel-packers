@@ -179,7 +179,7 @@ const BRANCH_CITIES = [
 
 /* ─────────────── SVG CARD BACKGROUND PATHS ─────────────── */
 /* Mathematically parallel interlocking 45° step-down geometry for Desktop & Mobile */
-const TopCardBg = ({ heroSlide = 0 }) => (
+const TopCardBg = () => (
   <>
     {/* Desktop Notch (screens > 860px) */}
     <svg
@@ -188,40 +188,10 @@ const TopCardBg = ({ heroSlide = 0 }) => (
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      <defs>
-        <clipPath id="desktopHeroNotchClip">
-          <path d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 552 Q 1200 580 1172 580 L 420 580 Q 405 580 395 570 L 355 530 Q 345 520 330 520 L 28 520 Q 0 520 0 492 Z" />
-        </clipPath>
-        <linearGradient id="heroDesktopScrim" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#000000" stopOpacity="0.60" />
-          <stop offset="45%" stopColor="#000000" stopOpacity="0.45" />
-          <stop offset="100%" stopColor="#000000" stopOpacity="0.65" />
-        </linearGradient>
-      </defs>
-
-      <g clipPath="url(#desktopHeroNotchClip)">
-        {/* Base fill */}
-        <rect width="1200" height="580" fill="#0E1C14" />
-
-        {/* Full-bleed background hero photos */}
-        {HERO_SLIDES.map((slide, idx) => (
-          <image
-            key={slide.id}
-            href={slide.image}
-            xlinkHref={slide.image}
-            width="1200"
-            height="580"
-            preserveAspectRatio="xMidYMid slice"
-            style={{
-              opacity: heroSlide === idx ? 1 : 0,
-              transition: 'opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
-            }}
-          />
-        ))}
-
-        {/* Uniform clear dark scrim for centered white typography */}
-        <rect width="1200" height="580" fill="url(#heroDesktopScrim)" />
-      </g>
+      <path
+        d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 552 Q 1200 580 1172 580 L 420 580 Q 405 580 395 570 L 355 530 Q 345 520 330 520 L 28 520 Q 0 520 0 492 Z"
+        fill="#FFFFFF"
+      />
     </svg>
 
     {/* Mobile Notch (screens <= 860px) */}
@@ -231,38 +201,10 @@ const TopCardBg = ({ heroSlide = 0 }) => (
       preserveAspectRatio="none"
       aria-hidden="true"
     >
-      <defs>
-        <clipPath id="mobileHeroNotchClip">
-          <path d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 790 Q 390 820 366 820 L 170 820 Q 158 820 150 812 L 130 792 Q 122 784 110 784 L 16 784 Q 0 784 0 768 Z" />
-        </clipPath>
-        <linearGradient id="heroMobileScrim" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#000000" stopOpacity="0.55" />
-          <stop offset="42%" stopColor="#000000" stopOpacity="0.30" />
-          <stop offset="70%" stopColor="#000000" stopOpacity="0.0" />
-          <stop offset="100%" stopColor="#000000" stopOpacity="0.25" />
-        </linearGradient>
-      </defs>
-
-      <g clipPath="url(#mobileHeroNotchClip)">
-        <rect width="390" height="820" fill="#0E1C14" />
-
-        {HERO_SLIDES.map((slide, idx) => (
-          <image
-            key={slide.id}
-            href={slide.image}
-            xlinkHref={slide.image}
-            width="390"
-            height="820"
-            preserveAspectRatio="xMidYMid slice"
-            style={{
-              opacity: heroSlide === idx ? 1 : 0,
-              transition: 'opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1)'
-            }}
-          />
-        ))}
-
-        <rect width="390" height="820" fill="url(#heroMobileScrim)" />
-      </g>
+      <path
+        d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 790 Q 390 820 366 820 L 170 820 Q 158 820 150 812 L 130 792 Q 122 784 110 784 L 16 784 Q 0 784 0 768 Z"
+        fill="#FFFFFF"
+      />
     </svg>
   </>
 )
@@ -597,8 +539,8 @@ export default function App() {
 
         {/* ════════════════ TOP SECTION (TAB + HEADER + UPPER CARD) ════════════════ */}
         <section className="hero-top-section">
-          {/* Responsive SVG Notch Background with Full-Bleed Hero Photos */}
-          <TopCardBg heroSlide={heroSlide} />
+          {/* Responsive SVG Notch Background (Plain White Card Surface) */}
+          <TopCardBg />
 
           {/* Header Row Container */}
           <div className="top-header-row">
@@ -687,121 +629,138 @@ export default function App() {
             )}
           </div>
 
-          {/* Upper Card Main Content Layout (Centered in Middle) */}
+          {/* Upper Card Main Content Layout: Inset Hero Card inside straight rectangle */}
           <div className="top-card-content top-card-content--centered">
-            <div key={heroSlide} className="hero-center-content hero-text-fade">
-              {/* Centered Rating / Tag Badge */}
-              <div className="hero-slide-tag">
-                <span className="hero-tag-pulse" />
-                <span>★ {activeHero.ratingScore} · {activeHero.tag}</span>
-              </div>
-
-              {/* Centered Main Headline */}
-              <h1 className="display-h1">
-                {activeHero.headlineLead}<br />
-                {activeHero.headlineRest}
-              </h1>
-
-              {/* Centered Subtitle */}
-              <p className="display-sub">
-                {activeHero.subtitle}
-              </p>
-
-              {/* Centered Dual Action Buttons */}
-              <div className="action-button-group">
-                <button
-                  onClick={() => handleOpenQuote(activeHero.serviceName)}
-                  className="btn-pill-primary hero-btn-quote"
-                  id="btn-hero-start"
-                >
-                  <span>{activeHero.btnLabel}</span>
-                  <ArrowRightIcon />
-                </button>
-
-                <a
-                  href="tel:+919876543210"
-                  className="btn-pill-secondary hero-btn-call"
-                  aria-label="Call Patel Packers & Movers"
-                  title="Call Patel Packers & Movers"
-                >
-                  <PhoneCallIcon />
-                  <span>Call Now</span>
-                </a>
-              </div>
-
-              {/* Centered 5-Second Carousel Progress Bar & Controls */}
-              <div className="hero-indicators-bar" aria-label="Hero slide indicators">
-                <button
-                  type="button"
-                  className="hero-nav-arrow"
-                  onClick={prevHeroSlide}
-                  aria-label="Previous Slide"
-                  title="Previous Slide"
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="15 18 9 12 15 6" />
-                  </svg>
-                </button>
-
+            <div className="hero-inset-card">
+              {/* Auto-Rotating Inset Hero Photos */}
+              <div className="hero-inset-media" aria-hidden="true">
                 {HERO_SLIDES.map((slide, idx) => (
-                  <button
+                  <img
                     key={slide.id}
-                    type="button"
-                    onClick={() => goToHeroSlide(idx)}
-                    className={`hero-indicator-pill ${heroSlide === idx ? 'hero-indicator-pill--active' : ''}`}
-                    aria-label={`Slide ${idx + 1}: ${slide.headlineLead} ${slide.headlineRest}`}
-                    title={`Slide ${idx + 1}`}
-                  >
-                    <span
-                      className="hero-indicator-progress-fill"
-                      key={heroSlide === idx ? `fill-${heroSlide}-${timerKey}` : `inactive-${idx}`}
-                    />
-                  </button>
+                    src={slide.image}
+                    alt={`${slide.headlineLead} ${slide.headlineRest}`}
+                    className={`hero-inset-photo ${heroSlide === idx ? 'hero-inset-photo--active' : ''}`}
+                    loading={idx === 0 ? "eager" : "lazy"}
+                  />
                 ))}
-
-                <button
-                  type="button"
-                  className="hero-nav-arrow"
-                  onClick={nextHeroSlide}
-                  aria-label="Next Slide"
-                  title="Next Slide"
-                >
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </button>
+                <div className="hero-inset-scrim" />
               </div>
-            </div>
 
-            {/* Floating Circular Stamp Badge on Corner */}
-            <div className="rotating-badge-container">
-              <svg className="rotating-text-ring" viewBox="0 0 140 140">
-                <path
-                  id="circleTextPath"
-                  d="M 70,70 m -48,0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"
-                  fill="none"
-                />
-                <text className="stamp-text">
-                  <textPath href="#circleTextPath" startOffset="0%" key={activeHero.stampText}>
-                    {activeHero.stampText}
-                  </textPath>
-                </text>
-              </svg>
-              <div className="badge-center-icon">
-                {activeHero.stampIcon === 'truck' && <TruckIcon />}
-                {activeHero.stampIcon === 'package' && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                    <line x1="12" y1="22.08" x2="12" y2="12"/>
-                  </svg>
-                )}
-                {activeHero.stampIcon === 'map' && (
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                    <circle cx="12" cy="10" r="3" />
-                  </svg>
-                )}
+              {/* Centered Hero Content */}
+              <div key={heroSlide} className="hero-center-content hero-text-fade">
+                {/* Centered Rating / Tag Badge */}
+                <div className="hero-slide-tag">
+                  <span className="hero-tag-pulse" />
+                  <span>★ {activeHero.ratingScore} · {activeHero.tag}</span>
+                </div>
+
+                {/* Centered Main Headline */}
+                <h1 className="display-h1">
+                  {activeHero.headlineLead}<br />
+                  {activeHero.headlineRest}
+                </h1>
+
+                {/* Centered Subtitle */}
+                <p className="display-sub">
+                  {activeHero.subtitle}
+                </p>
+
+                {/* Centered Dual Action Buttons */}
+                <div className="action-button-group">
+                  <button
+                    onClick={() => handleOpenQuote(activeHero.serviceName)}
+                    className="btn-pill-primary hero-btn-quote"
+                    id="btn-hero-start"
+                  >
+                    <span>{activeHero.btnLabel}</span>
+                    <ArrowRightIcon />
+                  </button>
+
+                  <a
+                    href="tel:+919876543210"
+                    className="btn-pill-secondary hero-btn-call"
+                    aria-label="Call Patel Packers & Movers"
+                    title="Call Patel Packers & Movers"
+                  >
+                    <PhoneCallIcon />
+                    <span>Call Now</span>
+                  </a>
+                </div>
+
+                {/* Centered 5-Second Carousel Progress Bar & Controls */}
+                <div className="hero-indicators-bar" aria-label="Hero slide indicators">
+                  <button
+                    type="button"
+                    className="hero-nav-arrow"
+                    onClick={prevHeroSlide}
+                    aria-label="Previous Slide"
+                    title="Previous Slide"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="15 18 9 12 15 6" />
+                    </svg>
+                  </button>
+
+                  {HERO_SLIDES.map((slide, idx) => (
+                    <button
+                      key={slide.id}
+                      type="button"
+                      onClick={() => goToHeroSlide(idx)}
+                      className={`hero-indicator-pill ${heroSlide === idx ? 'hero-indicator-pill--active' : ''}`}
+                      aria-label={`Slide ${idx + 1}: ${slide.headlineLead} ${slide.headlineRest}`}
+                      title={`Slide ${idx + 1}`}
+                    >
+                      <span
+                        className="hero-indicator-progress-fill"
+                        key={heroSlide === idx ? `fill-${heroSlide}-${timerKey}` : `inactive-${idx}`}
+                      />
+                    </button>
+                  ))}
+
+                  <button
+                    type="button"
+                    className="hero-nav-arrow"
+                    onClick={nextHeroSlide}
+                    aria-label="Next Slide"
+                    title="Next Slide"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Floating Circular Stamp Badge on Corner */}
+              <div className="rotating-badge-container">
+                <svg className="rotating-text-ring" viewBox="0 0 140 140">
+                  <path
+                    id="circleTextPath"
+                    d="M 70,70 m -48,0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"
+                    fill="none"
+                  />
+                  <text className="stamp-text">
+                    <textPath href="#circleTextPath" startOffset="0%" key={activeHero.stampText}>
+                      {activeHero.stampText}
+                    </textPath>
+                  </text>
+                </svg>
+                <div className="badge-center-icon">
+                  {activeHero.stampIcon === 'truck' && <TruckIcon />}
+                  {activeHero.stampIcon === 'package' && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                      <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                      <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                  )}
+                  {activeHero.stampIcon === 'map' && (
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg>
+                  )}
+                </div>
               </div>
             </div>
           </div>

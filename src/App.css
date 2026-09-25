@@ -22,6 +22,12 @@
 
   --ease-smooth:    cubic-bezier(0.25, 1, 0.5, 1);
   --ease-spring:    cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Hero Inset Card Dimensions & Offsets */
+  --hero-image-padding: 14px;
+  --hero-card-radius:   20px;
+  --hero-top-notch:     60px;
+  --hero-bottom-notch:  60px;
 }
 
 /* ─── FULL VIEWPORT CANVAS WRAPPER ─── */
@@ -107,7 +113,7 @@
   max-width: none;
   object-fit: contain;
   background: transparent;
-  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.7));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
 }
 
 .brand-text {
@@ -121,16 +127,16 @@
   font-size: 1.18rem;
   font-weight: 900;
   letter-spacing: 0.04em;
-  color: #FFFFFF;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
+  color: var(--canvas-bg);
+  text-shadow: none;
 }
 
 .brand-sub {
   font-size: 0.66rem;
   font-weight: 800;
   letter-spacing: 0.14em;
-  color: rgba(255, 255, 255, 0.95);
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.85);
+  color: #556B5F;
+  text-shadow: none;
 }
 
 /* ─── FLOATING DARK NAVIGATION HEADER ─── */
@@ -295,17 +301,68 @@
   justify-content: center;
 }
 
-/* ─── TOP CARD MAIN CONTENT (CENTERED IN MIDDLE) ─── */
+/* ─── TOP CARD MAIN CONTENT & INSET HERO CARD ─── */
 .top-card-content {
   position: relative;
   z-index: 2;
-  padding: 110px 24px 44px 24px;
+  padding: calc(var(--hero-top-notch) + var(--hero-image-padding)) var(--hero-image-padding) calc(var(--hero-bottom-notch) + var(--hero-image-padding)) var(--hero-image-padding);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.hero-inset-card {
+  position: relative;
+  width: 100%;
+  border-radius: var(--hero-card-radius);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  min-height: 530px;
+  padding: clamp(34px, 4.5vw, 52px) clamp(20px, 3.5vw, 40px) clamp(28px, 3.5vw, 40px);
+  min-height: 440px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  background-color: #0E1C14;
+}
+
+.hero-inset-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-inset-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-inset-photo--active {
+  opacity: 1;
+}
+
+.hero-inset-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.60) 0%,
+    rgba(0, 0, 0, 0.44) 45%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  z-index: 1;
 }
 
 .hero-center-content {
@@ -645,19 +702,22 @@
 }
 
 /* ─── FLOATING CIRCULAR STAMP IN HERO CORNER ─── */
-.hero-top-section .rotating-badge-container {
+.hero-top-section .rotating-badge-container,
+.hero-inset-card .rotating-badge-container {
   position: absolute;
-  right: clamp(24px, 3.5vw, 48px);
-  bottom: clamp(20px, 3vw, 40px);
+  right: clamp(16px, 2.5vw, 36px);
+  bottom: clamp(14px, 2vw, 24px);
   z-index: 5;
 }
 
-.hero-top-section .stamp-text {
+.hero-top-section .stamp-text,
+.hero-inset-card .stamp-text {
   fill: #FFFFFF;
   opacity: 0.95;
 }
 
-.hero-top-section .badge-center-icon {
+.hero-top-section .badge-center-icon,
+.hero-inset-card .badge-center-icon {
   background-color: #FFFFFF;
   color: #0E1C14;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
@@ -1025,7 +1085,15 @@
 
 /* ─── RESPONSIVE DESIGN BREAKPOINTS ─── */
 @media (max-width: 1080px) {
-  .hero-top-section .rotating-badge-container {
+  :root {
+    --hero-image-padding: 12px;
+    --hero-card-radius:   16px;
+    --hero-top-notch:     56px;
+    --hero-bottom-notch:  56px;
+  }
+
+  .hero-top-section .rotating-badge-container,
+  .hero-inset-card .rotating-badge-container {
     display: none; /* Hide badge on medium viewports to keep centered balance */
   }
   .bottom-card-content {
@@ -1035,6 +1103,13 @@
 }
 
 @media (max-width: 860px) {
+  :root {
+    --hero-image-padding: 8px;
+    --hero-card-radius:   14px;
+    --hero-top-notch:     46px;
+    --hero-bottom-notch:  36px;
+  }
+
   .canvas-wrapper {
     padding: 10px 8px;
     align-items: flex-start;
@@ -1111,7 +1186,7 @@
     max-width: none;
     background: transparent;
     border-radius: 0;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
     flex-shrink: 0;
   }
 
@@ -1129,8 +1204,8 @@
     font-weight: 900;
     letter-spacing: 0.04em;
     line-height: 1;
-    color: #FFFFFF;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.85);
+    color: var(--canvas-bg);
+    text-shadow: none;
   }
 
   /* Unke niche packers and movers */
@@ -1140,8 +1215,8 @@
     letter-spacing: 0.12em;
     line-height: 1;
     margin-top: 2px;
-    color: rgba(255, 255, 255, 0.95);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.85);
+    color: #556B5F;
+    text-shadow: none;
     white-space: nowrap;
   }
 
@@ -1237,9 +1312,22 @@
     z-index: 2;
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 56px 18px 46px 18px;
+    gap: 0;
+    padding: calc(var(--hero-top-notch) + var(--hero-image-padding)) var(--hero-image-padding) calc(var(--hero-bottom-notch) + var(--hero-image-padding)) var(--hero-image-padding);
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .hero-inset-card {
+    min-height: auto;
+    padding: 24px 14px 20px 14px;
+    border-radius: var(--hero-card-radius);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .hero-inset-card .rotating-badge-container {
+    display: none;
   }
 
   .top-card-left {
@@ -3062,6 +3150,26 @@
 }
 
 @media (max-width: 480px) {
+  :root {
+    --hero-image-padding: 6px;
+    --hero-card-radius:   12px;
+    --hero-top-notch:     46px;
+    --hero-bottom-notch:  34px;
+  }
+
+  .hero-inset-card {
+    padding: 20px 10px 16px 10px;
+  }
+
+  .display-h1 {
+    font-size: clamp(1.45rem, 5vw, 1.75rem);
+  }
+
+  .display-sub {
+    font-size: 0.82rem;
+    margin: 8px auto 16px;
+  }
+
   .branches-section {
     padding: 20px 4px 24px;
     border-radius: 14px;
