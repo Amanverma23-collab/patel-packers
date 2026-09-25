@@ -3042,20 +3042,20 @@
   .branch-city-btn {
     min-height: 36px;
     height: 36px;
-    font-size: clamp(0.64rem, 1.8vw, 0.76rem);
+    font-size: clamp(0.58rem, 1.7vw, 0.68rem);
     padding: 2px 2px;
     font-weight: 800;
-    letter-spacing: 0.01em;
+    letter-spacing: -0.005em;
     line-height: 1;
     border-radius: 3px;
     white-space: nowrap !important;
   }
   .branch-city-btn.branch-city--long {
-    font-size: clamp(0.50rem, 1.35vw, 0.58rem);
+    font-size: clamp(0.52rem, 1.55vw, 0.62rem);
     letter-spacing: -0.015em;
   }
   .branch-city-btn.branch-city--xlong {
-    font-size: clamp(0.40rem, 1.15vw, 0.48rem);
+    font-size: clamp(0.48rem, 1.45vw, 0.57rem);
     letter-spacing: -0.025em;
   }
 }
@@ -3072,21 +3072,21 @@
   .branch-city-btn {
     min-height: 34px;
     height: 34px;
-    font-size: clamp(0.56rem, 2.05vw, 0.68rem);
-    padding: 2px 1px;
+    font-size: clamp(0.48rem, 1.65vw, 0.54rem);
+    padding: 0 1px;
     font-weight: 800;
-    letter-spacing: 0;
+    letter-spacing: -0.005em;
     line-height: 1;
     border-radius: 3px;
     white-space: nowrap !important;
   }
   .branch-city-btn.branch-city--long {
-    font-size: clamp(0.42rem, 1.45vw, 0.50rem);
-    letter-spacing: -0.02em;
+    font-size: clamp(0.44rem, 1.5vw, 0.50rem);
+    letter-spacing: -0.015em;
   }
   .branch-city-btn.branch-city--xlong {
-    font-size: clamp(0.33rem, 1.15vw, 0.39rem);
-    letter-spacing: -0.03em;
+    font-size: clamp(0.41rem, 1.4vw, 0.46rem);
+    letter-spacing: -0.025em;
   }
 }
 
@@ -3095,24 +3095,24 @@
     padding: 16px 2px 20px;
   }
   .branches-grid {
-    gap: 4px 2px !important;
+    gap: 3px 2px !important;
   }
   .branch-city-btn {
     min-height: 32px;
     height: 32px;
-    font-size: 0.50rem;
-    padding: 2px 0.5px;
+    font-size: 0.44rem;
+    padding: 0 0.5px;
     font-weight: 800;
     line-height: 1;
     white-space: nowrap !important;
   }
   .branch-city-btn.branch-city--long {
-    font-size: 0.38rem;
-    letter-spacing: -0.02em;
+    font-size: 0.41rem;
+    letter-spacing: -0.015em;
   }
   .branch-city-btn.branch-city--xlong {
-    font-size: 0.30rem;
-    letter-spacing: -0.035em;
+    font-size: 0.38rem;
+    letter-spacing: -0.025em;
   }
 }
 
