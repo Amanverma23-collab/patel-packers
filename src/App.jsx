@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, Fragment } from 'react'
 import './App.css'
 import AccordionGallery from './AccordionGallery'
 import footerLogo from './assets/footer-logo.png'
@@ -119,47 +119,54 @@ const HERO_SLIDES = [
   {
     id: 0,
     tag: 'Govt. Verified & IBA Approved Movers',
-    headlineLead: 'Quality Moving Services',
-    headlineRest: 'At Competitive Prices',
+    headlineLead: 'Welcome to',
+    headlineRest: 'Patel Packers and Movers',
     subtitle: 'Patel Packers and Movers is one of India’s most trusted relocation companies with verified doorstep delivery and damage-free moving experience.',
     btnLabel: 'Get Free Quote',
     serviceName: 'House Shifting',
     stampText: '★ 100% DAMAGE FREE ★ TOP RATED MOVERS ★ ALL INDIA ★',
     stampIcon: 'truck',
-    image: '/ppm-hero-flatlay.jpg',
-    alt: 'Patel Packers and Movers Relocation Supplies & Fleet',
+    image: '/ppm-hero-delivery.jpg',
+    imageMobile: '/ppm-hero-delivery-mobile.jpg',
+    objectPosition: 'center center',
+    objectPositionMobile: 'center 40%',
+    alt: 'Patel Packers and Movers Verified Delivery Team and Moving Truck',
     ratingScore: '4.9',
     ratingText: '15,000+ Safe Moves'
   },
   {
     id: 1,
-    tag: 'Zero-Damage 5-Layer Packing Guarantee',
-    headlineLead: 'Expert Packing & Secure Transit',
-    headlineRest: 'For Complete Peace of Mind',
-    subtitle: 'Multi-layered bubble wrap, customized wooden crates, and certified professional handling for all your household and corporate valuables.',
-    btnLabel: 'Get Packing Quote',
-    serviceName: 'Packing & Unpacking',
-    stampText: '★ 5-LAYER PACKING ★ FRAGILE CARE ★ CERTIFIED TEAM ★',
-    stampIcon: 'package',
-    image: '/tile-packing.jpg',
-    alt: 'Professional packing team wrapping and boxing household goods',
+    tag: 'Trusted Moving Partner in Mangalore',
+    headlineLead: 'Best Packers and Movers',
+    headlineRest: 'in Mangalore',
+    subtitle: 'Doorstep safe household & office relocation across Mangalore and Karnataka with verified expert packing and zero damage guarantee.',
+    btnLabel: 'Get Free Quote',
+    serviceName: 'Mangalore Relocation',
+    stampText: '★ TOP RATED IN MANGALORE ★ 100% SAFE ★ BEST RATES ★',
+    stampIcon: 'truck',
+    image: '/ppm-flatlay-mangalore.jpg',
+    imageMobile: '/ppm-flatlay-mangalore-mobile.jpg',
+    objectPosition: 'center center',
+    objectPositionMobile: 'center center',
+    alt: 'Best Packers and Movers in Mangalore - Patel Packers Relocation Supplies & Fleet',
     ratingScore: '5.0',
-    ratingText: 'Zero Breakage Guarantee'
+    ratingText: 'Top Rated in Mangalore'
   },
   {
     id: 2,
     tag: 'Pan-India Express Logistics',
     headlineLead: 'Seamless Express Relocation',
-    headlineRest: 'Across 700+ Cities Nationwide',
+    headlineRest: 'Across 60+ Cities Nationwide',
     subtitle: 'GPS-tracked dedicated fleet, guaranteed on-time delivery commitment, and complete doorstep setup anywhere across India.',
     btnLabel: 'Book Express Move',
     serviceName: 'Domestic Relocation',
-    stampText: '★ ON-TIME DELIVERY ★ GPS TRACKED FLEET ★ 700+ CITIES ★',
+    stampText: '★ ON-TIME DELIVERY ★ GPS TRACKED FLEET ★ 60+ CITIES ★',
     stampIcon: 'map',
-    image: '/tile-delivery.jpg',
-    alt: 'Doorstep delivery and swift unloading team at new home',
+    image: '/ppm-car-transport.jpg',
+    objectPosition: 'center center',
+    alt: 'Patel Packers and Movers Safe Vehicle Carrier & Container Transport Across India',
     ratingScore: '4.9',
-    ratingText: '700+ Cities Network'
+    ratingText: '60+ Cities Network'
   }
 ]
 
@@ -178,10 +185,10 @@ const BRANCH_CITIES = [
 ]
 
 /* ─────────────── SVG CARD BACKGROUND PATHS ─────────────── */
-/* Mathematically matching centered symmetrical notch geometry (Desktop & Mobile) */
+/* Mathematically parallel interlocking 45° step-down geometry for Desktop & Mobile */
 const TopCardBg = () => (
   <>
-    {/* Desktop Notch (screens > 860px) - Symmetrical centered notch at x = 600 */}
+    {/* Desktop Notch (screens > 860px) */}
     <svg
       className="card-bg-svg card-bg-svg--desktop"
       viewBox="0 0 1200 580"
@@ -189,12 +196,11 @@ const TopCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 516 Q 1200 544 1172 544 L 750 544 C 715 544 715 580 680 580 L 520 580 C 485 580 485 544 450 544 L 28 544 Q 0 544 0 516 Z"
+        d="M 0 28 Q 0 0 28 0 L 260 0 Q 275 0 286 11 L 326 51 Q 336 60 352 60 L 1172 60 Q 1200 60 1200 88 L 1200 552 Q 1200 580 1172 580 L 420 580 Q 405 580 395 570 L 355 530 Q 345 520 330 520 L 28 520 Q 0 520 0 492 Z"
         fill="#FFFFFF"
       />
     </svg>
-
-    {/* Mobile Notch (screens <= 860px) - Symmetrical centered notch at x = 195 */}
+    {/* Mobile Notch (screens <= 860px) */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
       viewBox="0 0 390 820"
@@ -202,7 +208,7 @@ const TopCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 784 Q 390 800 374 800 L 245 800 C 230 800 230 820 215 820 L 175 820 C 160 820 160 800 145 800 L 16 800 Q 0 800 0 784 Z"
+        d="M 0 16 Q 0 0 16 0 L 165 0 Q 176 0 184 8 L 206 34 Q 214 44 226 44 L 374 44 Q 390 44 390 60 L 390 790 Q 390 820 366 820 L 170 820 Q 158 820 150 812 L 130 792 Q 122 784 110 784 L 16 784 Q 0 784 0 768 Z"
         fill="#FFFFFF"
       />
     </svg>
@@ -211,7 +217,7 @@ const TopCardBg = () => (
 
 const BottomCardBg = () => (
   <>
-    {/* Desktop Notch (screens > 860px) - Symmetrical centered notch matching Hero bottom */}
+    {/* Desktop Notch (screens > 860px) */}
     <svg
       className="card-bg-svg card-bg-svg--desktop"
       viewBox="0 0 1200 380"
@@ -219,11 +225,11 @@ const BottomCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 28 Q 0 0 28 0 L 450 0 C 485 0 485 36 520 36 L 680 36 C 715 36 715 0 750 0 L 1172 0 Q 1200 0 1200 28 L 1200 352 Q 1200 380 1172 380 L 28 380 Q 0 380 0 352 Z"
+        d="M 0 28 Q 0 0 28 0 L 330 0 Q 345 0 355 10 L 395 50 Q 405 60 420 60 L 1172 60 Q 1200 60 1200 88 L 1200 352 Q 1200 380 1172 380 L 28 380 Q 0 380 0 352 Z"
         fill="#FFFFFF"
       />
     </svg>
-    {/* Mobile Notch (screens <= 860px) - Symmetrical centered notch matching Hero bottom */}
+    {/* Mobile Notch (screens <= 860px) */}
     <svg
       className="card-bg-svg card-bg-svg--mobile"
       viewBox="0 0 390 780"
@@ -231,7 +237,7 @@ const BottomCardBg = () => (
       aria-hidden="true"
     >
       <path
-        d="M 0 16 Q 0 0 16 0 L 145 0 C 160 0 160 20 175 20 L 215 20 C 230 20 230 0 245 0 L 374 0 Q 390 0 390 16 L 390 764 Q 390 780 374 780 L 16 780 Q 0 780 0 764 Z"
+        d="M 0 16 Q 0 0 16 0 L 110 0 Q 122 0 130 5 L 150 18 Q 158 23 170 23 L 374 23 Q 390 23 390 39 L 390 764 Q 390 780 374 780 L 16 780 Q 0 780 0 764 Z"
         fill="#FFFFFF"
       />
     </svg>
@@ -575,27 +581,15 @@ export default function App() {
               </nav>
 
               <div className="nav-actions">
-                <button
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && window.innerWidth <= 860) {
-                      window.location.href = 'tel:+919876543210'
-                    } else {
-                      handleOpenQuote('General Inquiry')
-                    }
-                  }}
-                  className="btn-pill-light"
-                  id="btn-nav-quote"
-                  aria-label="Order Now or Call"
+                <a
+                  href="tel:+918789227023"
+                  className="nav-call-btn"
+                  aria-label="Call Patel Packers & Movers"
+                  title="Call Patel Packers & Movers"
                 >
-                  <span className="btn-label-desktop">ORDER NOW</span>
-                  <span className="btn-label-mobile">CALL</span>
-                  <span className="pill-arrow-circle pill-icon--desktop">
-                    <ArrowRightIcon />
-                  </span>
-                  <span className="pill-arrow-circle pill-icon--mobile">
-                    <PhoneCallIcon />
-                  </span>
-                </button>
+                  <span className="nav-call-icon"><PhoneCallIcon /></span>
+                  <span className="nav-call-label">CALL</span>
+                </a>
 
                 <button
                   className="mobile-toggle"
@@ -635,29 +629,34 @@ export default function App() {
               {/* Auto-Rotating Inset Hero Photos */}
               <div className="hero-inset-media" aria-hidden="true">
                 {HERO_SLIDES.map((slide, idx) => (
-                  <img
-                    key={slide.id}
-                    src={slide.image}
-                    alt={`${slide.headlineLead} ${slide.headlineRest}`}
-                    className={`hero-inset-photo ${heroSlide === idx ? 'hero-inset-photo--active' : ''}`}
-                    loading={idx === 0 ? "eager" : "lazy"}
-                  />
+                  <Fragment key={slide.id}>
+                    <img
+                      src={slide.image}
+                      alt={`${slide.headlineLead} ${slide.headlineRest}`}
+                      className={`hero-inset-photo hero-inset-photo--desktop${slide.imageMobile ? ' hero-inset-photo--has-mobile' : ''} ${heroSlide === idx ? 'hero-inset-photo--active' : ''}`}
+                      style={slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined}
+                      loading={idx === 0 ? "eager" : "lazy"}
+                    />
+                    {slide.imageMobile ? (
+                      <img
+                        src={slide.imageMobile}
+                        alt={`${slide.headlineLead} ${slide.headlineRest}`}
+                        className={`hero-inset-photo hero-inset-photo--mobile ${heroSlide === idx ? 'hero-inset-photo--active' : ''}`}
+                        style={slide.objectPositionMobile ? { objectPosition: slide.objectPositionMobile } : (slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined)}
+                        loading={idx === 0 ? "eager" : "lazy"}
+                      />
+                    ) : null}
+                  </Fragment>
                 ))}
                 <div className="hero-inset-scrim" />
               </div>
 
               {/* Centered Hero Content */}
               <div key={heroSlide} className="hero-center-content hero-text-fade">
-                {/* Centered Rating / Tag Badge */}
-                <div className="hero-slide-tag">
-                  <span className="hero-tag-pulse" />
-                  <span>★ {activeHero.ratingScore} · {activeHero.tag}</span>
-                </div>
-
                 {/* Centered Main Headline */}
                 <h1 className="display-h1">
-                  {activeHero.headlineLead}<br />
-                  {activeHero.headlineRest}
+                  <span className="hero-h1-lead">{activeHero.headlineLead}</span>
+                  <span className="hero-h1-rest">{activeHero.headlineRest}</span>
                 </h1>
 
                 {/* Centered Subtitle */}
@@ -677,7 +676,7 @@ export default function App() {
                   </button>
 
                   <a
-                    href="tel:+919876543210"
+                    href="tel:+918789227023"
                     className="btn-pill-secondary hero-btn-call"
                     aria-label="Call Patel Packers & Movers"
                     title="Call Patel Packers & Movers"
@@ -1361,7 +1360,7 @@ export default function App() {
             <div className="cta-stat-item">
               <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
               <div className="cta-stat-text">
-                <span className="cta-stat-num">700+</span>
+                <span className="cta-stat-num">60+</span>
                 <span className="cta-stat-label">Cities Covered</span>
               </div>
             </div>
@@ -1431,7 +1430,7 @@ export default function App() {
                 <img src={footerLogo} alt="Patel Packers & Movers Logo" className="footer-logo-img" />
               </div>
               <p className="footer-brand-desc">
-                India's most trusted packers and movers. We provide safe, reliable and affordable moving solutions across 700+ cities nationwide.
+                India's most trusted packers and movers. We provide safe, reliable and affordable moving solutions across 60+ cities nationwide.
               </p>
               <div className="footer-social-row">
                 <a href="#" className="footer-social-link footer-social--fb" aria-label="Facebook">
@@ -1482,19 +1481,28 @@ export default function App() {
               <ul className="footer-contact-list">
                 <li className="footer-contact-item footer-contact--address">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                  <span>123, Industrial Area, Andheri East, Mumbai — 400069</span>
+                  <span>No, 4-T-189-24 Anand Nagar Akash Bhavan Kavoor, Kottara Chowki, Mangalore, Karnataka 575006</span>
                 </li>
                 <li className="footer-contact-item footer-contact--phone">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/></svg>
-                  <a href="tel:+919876543210">+91 98765 43210</a>
+                  <div className="footer-contact-details">
+                    <div>
+                      <strong>Call &amp; WhatsApp: </strong>
+                      <a href="https://wa.me/918789227023" target="_blank" rel="noopener noreferrer">+91 87892 27023</a>
+                    </div>
+                    <div style={{ marginTop: '4px' }}>
+                      <strong>Office: </strong>
+                      <a href="tel:+917975430309">+91 79754 30309</a>, <a href="tel:+919448659805">+91 94486 59805</a>
+                    </div>
+                  </div>
                 </li>
                 <li className="footer-contact-item footer-contact--email">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                  <a href="mailto:info@patelpackers.in">info@patelpackers.in</a>
+                  <a href="mailto:info@patelpackers.com">info@patelpackers.com</a>
                 </li>
                 <li className="footer-contact-item footer-contact--hours">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  <span>Mon – Sat: 8:00 AM – 8:00 PM</span>
+                  <span>Mon – Sun: 24/7 Available</span>
                 </li>
               </ul>
             </div>
@@ -1597,7 +1605,7 @@ function QuoteModal({ open, onClose, initialService }) {
                   <input
                     type="tel"
                     required
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 87892 27023"
                     className="field-input"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
