@@ -1261,7 +1261,7 @@
     border-radius: 20px;
   }
   .service-modal-img-wrap {
-    height: 150px;
+    height: 205px;
   }
   .service-modal-body {
     padding: 14px 16px 18px;
@@ -1684,7 +1684,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    transform: translateY(-13px); /* Shifted further up into the dark header area */
+    transform: translateY(-22px); /* Shifted up so Call button cleanly clears the hero section image */
   }
 
   .nav-call-btn {
