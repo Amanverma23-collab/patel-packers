@@ -653,29 +653,25 @@ function ReviewCardItem({ item }) {
   )
 }
 
-function ReviewsSlideshow() {
-  const [cardsPerView, setCardsPerView] = useState(() => {
-    if (typeof window !== 'undefined') {
-      if (window.innerWidth <= 768) return 1
-      if (window.innerWidth <= 1120) return 2
-      return 3
-    }
-    return 3
-  })
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
-  const touchStartX = useRef(0)
-  const touchEndX = useRef(0)
+function ReviewsSlider() {
+  const trackRef = useRef(null)
+  const isDown = useRef(false)
+  const startX = useRef(0)
+  const scrollLeftStart = useRef(0)
+  const isDragging = useRef(false)
+  const [activeDot, setActiveDot] = useState(0)
+  const [isInteracting, setIsInteracting] = useState(false)
+  const [cardsVisible, setCardsVisible] = useState(3)
 
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth
       if (w <= 768) {
-        setCardsPerView(1)
+        setCardsVisible(1)
       } else if (w <= 1120) {
-        setCardsPerView(2)
+        setCardsVisible(2)
       } else {
-        setCardsPerView(3)
+        setCardsVisible(3)
       }
     }
     handleResize()
@@ -683,90 +679,134 @@ function ReviewsSlideshow() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  // Partition the 6 verified reviews into slide pages
-  const slidePages = []
-  for (let i = 0; i < REAL_GOOGLE_REVIEWS.length; i += cardsPerView) {
-    slidePages.push(REAL_GOOGLE_REVIEWS.slice(i, i + cardsPerView))
+  const totalSnapPositions = Math.max(1, REAL_GOOGLE_REVIEWS.length - cardsVisible + 1)
+
+  // Scroll sync for dots
+  const handleScroll = () => {
+    if (!trackRef.current) return
+    const { scrollLeft, scrollWidth, clientWidth } = trackRef.current
+    const maxScroll = scrollWidth - clientWidth
+    if (maxScroll > 0) {
+      const progress = scrollLeft / maxScroll
+      const targetDot = Math.round(progress * (totalSnapPositions - 1))
+      setActiveDot(Math.max(0, Math.min(targetDot, totalSnapPositions - 1)))
+    }
   }
 
-  const totalSlides = slidePages.length
+  // Mouse Drag to Slide
+  const handleMouseDown = (e) => {
+    if (!trackRef.current) return
+    isDown.current = true
+    isDragging.current = false
+    setIsInteracting(true)
+    startX.current = e.pageX - trackRef.current.offsetLeft
+    scrollLeftStart.current = trackRef.current.scrollLeft
+    trackRef.current.classList.add('is-dragging')
+  }
 
-  useEffect(() => {
-    if (currentSlide >= totalSlides) {
-      setCurrentSlide(0)
+  const handleMouseMove = (e) => {
+    if (!isDown.current || !trackRef.current) return
+    e.preventDefault()
+    const x = e.pageX - trackRef.current.offsetLeft
+    const walk = (x - startX.current) * 1.5
+    if (Math.abs(walk) > 4) {
+      isDragging.current = true
     }
-  }, [totalSlides, currentSlide])
+    trackRef.current.scrollLeft = scrollLeftStart.current - walk
+  }
 
-  // Autoplay slideshow every 4.5 seconds
+  const handleMouseUpOrLeave = () => {
+    if (!isDown.current) return
+    isDown.current = false
+    if (trackRef.current) {
+      trackRef.current.classList.remove('is-dragging')
+    }
+    setTimeout(() => setIsInteracting(false), 2000)
+  }
+
+  const handleCardClickCapture = (e) => {
+    if (isDragging.current) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+  }
+
+  // Scroll to dot
+  const scrollToDot = (idx) => {
+    if (!trackRef.current) return
+    const { scrollWidth, clientWidth } = trackRef.current
+    const maxScroll = scrollWidth - clientWidth
+    if (maxScroll <= 0) return
+    const targetScroll = (idx / (totalSnapPositions - 1)) * maxScroll
+    trackRef.current.scrollTo({
+      left: targetScroll,
+      behavior: 'smooth'
+    })
+    setActiveDot(idx)
+  }
+
+  // Autoplay when idle
   useEffect(() => {
-    if (isPaused || totalSlides <= 1) return
+    if (isInteracting) return
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % totalSlides)
+      if (!trackRef.current) return
+      const { scrollLeft, scrollWidth, clientWidth } = trackRef.current
+      const maxScroll = scrollWidth - clientWidth
+      if (maxScroll <= 0) return
+
+      if (scrollLeft >= maxScroll - 15) {
+        trackRef.current.scrollTo({ left: 0, behavior: 'smooth' })
+      } else {
+        const itemWidth = clientWidth / cardsVisible
+        trackRef.current.scrollBy({ left: itemWidth, behavior: 'smooth' })
+      }
     }, 4500)
     return () => clearInterval(timer)
-  }, [totalSlides, isPaused])
-
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX
-  }
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.touches[0].clientX
-  }
-
-  const handleTouchEnd = () => {
-    const diff = touchStartX.current - touchEndX.current
-    if (Math.abs(diff) > 40) {
-      if (diff > 0) {
-        setCurrentSlide((prev) => (prev + 1) % totalSlides)
-      } else {
-        setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
-      }
-    }
-  }
+  }, [isInteracting, cardsVisible])
 
   return (
     <div
-      className="reviews-slideshow-wrapper"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
+      className="reviews-slider-wrapper"
+      onMouseEnter={() => setIsInteracting(true)}
+      onMouseLeave={() => {
+        setIsInteracting(false)
+        handleMouseUpOrLeave()
+      }}
+      onTouchStart={() => setIsInteracting(true)}
+      onTouchEnd={() => setTimeout(() => setIsInteracting(false), 2000)}
     >
-      <div className="reviews-slideshow-clip">
-        <div
-          className="reviews-slideshow-track"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
-          {slidePages.map((pageCards, pageIdx) => (
-            <div
-              key={pageIdx}
-              className={`reviews-slide-page cards-${cardsPerView}`}
-            >
-              {pageCards.map((item) => (
-                <ReviewCardItem key={item.id} item={item} />
-              ))}
-            </div>
-          ))}
-        </div>
+      {/* Draggable & Scrollable Slidebar Track */}
+      <div
+        ref={trackRef}
+        className="reviews-slider-track"
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUpOrLeave}
+        onScroll={handleScroll}
+        onClickCapture={handleCardClickCapture}
+      >
+        {REAL_GOOGLE_REVIEWS.map((item) => (
+          <div key={item.id} className="reviews-slider-card-wrap">
+            <ReviewCardItem item={item} />
+          </div>
+        ))}
       </div>
 
-      {/* Sleek Pagination Dots */}
-      {totalSlides > 1 && (
-        <div className="reviews-slideshow-dots" role="tablist" aria-label="Customer review slides">
-          {slidePages.map((_, idx) => (
+      {/* Interactive Slidebar & Dot Controls */}
+      <div className="reviews-slider-controls">
+        <div className="reviews-slider-dots" role="tablist" aria-label="Customer review slide indicators">
+          {Array.from({ length: totalSnapPositions }).map((_, idx) => (
             <button
               key={idx}
               type="button"
-              className={`reviews-dot ${idx === currentSlide ? 'active' : ''}`}
-              onClick={() => setCurrentSlide(idx)}
-              aria-label={`Show slide ${idx + 1}`}
-              aria-selected={idx === currentSlide}
+              className={`reviews-dot ${idx === activeDot ? 'active' : ''}`}
+              onClick={() => scrollToDot(idx)}
+              aria-label={`Slide ${idx + 1}`}
+              aria-selected={idx === activeDot}
             />
           ))}
         </div>
-      )}
+      </div>
     </div>
   )
 }
@@ -1453,8 +1493,8 @@ export default function App() {
 
             </div>
 
-            {/* Verified Reviews Responsive Slideshow (All 6 Reviews with Auto-Play & Touch Swipe) */}
-            <ReviewsSlideshow />
+            {/* Verified Reviews Draggable & Responsive Slider (All 6 Reviews with Mouse Drag, Touch Swipe & Auto-Play) */}
+            <ReviewsSlider />
           </div>
         </section>
 
