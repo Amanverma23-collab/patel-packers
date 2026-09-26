@@ -1838,7 +1838,7 @@
   }
 
   .about-section {
-    margin-top: 16px !important;
+    margin-top: 0 !important;
   }
 
   .form-grid-2 {
@@ -1853,8 +1853,8 @@
   align-items: center;
   justify-content: center;
   gap: clamp(24px, 6vw, 70px);
-  padding: 18px 20px 22px 20px;
-  margin: 6px 0 10px 0;
+  padding: 28px 20px;
+  margin: 0;
   z-index: 5;
   position: relative;
   background: transparent !important;
@@ -1897,7 +1897,7 @@
 @media (max-width: 680px) {
   .pure-badges-strip {
     gap: 14px;
-    padding: 12px 8px 16px 8px;
+    padding: 14px 8px;
   }
   .pure-badge-img {
     width: clamp(98px, 28vw, 130px);
