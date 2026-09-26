@@ -1414,8 +1414,8 @@ export default function App() {
               </div>
 
               <h2 className="display-h2 gallery-title">
-                GLIMPSES OF<br />
-                OUR WORK
+                <span className="gallery-title-desktop">GLIMPSES OF<br />OUR WORK</span>
+                <span className="gallery-title-mobile">GLIMPSES OF OUR WORK</span>
               </h2>
 
               <p className="gallery-sub">
@@ -1447,7 +1447,7 @@ export default function App() {
               />
             </div>
 
-            {/* Mobile: Normal Grid Gallery with Clear Photos */}
+            {/* Mobile: Normal Grid Gallery with Clear Clean Photos (No overlay text) */}
             <div className="gallery-mobile-view">
               <div className="gallery-mobile-grid">
                 {GALLERY_ITEMS.map((item) => (
@@ -1462,10 +1462,6 @@ export default function App() {
                       className="gallery-mobile-img"
                       loading="lazy"
                     />
-                    <div className="gallery-mobile-card-overlay">
-                      <span className="gallery-mobile-badge">{item.category}</span>
-                      <span className="gallery-mobile-card-title">{item.label}</span>
-                    </div>
                   </div>
                 ))}
               </div>

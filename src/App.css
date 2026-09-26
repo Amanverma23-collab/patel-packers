@@ -2212,6 +2212,10 @@
   margin: 0;
 }
 
+.gallery-title-mobile {
+  display: none;
+}
+
 /* ── Desktop vs Mobile Gallery Toggle ── */
 .gallery-desktop-view {
   flex: 1;
@@ -2244,7 +2248,7 @@
   background: #E8EFEA;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .gallery-mobile-img {
@@ -2256,34 +2260,7 @@
 }
 
 .gallery-mobile-card:active .gallery-mobile-img {
-  transform: scale(1.05);
-}
-
-.gallery-mobile-card-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 35%, rgba(10, 20, 14, 0.88) 100%);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 8px 10px;
-}
-
-.gallery-mobile-badge {
-  font-size: 0.58rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #84CC16;
-  margin-bottom: 2px;
-}
-
-.gallery-mobile-card-title {
-  font-family: var(--font-display);
-  font-size: 0.74rem;
-  font-weight: 700;
-  line-height: 1.2;
-  color: #FFFFFF;
+  transform: scale(1.04);
 }
 
 /* ── Lightbox Modal for Photo Tap ── */
@@ -2403,8 +2380,18 @@
     gap: 8px !important;
   }
 
+  .gallery-title-desktop {
+    display: none !important;
+  }
+
+  .gallery-title-mobile {
+    display: block !important;
+    white-space: nowrap !important;
+  }
+
   .gallery-title {
-    font-size: 1.3rem !important;
+    font-size: clamp(1.05rem, 5.2vw, 1.3rem) !important;
+    white-space: nowrap !important;
   }
 
   .gallery-sub {
@@ -2419,7 +2406,8 @@
   }
 
   .gallery-title {
-    font-size: 1.15rem !important;
+    font-size: clamp(0.95rem, 4.8vw, 1.15rem) !important;
+    white-space: nowrap !important;
   }
 
   .gallery-mobile-grid {
@@ -2428,10 +2416,6 @@
 
   .gallery-mobile-card {
     border-radius: 12px;
-  }
-
-  .gallery-mobile-card-title {
-    font-size: 0.68rem;
   }
 }
 
