@@ -2415,56 +2415,6 @@
   transform: translateY(-2px);
 }
 
-/* ── Desktop Slider Controls ── */
-.reviews-carousel-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.reviews-carousel-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1.5px solid #E1EBE3;
-  background: #FFFFFF;
-  color: #172A1F;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.reviews-carousel-btn:hover {
-  background: #172A1F;
-  color: #FFFFFF;
-  border-color: #172A1F;
-}
-
-.reviews-carousel-dots {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.reviews-carousel-dot {
-  width: 8px;
-  height: 8px;
-  padding: 0;
-  border: none;
-  border-radius: 9999px;
-  background: #D2DED6;
-  cursor: pointer;
-  transition: all 0.25s var(--ease-spring);
-}
-
-.reviews-carousel-dot.active {
-  width: 22px;
-  background: #172A1F;
-}
-
 /* ── Reviews Cards Row ── */
 .reviews-cards-row--desktop {
   flex: 1;
@@ -2760,10 +2710,6 @@
   .reviews-google-btn {
     font-size: 0.78rem !important;
     padding: 8px 14px !important;
-  }
-
-  .reviews-carousel-controls {
-    display: none !important;
   }
 
   .reviews-cards-row--desktop {

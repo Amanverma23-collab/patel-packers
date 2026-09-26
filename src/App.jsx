@@ -64,18 +64,6 @@ const ExternalLinkIcon = ({ size = 12 }) => (
   </svg>
 )
 
-const ChevronLeftIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <polyline points="15 18 9 12 15 6" />
-  </svg>
-)
-
-const ChevronRightIcon = () => (
-  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <polyline points="9 18 15 12 9 6" />
-  </svg>
-)
-
 const ShieldCheckIcon = () => (
   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -675,11 +663,6 @@ export default function App() {
   const [selectOpen, setSelectOpen] = useState(false)
   const selectRef = useRef(null)
   const selectedMovingOption = MOVING_OPTIONS.find(opt => opt.value === movingType)
-
-  /* Reviews Carousel State */
-  const [reviewPage, setReviewPage] = useState(0)
-  const prevReviewPage = () => setReviewPage((p) => (p === 0 ? 1 : 0))
-  const nextReviewPage = () => setReviewPage((p) => (p === 0 ? 1 : 0))
 
   /* Hero Carousel State - Auto-switch every 5000ms */
   const [heroSlide, setHeroSlide] = useState(0)
@@ -1364,44 +1347,11 @@ export default function App() {
                 <ArrowRightIcon />
               </a>
 
-              {/* Desktop Slider Controls */}
-              <div className="reviews-carousel-controls" aria-label="Reviews slider controls">
-                <button
-                  type="button"
-                  className="reviews-carousel-btn"
-                  onClick={prevReviewPage}
-                  aria-label="Previous Reviews"
-                >
-                  <ChevronLeftIcon />
-                </button>
-                <div className="reviews-carousel-dots">
-                  <button
-                    type="button"
-                    className={`reviews-carousel-dot ${reviewPage === 0 ? 'active' : ''}`}
-                    onClick={() => setReviewPage(0)}
-                    aria-label="Page 1 of reviews"
-                  />
-                  <button
-                    type="button"
-                    className={`reviews-carousel-dot ${reviewPage === 1 ? 'active' : ''}`}
-                    onClick={() => setReviewPage(1)}
-                    aria-label="Page 2 of reviews"
-                  />
-                </div>
-                <button
-                  type="button"
-                  className="reviews-carousel-btn"
-                  onClick={nextReviewPage}
-                  aria-label="Next Reviews"
-                >
-                  <ChevronRightIcon />
-                </button>
-              </div>
             </div>
 
-            {/* Desktop Reviews (3 per page) */}
+            {/* Desktop Reviews (Top 3 Verified Reviews) */}
             <div className="reviews-cards-row reviews-cards-row--desktop">
-              {REAL_GOOGLE_REVIEWS.slice(reviewPage * 3, reviewPage * 3 + 3).map((item) => (
+              {REAL_GOOGLE_REVIEWS.slice(0, 3).map((item) => (
                 <ReviewCardItem key={item.id} item={item} />
               ))}
             </div>
