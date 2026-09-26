@@ -942,12 +942,39 @@
   max-height: 215px;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
-.service-tile-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+@media (hover: hover) and (pointer: fine) {
+  .service-tile-card {
+    transition: transform 0.3s var(--ease-spring), box-shadow 0.3s ease;
+  }
+  .service-tile-card:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  }
+  .tile-img {
+    transition: transform 0.5s var(--ease-smooth);
+  }
+  .service-tile-card:hover .tile-img {
+    transform: scale(1.08);
+  }
+  .tile-label {
+    transition: transform 0.2s ease;
+  }
+  .service-tile-card:hover .tile-label {
+    transform: translateY(-2px);
+  }
+  .service-tile-card:hover .tile-plus-icon {
+    transform: rotate(90deg) scale(1.1);
+    background: #FFFFFF;
+    color: #172A1F;
+  }
 }
 
 .tile-img {
@@ -955,11 +982,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.5s var(--ease-smooth);
-}
-
-.service-tile-card:hover .tile-img {
-  transform: scale(1.08);
+  display: block;
 }
 
 .tile-overlay {
@@ -982,12 +1005,7 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
   z-index: 2;
-  transition: transform 0.2s ease;
   line-height: 1.15;
-}
-
-.service-tile-card:hover .tile-label {
-  transform: translateY(-2px);
 }
 
 /* ─── MORPHING DIALOG SERVICE CARDS & MODAL ─── */
@@ -1015,8 +1033,6 @@
   height: 22px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
   border: 1px solid rgba(255, 255, 255, 0.4);
   color: #FFFFFF;
   display: flex;
@@ -1026,10 +1042,30 @@
   transition: transform 0.25s var(--ease-spring), background 0.2s ease, color 0.2s ease;
 }
 
-.service-tile-card:hover .tile-plus-icon {
-  transform: rotate(90deg) scale(1.1);
-  background: #FFFFFF;
-  color: #172A1F;
+/* ─── MORPHING DIALOG HARDWARE ACCELERATION & MOBILE BACKDROP ─── */
+.morphing-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 20, 14, 0.76);
+  z-index: 9998;
+  will-change: opacity;
+  transform: translateZ(0);
+}
+
+@media (min-width: 769px) {
+  .morphing-dialog-backdrop {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+}
+
+.morphing-dialog-content {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 /* Service Dialog Modal Window */
@@ -1363,6 +1399,8 @@
 }
 
 .field-input {
+  width: 100%;
+  box-sizing: border-box;
   background: #F7F9F8;
   border: 1.5px solid #DFE5E1;
   border-radius: 10px;
@@ -1371,6 +1409,7 @@
   font-size: 0.875rem;
   color: var(--text-primary);
   outline: none;
+  min-height: 46px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -1378,6 +1417,62 @@
   border-color: var(--canvas-bg);
   background: #FFFFFF;
   box-shadow: 0 0 0 3px rgba(23, 42, 31, 0.1);
+}
+
+.date-input-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.field-date {
+  width: 100% !important;
+  min-width: 100% !important;
+  box-sizing: border-box !important;
+  cursor: pointer;
+  padding-right: 42px !important;
+  position: relative;
+  min-height: 46px;
+}
+
+.field-date::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.3em;
+}
+
+.field-date::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.date-placeholder {
+  position: absolute;
+  left: 14px;
+  pointer-events: none;
+  font-size: 0.875rem;
+  color: #7A8E82;
+  font-family: var(--font-body);
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.date-calendar-icon {
+  position: absolute;
+  right: 14px;
+  pointer-events: none;
+  color: #556B5D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .field-select {
@@ -3110,7 +3205,7 @@
   }
 
   .reviews-inner {
-    padding: 22px 16px 36px !important;
+    padding: 22px 16px 52px !important;
     gap: 14px !important;
     width: 100% !important;
     max-width: 100% !important;
@@ -3118,6 +3213,11 @@
     flex-direction: column !important;
     align-items: stretch !important;
     overflow: hidden !important;
+  }
+
+  .reviews-slider-controls {
+    margin-top: 2px !important;
+    margin-bottom: 8px !important;
   }
 
   .reviews-headline-panel {
@@ -3725,12 +3825,12 @@
 
   .cta-quote-section {
     min-height: 355px !important;
-    margin-top: -46px !important;
+    margin-top: -48px !important;
   }
 
   .cta-quote-inner {
     flex-direction: column !important;
-    padding: 30px 18px 24px !important;
+    padding: 48px 18px 24px !important;
     position: relative !important;
     gap: 14px !important;
   }

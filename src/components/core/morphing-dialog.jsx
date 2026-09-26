@@ -89,7 +89,12 @@ export function MorphingDialogTrigger({
       className={cn('morphing-dialog-trigger', className)}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
-      style={{ cursor: 'pointer', ...style }}
+      style={{
+        cursor: 'pointer',
+        willChange: 'transform, opacity',
+        transform: 'translateZ(0)',
+        ...style,
+      }}
       role='button'
       tabIndex={0}
       aria-haspopup='dialog'
@@ -150,11 +155,19 @@ export function MorphingDialogContent({
       if (focusableElements && focusableElements.length > 0) {
         setFirstFocusableElement(focusableElements[0])
         setLastFocusableElement(focusableElements[focusableElements.length - 1])
-        focusableElements[0].focus()
+        try {
+          focusableElements[0].focus({ preventScroll: true })
+        } catch {
+          focusableElements[0].focus()
+        }
       }
     } else {
       document.body.classList.remove('overflow-hidden')
-      triggerRef.current?.focus()
+      try {
+        triggerRef.current?.focus({ preventScroll: true })
+      } catch {
+        triggerRef.current?.focus()
+      }
     }
   }, [isOpen, triggerRef])
 
@@ -178,6 +191,10 @@ export function MorphingDialogContent({
         overflowY: 'auto',
         overflowX: 'hidden',
         background: '#FFFFFF',
+        willChange: 'transform, opacity',
+        transform: 'translateZ(0)',
+        WebkitBackfaceVisibility: 'hidden',
+        backfaceVisibility: 'hidden',
         ...style,
       }}
       role='dialog'
@@ -208,19 +225,10 @@ export function MorphingDialogContainer({ children, className, style }) {
           <motion.div
             key={`backdrop-${uniqueId}`}
             className={cn('morphing-dialog-backdrop', className)}
-            style={{
-              position: 'fixed',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              backgroundColor: 'rgba(15, 23, 19, 0.65)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              zIndex: 9998,
-            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
           />
           <div
             className='morphing-dialog-portal-wrapper'
@@ -257,8 +265,11 @@ export function MorphingDialogTitle({
     <motion.div
       layoutId={`dialog-title-container-${uniqueId}`}
       className={className}
-      style={style}
-      layout
+      style={{
+        willChange: 'transform, opacity',
+        transform: 'translateZ(0)',
+        ...style,
+      }}
     >
       {children}
     </motion.div>
