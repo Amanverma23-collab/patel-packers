@@ -566,7 +566,7 @@ const REAL_GOOGLE_REVIEWS = [
     route: 'Kadri, Mangalore → Bengaluru',
     service: '3BHK Household Shifting',
     rating: 5,
-    text: 'Shifted our complete 3BHK home from Kadri Mangalore to Bengaluru. The packing of our 65-inch LED TV, double-door fridge, and delicate glassware was extraordinary with multiple bubble layers. Delivered on time without even a single scratch! Very polite and hardworking team.'
+    text: 'Shifted complete 3BHK home from Kadri to Bengaluru. Multi-layer bubble packing for our LED TV, double-door fridge, and glassware was top-notch. Delivered on time without a single scratch!'
   },
   {
     id: 2,
@@ -575,7 +575,7 @@ const REAL_GOOGLE_REVIEWS = [
     route: 'Akash Bhavan, Kavoor (Local)',
     service: 'Local Home Shifting',
     rating: 5,
-    text: 'Patel Packers & Movers did a fantastic job shifting my home within Mangalore on short notice. Their boys arrived right on time at Akash Bhavan, packed everything systematically, and unloaded within the promised time. Nominal charges and very humble staff.'
+    text: 'Fantastic job shifting our home within Mangalore on short notice. Boys arrived right on time at Akash Bhavan, packed systematically and unloaded quickly. Nominal charges and humble staff.'
   },
   {
     id: 3,
@@ -584,7 +584,7 @@ const REAL_GOOGLE_REVIEWS = [
     route: 'Surathkal → Pune',
     service: 'Car Carrier Transport',
     rating: 5,
-    text: 'I booked car transport for my Honda City from Surathkal to Pune. Patel Packers provided real-time tracking updates and delivered my car safely on the enclosed carrier vehicle within 4 days. Absolutely professional and trustworthy service.'
+    text: 'Booked car transport for Honda City from Surathkal to Pune. Provided regular tracking updates and delivered safely on enclosed carrier vehicle within 4 days. Absolutely professional!'
   },
   {
     id: 4,
@@ -593,7 +593,7 @@ const REAL_GOOGLE_REVIEWS = [
     route: 'Bejai, Mangalore',
     service: 'Apartment Relocation',
     rating: 5,
-    text: 'Moving with elderly parents is always stressful, but the Patel Packers crew was so patient, respectful, and cooperative. They carefully dismantled, wrapped, and reassembled all our heavy wooden cots and cupboards. 5 stars well deserved!'
+    text: 'Moving with elderly parents is stressful, but the crew was patient and cooperative. Carefully dismantled, packed, and reassembled all our wooden cots and cupboards at Bejai. 5 stars!'
   },
   {
     id: 5,
@@ -602,7 +602,7 @@ const REAL_GOOGLE_REVIEWS = [
     route: 'Derebail, Mangalore',
     service: 'IT Office Relocation',
     rating: 5,
-    text: 'Hired them for our IT office relocation in Mangalore. Computers, servers, and office desks were bubble-wrapped with high-grade materials and tagged systematically. Minimum downtime for our business. Truly dependable packers!'
+    text: 'Hired them for IT office relocation in Mangalore. Computers, servers, and office desks were bubble-wrapped and tagged systematically. Minimum downtime for our business. Truly dependable!'
   },
   {
     id: 6,
@@ -611,7 +611,7 @@ const REAL_GOOGLE_REVIEWS = [
     route: 'Udupi → Mumbai',
     service: 'Bike & Luggage Shifting',
     rating: 5,
-    text: 'Genuine rates and transparent billing without any hidden charges or surprise demands. Double layer foam packing for my Royal Enfield ensured not a single mark. Brother Patel and his team coordinated throughout transit. Best packers in Mangalore.'
+    text: 'Genuine rates and transparent billing with zero hidden demands. Double layer foam packing for my Royal Enfield from Udupi to Mumbai ensured not a single mark. Best packers in Mangalore!'
   }
 ]
 
@@ -627,7 +627,7 @@ function ReviewCardItem({ item }) {
           className="review-google-badge"
           title="Verified Review on Google"
         >
-          <GoogleIcon size={14} />
+          <GoogleIcon size={13} />
           <span>Google Review</span>
         </a>
       </div>
@@ -649,6 +649,124 @@ function ReviewCardItem({ item }) {
         </div>
         <span className="review-verified-pill" title="Verified Customer Relocation">✓ Verified</span>
       </div>
+    </div>
+  )
+}
+
+function ReviewsSlideshow() {
+  const [cardsPerView, setCardsPerView] = useState(() => {
+    if (typeof window !== 'undefined') {
+      if (window.innerWidth <= 768) return 1
+      if (window.innerWidth <= 1120) return 2
+      return 3
+    }
+    return 3
+  })
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const touchStartX = useRef(0)
+  const touchEndX = useRef(0)
+
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth
+      if (w <= 768) {
+        setCardsPerView(1)
+      } else if (w <= 1120) {
+        setCardsPerView(2)
+      } else {
+        setCardsPerView(3)
+      }
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  // Partition the 6 verified reviews into slide pages
+  const slidePages = []
+  for (let i = 0; i < REAL_GOOGLE_REVIEWS.length; i += cardsPerView) {
+    slidePages.push(REAL_GOOGLE_REVIEWS.slice(i, i + cardsPerView))
+  }
+
+  const totalSlides = slidePages.length
+
+  useEffect(() => {
+    if (currentSlide >= totalSlides) {
+      setCurrentSlide(0)
+    }
+  }, [totalSlides, currentSlide])
+
+  // Autoplay slideshow every 4.5 seconds
+  useEffect(() => {
+    if (isPaused || totalSlides <= 1) return
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % totalSlides)
+    }, 4500)
+    return () => clearInterval(timer)
+  }, [totalSlides, isPaused])
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX
+  }
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        setCurrentSlide((prev) => (prev + 1) % totalSlides)
+      } else {
+        setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides)
+      }
+    }
+  }
+
+  return (
+    <div
+      className="reviews-slideshow-wrapper"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+    >
+      <div className="reviews-slideshow-clip">
+        <div
+          className="reviews-slideshow-track"
+          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+        >
+          {slidePages.map((pageCards, pageIdx) => (
+            <div
+              key={pageIdx}
+              className={`reviews-slide-page cards-${cardsPerView}`}
+            >
+              {pageCards.map((item) => (
+                <ReviewCardItem key={item.id} item={item} />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sleek Pagination Dots */}
+      {totalSlides > 1 && (
+        <div className="reviews-slideshow-dots" role="tablist" aria-label="Customer review slides">
+          {slidePages.map((_, idx) => (
+            <button
+              key={idx}
+              type="button"
+              className={`reviews-dot ${idx === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(idx)}
+              aria-label={`Show slide ${idx + 1}`}
+              aria-selected={idx === currentSlide}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -1333,56 +1451,10 @@ export default function App() {
                 </div>
               </a>
 
-              {/* Action Button: Rate Us on Google */}
-              <a
-                href={GOOGLE_REVIEW_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-pill-dark reviews-google-btn"
-                id="btn-google-reviews"
-                title="Write a Google Review for Patel Packers & Movers"
-              >
-                <GoogleIcon size={16} />
-                <span>Rate Us on Google</span>
-                <ArrowRightIcon />
-              </a>
-
             </div>
 
-            {/* Desktop Reviews (Top 3 Verified Reviews) */}
-            <div className="reviews-cards-row reviews-cards-row--desktop">
-              {REAL_GOOGLE_REVIEWS.slice(0, 3).map((item) => (
-                <ReviewCardItem key={item.id} item={item} />
-              ))}
-            </div>
-
-            {/* Mobile Reviews (All 6 verified cards + Google CTA card in smooth horizontal swipe) */}
-            <div className="reviews-cards-row reviews-cards-row--mobile">
-              {REAL_GOOGLE_REVIEWS.map((item) => (
-                <ReviewCardItem key={item.id} item={item} />
-              ))}
-              <div className="review-card review-card--cta">
-                <div className="review-cta-icon-wrap">
-                  <GoogleIcon size={24} />
-                </div>
-                <div className="review-cta-stars">
-                  {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
-                </div>
-                <h4 className="review-cta-title">Moved with Us?</h4>
-                <p className="review-cta-text">
-                  Loved your relocation experience? Share your feedback to help others choose safe moving.
-                </p>
-                <a
-                  href={GOOGLE_REVIEW_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="review-cta-link-btn"
-                >
-                  <span>Review on Google</span>
-                  <ExternalLinkIcon size={12} />
-                </a>
-              </div>
-            </div>
+            {/* Verified Reviews Responsive Slideshow (All 6 Reviews with Auto-Play & Touch Swipe) */}
+            <ReviewsSlideshow />
           </div>
         </section>
 
