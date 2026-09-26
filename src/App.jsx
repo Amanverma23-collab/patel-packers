@@ -671,12 +671,20 @@ function ReviewsSlider() {
   const isDragging = useRef(false)
   const [activeDot, setActiveDot] = useState(0)
   const [isInteracting, setIsInteracting] = useState(false)
-  const [cardsVisible, setCardsVisible] = useState(3)
+  const [cardsVisible, setCardsVisible] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const w = window.innerWidth
+      if (w <= 860) return 1
+      if (w <= 1120) return 2
+      return 3
+    }
+    return 3
+  })
 
   useEffect(() => {
     const handleResize = () => {
       const w = window.innerWidth
-      if (w <= 768) {
+      if (w <= 860) {
         setCardsVisible(1)
       } else if (w <= 1120) {
         setCardsVisible(2)
@@ -1482,8 +1490,8 @@ export default function App() {
               </div>
 
               <h2 className="display-h2 reviews-title">
-                WHAT OUR<br />
-                CUSTOMERS SAY
+                <span className="reviews-title-desktop">WHAT OUR<br />CUSTOMERS SAY</span>
+                <span className="reviews-title-mobile">WHAT OUR CUSTOMERS SAY</span>
               </h2>
 
               <p className="reviews-sub">
