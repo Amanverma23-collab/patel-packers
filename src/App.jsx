@@ -1820,18 +1820,6 @@ export default function App() {
                 <li><a href="#services" onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }}>Services</a></li>
                 <li><a href="#gallery" onClick={(e) => { e.preventDefault(); document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' }) }}>Gallery</a></li>
                 <li><a href="#reviews" onClick={(e) => { e.preventDefault(); document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }) }}>Reviews</a></li>
-                <li>
-                  <a
-                    href={GOOGLE_REVIEW_LINK}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="footer-google-ext-link"
-                    title="View Patel Packers & Movers Google Reviews"
-                  >
-                    <span>Google Reviews (4.8★)</span>
-                    <ExternalLinkIcon size={11} />
-                  </a>
-                </li>
                 <li><a href="#branches" onClick={(e) => { e.preventDefault(); document.getElementById('branches')?.scrollIntoView({ behavior: 'smooth' }) }}>Our Branches</a></li>
                 <li><a href="#cta-quote" onClick={(e) => { e.preventDefault(); document.getElementById('cta-quote')?.scrollIntoView({ behavior: 'smooth' }) }}>Get a Quote</a></li>
               </ul>
