@@ -3600,11 +3600,12 @@
 }
 
 .cta-person-img {
-  width: 195px;
-  height: 250px;
+  width: 205px;
+  height: 265px;
   object-fit: contain;
   object-position: bottom left;
   display: block;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.12));
 }
 
 /* ── Bottom Stats Strip ── */

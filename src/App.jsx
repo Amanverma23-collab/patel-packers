@@ -1708,7 +1708,7 @@ export default function App() {
                     {/* Mobile: Delivery person image set directly above phone number box */}
                     <div className="cta-phone-delivery-person" aria-hidden="true">
                       <img
-                        src="/delivery-person-transparent.png"
+                        src="/delivery-agent-ppm.png"
                         alt="Patel Packers & Movers Professional"
                         className="cta-phone-person-img"
                       />
@@ -1817,7 +1817,7 @@ export default function App() {
                   <span>Together</span>
                 </div>
                 <img
-                  src="/delivery-person-transparent.png"
+                  src="/delivery-agent-ppm.png"
                   alt="Patel Packers & Movers Professional"
                   className="cta-person-img"
                 />
