@@ -3274,6 +3274,7 @@
   flex: 1;
   max-width: 470px;
   min-width: 0;
+  margin-top: 48px;
   padding-bottom: 16px;
 }
 
@@ -3690,6 +3691,7 @@
   }
 
   .cta-quote-form-area {
+    margin-top: 0;
     padding-bottom: 0;
   }
 
@@ -3756,6 +3758,7 @@
   }
 
   .cta-quote-form-area {
+    margin-top: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     padding-bottom: 0 !important;
