@@ -174,7 +174,9 @@ export function MorphingDialogContent({
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
+        maxHeight: 'min(92vh, 680px)',
+        overflowY: 'auto',
+        overflowX: 'hidden',
         background: '#FFFFFF',
         ...style,
       }}
@@ -229,8 +231,9 @@ export function MorphingDialogContainer({ children, className, style }) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: '16px',
-              pointerEvents: 'none',
+              padding: '20px 14px',
+              overflowY: 'auto',
+              pointerEvents: 'auto',
               boxSizing: 'border-box',
             }}
           >
