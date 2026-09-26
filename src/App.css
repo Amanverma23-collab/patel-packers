@@ -3886,8 +3886,8 @@
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1.4fr 0.8fr 0.8fr 1fr;
-  gap: 40px;
+  grid-template-columns: 1.25fr 0.7fr 0.75fr 1.3fr;
+  gap: 32px;
   padding-bottom: 36px;
   border-bottom: 1px solid #EBEFEA;
 }
@@ -4119,6 +4119,38 @@
   text-decoration: underline;
 }
 
+.footer-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.footer-phone-line {
+  white-space: nowrap;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.footer-office-line {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 3px;
+}
+
+.footer-office-numbers {
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.footer-office-numbers a {
+  white-space: nowrap !important;
+}
+
 /* ── Bottom Bar ── */
 .footer-bottom {
   display: flex;
@@ -4331,6 +4363,27 @@
     font-weight: 600 !important;
     font-size: 0.78rem !important;
     text-decoration: none !important;
+  }
+
+  .footer-phone-line {
+    white-space: nowrap !important;
+  }
+
+  .footer-office-line {
+    white-space: nowrap !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    font-size: clamp(0.68rem, 2.5vw, 0.78rem) !important;
+  }
+
+  .footer-office-numbers {
+    white-space: nowrap !important;
+  }
+
+  .footer-office-numbers a {
+    font-size: clamp(0.68rem, 2.5vw, 0.78rem) !important;
+    white-space: nowrap !important;
   }
 
   .footer-contact-item svg {

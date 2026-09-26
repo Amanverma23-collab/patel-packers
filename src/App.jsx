@@ -1849,13 +1849,15 @@ export default function App() {
                 <li className="footer-contact-item footer-contact--phone">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.27 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l1.1-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.5 16l.42.92z"/></svg>
                   <div className="footer-contact-details">
-                    <div>
+                    <div className="footer-phone-line">
                       <strong>Call &amp; WhatsApp: </strong>
                       <a href="https://wa.me/918789227023" target="_blank" rel="noopener noreferrer">+91 87892 27023</a>
                     </div>
-                    <div style={{ marginTop: '4px' }}>
+                    <div className="footer-phone-line footer-office-line">
                       <strong>Office: </strong>
-                      <a href="tel:+917975430309">+91 79754 30309</a>, <a href="tel:+919448659805">+91 94486 59805</a>
+                      <span className="footer-office-numbers">
+                        <a href="tel:+917975430309">+91 79754 30309</a>, <a href="tel:+919448659805">+91 94486 59805</a>
+                      </span>
                     </div>
                   </div>
                 </li>
