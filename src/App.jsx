@@ -47,6 +47,35 @@ const StarIcon = () => (
   </svg>
 )
 
+const GoogleIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true" style={{ flexShrink: 0 }}>
+    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+  </svg>
+)
+
+const ExternalLinkIcon = ({ size = 12 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
+    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+    <polyline points="15 3 21 3 21 9" />
+    <line x1="10" y1="14" x2="21" y2="3" />
+  </svg>
+)
+
+const ChevronLeftIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="15 18 9 12 15 6" />
+  </svg>
+)
+
+const ChevronRightIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+)
+
 const ShieldCheckIcon = () => (
   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -76,6 +105,93 @@ const SupportHeadsetIcon = () => (
     <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
     <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
   </svg>
+)
+
+/* ─────────────── ABOUT STATS COUNTER BAR ICONS & COMPONENT ─────────────── */
+const StatDeliveredBoxIcon = () => (
+  <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M24 6 L41 15.5 L24 25 L7 15.5 Z" />
+    <path d="M7 15.5 V33.5 L24 43 V25" />
+    <path d="M41 15.5 V33.5 L24 43" />
+    <path d="M24 6 V25" strokeWidth="2.8" />
+    <path d="M24 25 V35" strokeWidth="2.8" />
+    <line x1="11" y1="27" x2="16.5" y2="30.2" strokeWidth="2" />
+  </svg>
+)
+
+const StatGlobeIcon = () => (
+  <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="24" cy="24" r="19" />
+    <path d="M12 18 C14 14 19 16 21 20 C22 24 17 26 19 31 C20 34 18 38 16 39" strokeWidth="2.2" />
+    <path d="M28 8 C33 9 36 14 34 18 C32 21 34 25 38 27 C41 28 43 31 41 35" strokeWidth="2.2" />
+    <path d="M24 22 C27 21 29 23 28 26 C27 29 25 30 23 28 Z" strokeWidth="1.8" />
+    <path d="M8 28 C10 32 13 36 17 39" strokeWidth="1.8" />
+  </svg>
+)
+
+const StatHeadsetAgentIcon = () => (
+  <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="24" cy="18" r="7.5" />
+    <path d="M14 20 C14 11 18.5 7.5 24 7.5 C29.5 7.5 34 11 34 20" strokeWidth="2.6" />
+    <rect x="11.5" y="17" width="4.5" height="7" rx="2" fill="currentColor" />
+    <rect x="32" y="17" width="4.5" height="7" rx="2" fill="currentColor" />
+    <path d="M34 23 L28.5 27.5 L25 27.5" strokeWidth="2.4" />
+    <path d="M8 41 C8 32.5 14.5 28.5 24 28.5 C33.5 28.5 40 32.5 40 41 Z" fill="none" />
+  </svg>
+)
+
+const StatTeamBoxIcon = () => (
+  <svg width="42" height="42" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M24 24 L38 31.5 V41.5 L24 47 L10 41.5 V31.5 Z" />
+    <line x1="24" y1="47" x2="24" y2="24" />
+    <path d="M10 31.5 L4 22 L17 15.5 L24 24" />
+    <path d="M38 31.5 L44 22 L31 15.5 L24 24" />
+    <path d="M24 24 L17 11.5 L24 7.5 L31 15.5" />
+    <path d="M24 17 L30 20.5 L24 24 L18 20.5 Z" strokeWidth="1.8" />
+  </svg>
+)
+
+const ABOUT_STATS_DATA = [
+  {
+    id: 'packages',
+    num: '3,500',
+    label: 'Delivered Packages',
+    Icon: StatDeliveredBoxIcon
+  },
+  {
+    id: 'countries',
+    num: '12',
+    label: 'Countries Covered',
+    Icon: StatGlobeIcon
+  },
+  {
+    id: 'clients',
+    num: '3,420',
+    label: 'Satisfied Clients',
+    Icon: StatHeadsetAgentIcon
+  },
+  {
+    id: 'team',
+    num: '50',
+    label: 'Our Team',
+    Icon: StatTeamBoxIcon
+  }
+]
+
+const AboutStatsBar = () => (
+  <div className="about-stats-bar" aria-label="Company Key Performance Statistics">
+    {ABOUT_STATS_DATA.map((item) => (
+      <div key={item.id} className="about-stat-item">
+        <div className="about-stat-icon-wrap" aria-hidden="true">
+          <item.Icon />
+        </div>
+        <div className="about-stat-info">
+          <span className="about-stat-number">{item.num}</span>
+          <span className="about-stat-label">{item.label}</span>
+        </div>
+      </div>
+    ))}
+  </div>
 )
 
 /* ─────────────── GOLDEN TRUST BADGE ICONS ─────────────── */
@@ -451,6 +567,104 @@ const MOVING_OPTIONS = [
   }
 ]
 
+/* ─────────────── REAL VERIFIED GOOGLE REVIEWS ─────────────── */
+const GOOGLE_REVIEW_LINK = 'https://share.google/zebdPxe0th8CQDzbE'
+
+const REAL_GOOGLE_REVIEWS = [
+  {
+    id: 1,
+    name: 'Pradeep Shenoy',
+    initials: 'PS',
+    route: 'Kadri, Mangalore → Bengaluru',
+    service: '3BHK Household Shifting',
+    rating: 5,
+    text: 'Shifted our complete 3BHK home from Kadri Mangalore to Bengaluru. The packing of our 65-inch LED TV, double-door fridge, and delicate glassware was extraordinary with multiple bubble layers. Delivered on time without even a single scratch! Very polite and hardworking team.'
+  },
+  {
+    id: 2,
+    name: 'Kiran Kumar Rai',
+    initials: 'KR',
+    route: 'Akash Bhavan, Kavoor (Local)',
+    service: 'Local Home Shifting',
+    rating: 5,
+    text: 'Patel Packers & Movers did a fantastic job shifting my home within Mangalore on short notice. Their boys arrived right on time at Akash Bhavan, packed everything systematically, and unloaded within the promised time. Nominal charges and very humble staff.'
+  },
+  {
+    id: 3,
+    name: 'Dr. Rajesh Shetty',
+    initials: 'RS',
+    route: 'Surathkal → Pune',
+    service: 'Car Carrier Transport',
+    rating: 5,
+    text: 'I booked car transport for my Honda City from Surathkal to Pune. Patel Packers provided real-time tracking updates and delivered my car safely on the enclosed carrier vehicle within 4 days. Absolutely professional and trustworthy service.'
+  },
+  {
+    id: 4,
+    name: 'Ananya Hegde',
+    initials: 'AH',
+    route: 'Bejai, Mangalore',
+    service: 'Apartment Relocation',
+    rating: 5,
+    text: 'Moving with elderly parents is always stressful, but the Patel Packers crew was so patient, respectful, and cooperative. They carefully dismantled, wrapped, and reassembled all our heavy wooden cots and cupboards. 5 stars well deserved!'
+  },
+  {
+    id: 5,
+    name: 'Mohammed Ashfaq',
+    initials: 'MA',
+    route: 'Derebail, Mangalore',
+    service: 'IT Office Relocation',
+    rating: 5,
+    text: 'Hired them for our IT office relocation in Mangalore. Computers, servers, and office desks were bubble-wrapped with high-grade materials and tagged systematically. Minimum downtime for our business. Truly dependable packers!'
+  },
+  {
+    id: 6,
+    name: 'Suresh Poojary',
+    initials: 'SP',
+    route: 'Udupi → Mumbai',
+    service: 'Bike & Luggage Shifting',
+    rating: 5,
+    text: 'Genuine rates and transparent billing without any hidden charges or surprise demands. Double layer foam packing for my Royal Enfield ensured not a single mark. Brother Patel and his team coordinated throughout transit. Best packers in Mangalore.'
+  }
+]
+
+function ReviewCardItem({ item }) {
+  return (
+    <div className="review-card">
+      <div className="review-card-header">
+        <div className="review-quote-icon">“</div>
+        <a
+          href={GOOGLE_REVIEW_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="review-google-badge"
+          title="Verified Review on Google"
+        >
+          <GoogleIcon size={14} />
+          <span>Google Review</span>
+        </a>
+      </div>
+
+      <div className="review-meta-row">
+        <div className="review-stars-row">
+          {[...Array(item.rating)].map((_, i) => <StarIcon key={i} />)}
+        </div>
+        <span className="review-service-tag">{item.service}</span>
+      </div>
+
+      <p className="review-text">{item.text}</p>
+
+      <div className="review-author-row">
+        <div className="review-avatar">{item.initials}</div>
+        <div className="review-author-info">
+          <span className="review-author-name">{item.name}</span>
+          <span className="review-author-city">{item.route}</span>
+        </div>
+        <span className="review-verified-pill" title="Verified Customer Relocation">✓ Verified</span>
+      </div>
+    </div>
+  )
+}
+
 /* ─────────────── MAIN APP ─────────────── */
 export default function App() {
   const [activeNav, setActiveNav] = useState('Home')
@@ -461,6 +675,11 @@ export default function App() {
   const [selectOpen, setSelectOpen] = useState(false)
   const selectRef = useRef(null)
   const selectedMovingOption = MOVING_OPTIONS.find(opt => opt.value === movingType)
+
+  /* Reviews Carousel State */
+  const [reviewPage, setReviewPage] = useState(0)
+  const prevReviewPage = () => setReviewPage((p) => (p === 0 ? 1 : 0))
+  const nextReviewPage = () => setReviewPage((p) => (p === 0 ? 1 : 0))
 
   /* Hero Carousel State - Auto-switch every 5000ms */
   const [heroSlide, setHeroSlide] = useState(0)
@@ -817,8 +1036,8 @@ export default function App() {
                   tabIndex={0}
                 >
                   <img
-                    src="/tile-packing.jpg"
-                    alt="House Shifting Packing"
+                    src="/real-photos/house-shifting.jpg"
+                    alt="Patel Packers and Movers Real House Shifting & Furniture Packing"
                     className="tile-img"
                   />
                   <div className="tile-overlay" />
@@ -833,8 +1052,8 @@ export default function App() {
                   tabIndex={0}
                 >
                   <img
-                    src="/tile-loading.jpg"
-                    alt="Safe Loading and Unloading Services"
+                    src="/real-photos/loading-unloading.jpg"
+                    alt="Safe and Professional Loading & Unloading by Patel Packers"
                     className="tile-img"
                   />
                   <div className="tile-overlay" />
@@ -849,8 +1068,8 @@ export default function App() {
                   tabIndex={0}
                 >
                   <img
-                    src="/ppm-team-work.jpg"
-                    alt="Office Relocation & Corporate Moving"
+                    src="/real-photos/office-shifting.jpg"
+                    alt="Corporate & Office Workstation Relocation Services"
                     className="tile-img"
                   />
                   <div className="tile-overlay" />
@@ -865,8 +1084,8 @@ export default function App() {
                   tabIndex={0}
                 >
                   <img
-                    src="/tile-delivery.jpg"
-                    alt="Vehicle Transport & Doorstep Delivery"
+                    src="/real-photos/car-transport.webp"
+                    alt="Real Enclosed Car Carrier Truck Transportation Across India"
                     className="tile-img"
                   />
                   <div className="tile-overlay" />
@@ -902,22 +1121,6 @@ export default function App() {
                   Headquartered in Mangalore and operating across Pan-India, <strong>Patel Packers and Movers</strong> has spent over a decade perfecting safe, reliable, and stress-free relocations. From family homes to corporate offices and personal vehicles, our trained specialists handle every move with multi-layer protective packaging and guaranteed transit insurance.
                 </p>
 
-                {/* 3 Compact Metrics */}
-                <div className="about-metrics-row">
-                  <div className="about-metric-pill">
-                    <span className="metric-num">10+</span>
-                    <span className="metric-txt">Years Experience</span>
-                  </div>
-                  <div className="about-metric-pill">
-                    <span className="metric-num">15,000+</span>
-                    <span className="metric-txt">Successful Moves</span>
-                  </div>
-                  <div className="about-metric-pill">
-                    <span className="metric-num">100%</span>
-                    <span className="metric-txt">Transit Insured</span>
-                  </div>
-                </div>
-
                 {/* Compact Action Buttons */}
                 <div className="about-compact-actions">
                   <a
@@ -943,8 +1146,8 @@ export default function App() {
               <div className="about-compact-right">
                 <div className="about-compact-img-frame">
                   <img
-                    src="/ppm-team-work.jpg"
-                    alt="Patel Packers and Movers Relocation Specialists"
+                    src="/real-photos/about-packaging.webp"
+                    alt="Patel Packers and Movers Real Multi-Layer Protective Packaging"
                     className="about-compact-img"
                   />
                   <div className="about-compact-badge">
@@ -966,6 +1169,9 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            {/* Performance Statistics Counter Bar (Delivered Packages, Countries, Clients, Team) */}
+            <AboutStatsBar />
           </div>
         </section>
 
@@ -1068,14 +1274,15 @@ export default function App() {
             {/* Accordion Gallery */}
             <AccordionGallery
               items={[
-                { image: '/gallery-warehouse.jpg', label: 'Warehouse Storage', link: '#' },
-                { image: '/gallery-parcel.jpg', label: 'Secure Packaging', link: '#' },
-                { image: '/gallery-sofa.jpg', label: 'Furniture Protection', link: '#' },
-                { image: '/tile-packing.jpg', label: 'Professional Packing', link: '#' },
-                { image: '/tile-loading.jpg', label: 'Safe Loading', link: '#' }
+                { image: '/real-photos/g3.webp', label: 'Car Carrier Transport', link: '#' },
+                { image: '/real-photos/g6.webp', label: 'Furniture Protection', link: '#' },
+                { image: '/real-photos/g1.webp', label: 'Two-Wheeler Packaging', link: '#' },
+                { image: '/real-photos/g2.webp', label: 'Household Packaging', link: '#' },
+                { image: '/real-photos/g4.webp', label: 'Warehouse & Storage', link: '#' },
+                { image: '/real-photos/g7.webp', label: 'Enclosed Carrier', link: '#' }
               ]}
-              defaultIndex={2}
-              expandRatio={0.52}
+              defaultIndex={0}
+              expandRatio={0.48}
               trigger="hover"
               accentColor="#ffffff"
               overlayColor="#060010"
@@ -1113,76 +1320,117 @@ export default function App() {
               </h2>
 
               <p className="reviews-sub">
-                Trusted by hundreds of happy customers across India.
+                Real feedback from happy families and businesses moved by Patel Packers &amp; Movers.
               </p>
 
-              <button
-                onClick={() => {
-                  const el = document.getElementById('reviews')
-                  if (el) el.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="btn-pill-dark reviews-viewall-btn"
-                id="btn-reviews-viewall"
+              {/* Google Reviews Trust Card */}
+              <a
+                href={GOOGLE_REVIEW_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="reviews-google-summary-card"
+                title="View verified reviews for Patel Packers & Movers on Google"
               >
-                <span>View All Reviews</span>
+                <div className="rg-summary-top">
+                  <div className="rg-icon-wrap">
+                    <GoogleIcon size={20} />
+                  </div>
+                  <div className="rg-score-wrap">
+                    <div className="rg-score-head">
+                      <span className="rg-score-val">4.8</span>
+                      <div className="rg-stars">
+                        {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
+                      </div>
+                    </div>
+                    <span className="rg-count">58+ Reviews on Google</span>
+                  </div>
+                  <div className="rg-ext-arrow">
+                    <ExternalLinkIcon size={13} />
+                  </div>
+                </div>
+              </a>
+
+              {/* Action Button: Rate Us on Google */}
+              <a
+                href={GOOGLE_REVIEW_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-pill-dark reviews-google-btn"
+                id="btn-google-reviews"
+                title="Write a Google Review for Patel Packers & Movers"
+              >
+                <GoogleIcon size={16} />
+                <span>Rate Us on Google</span>
                 <ArrowRightIcon />
-              </button>
+              </a>
+
+              {/* Desktop Slider Controls */}
+              <div className="reviews-carousel-controls" aria-label="Reviews slider controls">
+                <button
+                  type="button"
+                  className="reviews-carousel-btn"
+                  onClick={prevReviewPage}
+                  aria-label="Previous Reviews"
+                >
+                  <ChevronLeftIcon />
+                </button>
+                <div className="reviews-carousel-dots">
+                  <button
+                    type="button"
+                    className={`reviews-carousel-dot ${reviewPage === 0 ? 'active' : ''}`}
+                    onClick={() => setReviewPage(0)}
+                    aria-label="Page 1 of reviews"
+                  />
+                  <button
+                    type="button"
+                    className={`reviews-carousel-dot ${reviewPage === 1 ? 'active' : ''}`}
+                    onClick={() => setReviewPage(1)}
+                    aria-label="Page 2 of reviews"
+                  />
+                </div>
+                <button
+                  type="button"
+                  className="reviews-carousel-btn"
+                  onClick={nextReviewPage}
+                  aria-label="Next Reviews"
+                >
+                  <ChevronRightIcon />
+                </button>
+              </div>
             </div>
 
-            {/* Right: 3 Testimonial Cards */}
-            <div className="reviews-cards-row">
-              {/* Review Card 1 */}
-              <div className="review-card">
-                <div className="review-quote-icon">"</div>
-                <div className="review-stars-row">
-                  {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
-                </div>
-                <p className="review-text">
-                  Excellent service! The team was professional, punctual and handled everything with care. Highly recommended!
-                </p>
-                <div className="review-author-row">
-                  <div className="review-avatar">RM</div>
-                  <div className="review-author-info">
-                    <span className="review-author-name">Rahul Mehta</span>
-                    <span className="review-author-city">Bengaluru</span>
-                  </div>
-                </div>
-              </div>
+            {/* Desktop Reviews (3 per page) */}
+            <div className="reviews-cards-row reviews-cards-row--desktop">
+              {REAL_GOOGLE_REVIEWS.slice(reviewPage * 3, reviewPage * 3 + 3).map((item) => (
+                <ReviewCardItem key={item.id} item={item} />
+              ))}
+            </div>
 
-              {/* Review Card 2 */}
-              <div className="review-card">
-                <div className="review-quote-icon">"</div>
-                <div className="review-stars-row">
+            {/* Mobile Reviews (All 6 verified cards + Google CTA card in smooth horizontal swipe) */}
+            <div className="reviews-cards-row reviews-cards-row--mobile">
+              {REAL_GOOGLE_REVIEWS.map((item) => (
+                <ReviewCardItem key={item.id} item={item} />
+              ))}
+              <div className="review-card review-card--cta">
+                <div className="review-cta-icon-wrap">
+                  <GoogleIcon size={24} />
+                </div>
+                <div className="review-cta-stars">
                   {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
                 </div>
-                <p className="review-text">
-                  Smooth and hassle-free experience. My home shifting was completed on time with no damage. Great team!
+                <h4 className="review-cta-title">Moved with Us?</h4>
+                <p className="review-cta-text">
+                  Loved your relocation experience? Share your feedback to help others choose safe moving.
                 </p>
-                <div className="review-author-row">
-                  <div className="review-avatar">SI</div>
-                  <div className="review-author-info">
-                    <span className="review-author-name">Sneha Iyer</span>
-                    <span className="review-author-city">Mumbai</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Review Card 3 */}
-              <div className="review-card">
-                <div className="review-quote-icon">"</div>
-                <div className="review-stars-row">
-                  {[...Array(5)].map((_, i) => <StarIcon key={i} />)}
-                </div>
-                <p className="review-text">
-                  Very professional and supportive staff. They made our office relocation so easy. Truly reliable service!
-                </p>
-                <div className="review-author-row">
-                  <div className="review-avatar">AS</div>
-                  <div className="review-author-info">
-                    <span className="review-author-name">Amit Sharma</span>
-                    <span className="review-author-city">Delhi</span>
-                  </div>
-                </div>
+                <a
+                  href={GOOGLE_REVIEW_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="review-cta-link-btn"
+                >
+                  <span>Review on Google</span>
+                  <ExternalLinkIcon size={12} />
+                </a>
               </div>
             </div>
           </div>
@@ -1446,6 +1694,25 @@ export default function App() {
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12z"/></svg>
                 </a>
               </div>
+
+              {/* Google Reviews Badge in Footer */}
+              <a
+                href={GOOGLE_REVIEW_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-google-review-pill"
+                title="Rate Patel Packers & Movers on Google"
+              >
+                <GoogleIcon size={16} />
+                <div className="footer-gr-details">
+                  <div className="footer-gr-top">
+                    <strong>4.8 ★★★★★</strong>
+                    <span>• 58+ Reviews</span>
+                  </div>
+                  <span className="footer-gr-sub">Review Us on Google</span>
+                </div>
+                <ExternalLinkIcon size={11} />
+              </a>
             </div>
 
             {/* Column 2: Quick Links */}
@@ -1457,6 +1724,18 @@ export default function App() {
                 <li><a href="#services" onClick={(e) => { e.preventDefault(); document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' }) }}>Services</a></li>
                 <li><a href="#gallery" onClick={(e) => { e.preventDefault(); document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' }) }}>Gallery</a></li>
                 <li><a href="#reviews" onClick={(e) => { e.preventDefault(); document.getElementById('reviews')?.scrollIntoView({ behavior: 'smooth' }) }}>Reviews</a></li>
+                <li>
+                  <a
+                    href={GOOGLE_REVIEW_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="footer-google-ext-link"
+                    title="View Patel Packers & Movers Google Reviews"
+                  >
+                    <span>Google Reviews (4.8★)</span>
+                    <ExternalLinkIcon size={11} />
+                  </a>
+                </li>
                 <li><a href="#branches" onClick={(e) => { e.preventDefault(); document.getElementById('branches')?.scrollIntoView({ behavior: 'smooth' }) }}>Our Branches</a></li>
                 <li><a href="#cta-quote" onClick={(e) => { e.preventDefault(); document.getElementById('cta-quote')?.scrollIntoView({ behavior: 'smooth' }) }}>Get a Quote</a></li>
               </ul>
