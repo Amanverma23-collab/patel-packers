@@ -2,6 +2,82 @@ import { useState, useEffect, useRef, Fragment } from 'react'
 import './App.css'
 import AccordionGallery from './AccordionGallery'
 import footerLogo from './assets/footer-logo.png'
+import {
+  MorphingDialog,
+  MorphingDialogTrigger,
+  MorphingDialogContent,
+  MorphingDialogTitle,
+  MorphingDialogImage,
+  MorphingDialogSubtitle,
+  MorphingDialogClose,
+  MorphingDialogDescription,
+  MorphingDialogContainer,
+} from '@/components/core/morphing-dialog'
+import { PlusIcon } from 'lucide-react'
+
+/* ─────────────── SERVICES DATA ─────────────── */
+const SERVICES_DATA = [
+  {
+    id: 'house-shifting',
+    title: 'House Shifting',
+    subtitle: 'Safe, Stress-Free Household Relocation',
+    image: '/real-photos/house-shifting.jpg',
+    alt: 'Patel Packers and Movers Real House Shifting & Furniture Packing',
+    description:
+      'Complete door-to-door household shifting across Mangalore and Pan-India. We use 5-layer protective packaging for fragile items, safe furniture dismantling, loading, transit, and reassembly at your new doorstep.',
+    highlights: [
+      'Multi-layer bubble wrap & corner edge guards',
+      'Experienced and trained in-house handling crew',
+      'Safe dismantling and reassembly of furniture',
+      'On-time delivery with zero hidden charges',
+    ],
+  },
+  {
+    id: 'loading-unloading',
+    title: 'Loading & Unloading',
+    subtitle: 'Heavy & Fragile Goods Handled by Experts',
+    image: '/real-photos/loading-unloading.jpg',
+    alt: 'Safe and Professional Loading & Unloading by Patel Packers',
+    description:
+      'Professional loading and unloading services using hydraulic lifters, ramps, and heavy-duty moving straps. Our verified team ensures every single item is moved without a single scratch.',
+    highlights: [
+      'Trained labour with heavy lifting gear',
+      'Zero damage guarantee with transit care',
+      'Floor and wall protection during loading & unloading',
+      'Available 24/7 across Mangalore and suburbs',
+    ],
+  },
+  {
+    id: 'office-relocation',
+    title: 'Office Relocation',
+    subtitle: 'Zero-Downtime Corporate Shifting',
+    image: '/real-photos/office-shifting.jpg',
+    alt: 'Corporate & Office Workstation Relocation Services',
+    description:
+      'Seamless business and office relocation engineered for minimal downtime. We securely pack IT equipment, servers, office workstations, files, and executive furniture with color-coded tracking.',
+    highlights: [
+      'Specialized anti-static packaging for IT gear',
+      'Weekend and overnight shifting options',
+      'Asset inventory tagging and tracking',
+      'Certified commercial relocation specialists',
+    ],
+  },
+  {
+    id: 'vehicle-transport',
+    title: 'Vehicle Transport',
+    subtitle: 'Enclosed Carrier Car & Bike Transportation',
+    image: '/real-photos/car-transport.webp',
+    alt: 'Real Enclosed Car Carrier Truck Transportation Across India',
+    description:
+      'Safe door-to-door transportation for cars and two-wheelers in specialized closed container carriers. Complete safety check, transit insurance coverage, and live GPS tracking for long-distance moves.',
+    highlights: [
+      'All-weather closed container carriers',
+      'Pre-transit inspection report & photos',
+      'Direct doorstep pickup and delivery',
+      'Guaranteed transit insurance coverage',
+    ],
+  },
+]
 
 /* ─────────────── ICONS ─────────────── */
 const ArrowRightIcon = () => (
@@ -61,6 +137,12 @@ const ExternalLinkIcon = ({ size = 12 }) => (
     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
     <polyline points="15 3 21 3 21 9" />
     <line x1="10" y1="14" x2="21" y2="3" />
+  </svg>
+)
+
+const WhatsAppIcon = ({ size = 18 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style={{ flexShrink: 0 }}>
+    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm.01 1.67c2.2 0 4.26.86 5.82 2.42a8.225 8.225 0 0 1 2.41 5.83c0 4.54-3.7 8.24-8.24 8.24-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.196 8.196 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24zm4.52 11.66c-.25-.13-1.47-.72-1.7-.81-.23-.08-.39-.13-.56.13-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.13-1.06-.39-2.01-1.24-.74-.66-1.24-1.48-1.39-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.44.12-.14.17-.25.25-.42.08-.17.04-.31-.02-.44-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1s.9 2.44 1.02 2.61c.13.17 1.77 2.7 4.29 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
   </svg>
 )
 
@@ -1188,69 +1270,121 @@ export default function App() {
             {/* Right: 3 Rounded Vertical Service Cards */}
             <div className="bottom-card-right">
               <div className="service-tiles-grid">
-                {/* Tile 1: House Shifting */}
-                <div
-                  className="service-tile-card"
-                  onClick={() => handleOpenQuote('House Shifting')}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <img
-                    src="/real-photos/house-shifting.jpg"
-                    alt="Patel Packers and Movers Real House Shifting & Furniture Packing"
-                    className="tile-img"
-                  />
-                  <div className="tile-overlay" />
-                  <span className="tile-label">HOUSE SHIFTING</span>
-                </div>
+                {SERVICES_DATA.map((item) => (
+                  <MorphingDialog
+                    key={item.id}
+                    transition={{
+                      type: 'spring',
+                      bounce: 0.05,
+                      duration: 0.28,
+                    }}
+                  >
+                    <MorphingDialogTrigger
+                      className="service-tile-card"
+                      style={{ borderRadius: '18px' }}
+                    >
+                      <MorphingDialogImage
+                        src={item.image}
+                        alt={item.alt}
+                        className="tile-img"
+                      />
+                      <div className="tile-overlay" />
+                      <div className="tile-content-wrap">
+                        <MorphingDialogTitle className="tile-label">
+                          {item.title.toUpperCase()}
+                        </MorphingDialogTitle>
+                        <span className="tile-plus-icon" aria-label="Open service details">
+                          <PlusIcon size={12} />
+                        </span>
+                      </div>
+                    </MorphingDialogTrigger>
 
-                {/* Tile 2: Loading & Unloading */}
-                <div
-                  className="service-tile-card"
-                  onClick={() => handleOpenQuote('Loading & Unloading')}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <img
-                    src="/real-photos/loading-unloading.jpg"
-                    alt="Safe and Professional Loading & Unloading by Patel Packers"
-                    className="tile-img"
-                  />
-                  <div className="tile-overlay" />
-                  <span className="tile-label">LOADING & UNLOADING</span>
-                </div>
+                    <MorphingDialogContainer>
+                      <MorphingDialogContent
+                        style={{ borderRadius: '24px' }}
+                        className="service-modal-content"
+                      >
+                        <div className="service-modal-img-wrap">
+                          <MorphingDialogImage
+                            src={item.image}
+                            alt={item.alt}
+                            className="service-modal-img"
+                          />
+                          <MorphingDialogClose className="service-modal-close" />
+                        </div>
 
-                {/* Tile 3: Office Relocation */}
-                <div
-                  className="service-tile-card"
-                  onClick={() => handleOpenQuote('Office Relocation')}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <img
-                    src="/real-photos/office-shifting.jpg"
-                    alt="Corporate & Office Workstation Relocation Services"
-                    className="tile-img"
-                  />
-                  <div className="tile-overlay" />
-                  <span className="tile-label">OFFICE RELOCATION</span>
-                </div>
+                        <div className="service-modal-body">
+                          <div className="service-modal-header">
+                            <div className="outline-tag-badge">
+                              <span>VERIFIED SERVICE</span>
+                            </div>
+                            <MorphingDialogTitle className="service-modal-title">
+                              {item.title}
+                            </MorphingDialogTitle>
+                            <MorphingDialogSubtitle className="service-modal-sub">
+                              {item.subtitle}
+                            </MorphingDialogSubtitle>
+                          </div>
 
-                {/* Tile 4: Vehicle Transport */}
-                <div
-                  className="service-tile-card"
-                  onClick={() => handleOpenQuote('Vehicle Transport')}
-                  role="button"
-                  tabIndex={0}
-                >
-                  <img
-                    src="/real-photos/car-transport.webp"
-                    alt="Real Enclosed Car Carrier Truck Transportation Across India"
-                    className="tile-img"
-                  />
-                  <div className="tile-overlay" />
-                  <span className="tile-label">VEHICLE TRANSPORT</span>
-                </div>
+                          <MorphingDialogDescription
+                            disableLayoutAnimation
+                            variants={{
+                              initial: { opacity: 0, scale: 0.95, y: 15 },
+                              animate: { opacity: 1, scale: 1, y: 0 },
+                              exit: { opacity: 0, scale: 0.95, y: 15 },
+                            }}
+                            className="service-modal-desc-wrap"
+                          >
+                            <p className="service-modal-desc-text">
+                              {item.description}
+                            </p>
+
+                            <div className="service-modal-features">
+                              <h5 className="service-modal-features-title">Key Highlights:</h5>
+                              <ul className="service-modal-features-list">
+                                {item.highlights.map((feat, i) => (
+                                  <li key={i}>
+                                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2D8A4E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                                    <span>{feat}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div className="service-modal-actions">
+                              <button
+                                type="button"
+                                className="btn-pill-dark service-modal-btn-quote"
+                                onClick={() => handleOpenQuote(item.title)}
+                              >
+                                <span>Get Free Quote</span>
+                                <ArrowRightIcon />
+                              </button>
+                              <a
+                                href="https://wa.me/918789227023"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="service-modal-wa-btn"
+                                title="Chat on WhatsApp"
+                              >
+                                <WhatsAppIcon size={16} />
+                                <span>WhatsApp</span>
+                              </a>
+                              <a
+                                href="tel:+918789227023"
+                                className="service-modal-call-btn"
+                                title="Call for Instant Booking"
+                              >
+                                <PhoneCallIcon />
+                                <span>Call</span>
+                              </a>
+                            </div>
+                          </MorphingDialogDescription>
+                        </div>
+                      </MorphingDialogContent>
+                    </MorphingDialogContainer>
+                  </MorphingDialog>
+                ))}
               </div>
             </div>
           </div>
