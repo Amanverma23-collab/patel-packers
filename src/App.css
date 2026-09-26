@@ -1684,7 +1684,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    transform: translateY(-22px); /* Shifted up so Call button cleanly clears the hero section image */
+    transform: translateY(-17px); /* Balanced vertical alignment in header */
   }
 
   .nav-call-btn {
