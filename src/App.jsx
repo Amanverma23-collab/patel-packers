@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, Fragment } from 'react'
 import './App.css'
 import AccordionGallery from './AccordionGallery'
 import footerLogo from './assets/footer-logo.png'
+import PageSkeleton from './components/PageSkeleton'
 import {
   MorphingDialog,
   MorphingDialogTrigger,
@@ -923,6 +924,30 @@ export default function App() {
   const selectRef = useRef(null)
   const selectedMovingOption = MOVING_OPTIONS.find(opt => opt.value === movingType)
 
+  /* Full-Page Loading Skeleton State */
+  const [pageLoading, setPageLoading] = useState(true)
+  const [showSkeleton, setShowSkeleton] = useState(true)
+
+  useEffect(() => {
+    const finishLoading = () => {
+      setTimeout(() => {
+        setPageLoading(false)
+        setTimeout(() => setShowSkeleton(false), 500)
+      }, 600)
+    }
+
+    if (document.readyState === 'complete') {
+      finishLoading()
+    } else {
+      window.addEventListener('load', finishLoading)
+      const fallback = setTimeout(finishLoading, 1200)
+      return () => {
+        window.removeEventListener('load', finishLoading)
+        clearTimeout(fallback)
+      }
+    }
+  }, [])
+
   /* Hero Carousel State - Auto-switch every 5000ms */
   const [heroSlide, setHeroSlide] = useState(0)
   const [timerKey, setTimerKey] = useState(0)
@@ -1002,6 +1027,13 @@ export default function App() {
 
   return (
     <div className="canvas-wrapper">
+      {/* ── Full-Page Loading Skeleton ── */}
+      {showSkeleton && (
+        <div className={`page-skeleton-overlay ${!pageLoading ? 'page-skeleton-overlay--hidden' : ''}`}>
+          <PageSkeleton />
+        </div>
+      )}
+
       <div className="canvas-frame">
 
         {/* ════════════════ TOP SECTION (TAB + HEADER + UPPER CARD) ════════════════ */}
