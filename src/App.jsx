@@ -555,6 +555,16 @@ const MOVING_OPTIONS = [
   }
 ]
 
+/* ─────────────── GALLERY ITEMS ─────────────── */
+const GALLERY_ITEMS = [
+  { id: 1, image: '/real-photos/g3.webp', label: 'Car Carrier Transport', category: 'Vehicle Transit', link: '#' },
+  { id: 2, image: '/real-photos/g6.webp', label: 'Furniture Protection', category: 'Safe Packing', link: '#' },
+  { id: 3, image: '/real-photos/g1.webp', label: 'Two-Wheeler Packaging', category: 'Bike Shifting', link: '#' },
+  { id: 4, image: '/real-photos/g2.webp', label: 'Household Packaging', category: 'Home Shifting', link: '#' },
+  { id: 5, image: '/real-photos/g4.webp', label: 'Warehouse & Storage', category: 'Secure Storage', link: '#' },
+  { id: 6, image: '/real-photos/g7.webp', label: 'Enclosed Carrier', category: 'Safe Transit', link: '#' }
+]
+
 /* ─────────────── REAL VERIFIED GOOGLE REVIEWS ─────────────── */
 const GOOGLE_REVIEW_LINK = 'https://share.google/zebdPxe0th8CQDzbE'
 
@@ -816,6 +826,7 @@ export default function App() {
   const [activeNav, setActiveNav] = useState('Home')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [quoteOpen, setQuoteOpen] = useState(false)
+  const [selectedGalleryImg, setSelectedGalleryImg] = useState(null)
   const [selectedService, setSelectedService] = useState('House Shifting')
   const [movingType, setMovingType] = useState('')
   const [selectOpen, setSelectOpen] = useState(false)
@@ -1412,34 +1423,53 @@ export default function App() {
               </p>
             </div>
 
-            {/* Accordion Gallery */}
-            <AccordionGallery
-              items={[
-                { image: '/real-photos/g3.webp', label: 'Car Carrier Transport', link: '#' },
-                { image: '/real-photos/g6.webp', label: 'Furniture Protection', link: '#' },
-                { image: '/real-photos/g1.webp', label: 'Two-Wheeler Packaging', link: '#' },
-                { image: '/real-photos/g2.webp', label: 'Household Packaging', link: '#' },
-                { image: '/real-photos/g4.webp', label: 'Warehouse & Storage', link: '#' },
-                { image: '/real-photos/g7.webp', label: 'Enclosed Carrier', link: '#' }
-              ]}
-              defaultIndex={0}
-              expandRatio={0.48}
-              trigger="hover"
-              accentColor="#ffffff"
-              overlayColor="#060010"
-              textColor="#ffffff"
-              grayscale
-              showLabels
-              duration={0.6}
-              ease="power3.out"
-              parallax={0.5}
-              tilt={8}
-              stagger={0.06}
-              height={460}
-              gap={10}
-              radius={16}
-              orientation="horizontal"
-            />
+            {/* Desktop: Interactive Accordion Gallery */}
+            <div className="gallery-desktop-view">
+              <AccordionGallery
+                items={GALLERY_ITEMS}
+                defaultIndex={0}
+                expandRatio={0.48}
+                trigger="hover"
+                accentColor="#ffffff"
+                overlayColor="#060010"
+                textColor="#ffffff"
+                grayscale
+                showLabels
+                duration={0.6}
+                ease="power3.out"
+                parallax={0.5}
+                tilt={8}
+                stagger={0.06}
+                height={460}
+                gap={10}
+                radius={16}
+                orientation="horizontal"
+              />
+            </div>
+
+            {/* Mobile: Normal Grid Gallery with Clear Photos */}
+            <div className="gallery-mobile-view">
+              <div className="gallery-mobile-grid">
+                {GALLERY_ITEMS.map((item) => (
+                  <div
+                    key={item.id}
+                    className="gallery-mobile-card"
+                    onClick={() => setSelectedGalleryImg(item)}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.label}
+                      className="gallery-mobile-img"
+                      loading="lazy"
+                    />
+                    <div className="gallery-mobile-card-overlay">
+                      <span className="gallery-mobile-badge">{item.category}</span>
+                      <span className="gallery-mobile-card-title">{item.label}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
@@ -1870,6 +1900,34 @@ export default function App() {
         onClose={() => setQuoteOpen(false)}
         initialService={selectedService}
       />
+
+      {/* ════════════════ GALLERY LIGHTBOX MODAL (MOBILE) ════════════════ */}
+      {selectedGalleryImg && (
+        <div
+          className="gallery-lightbox-modal"
+          onClick={() => setSelectedGalleryImg(null)}
+        >
+          <div className="gallery-lightbox-content" onClick={(e) => e.stopPropagation()}>
+            <button
+              type="button"
+              className="gallery-lightbox-close"
+              onClick={() => setSelectedGalleryImg(null)}
+              aria-label="Close"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedGalleryImg.image}
+              alt={selectedGalleryImg.label}
+              className="gallery-lightbox-img"
+            />
+            <div className="gallery-lightbox-info">
+              <span className="gallery-lightbox-badge">{selectedGalleryImg.category}</span>
+              <h4 className="gallery-lightbox-title">{selectedGalleryImg.label}</h4>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
