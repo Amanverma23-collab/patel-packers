@@ -338,7 +338,12 @@ export function MorphingDialogImage({
       alt={alt}
       className={cn(className)}
       layoutId={`dialog-img-${uniqueId}`}
-      style={style}
+      style={{
+        transform: 'translateZ(0)',
+        WebkitBackfaceVisibility: 'hidden',
+        backfaceVisibility: 'hidden',
+        ...style,
+      }}
     />
   )
 }

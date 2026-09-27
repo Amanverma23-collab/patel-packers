@@ -1997,6 +1997,9 @@
   .pure-badge-img {
     width: clamp(98px, 28vw, 130px);
     height: clamp(98px, 28vw, 130px);
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.42));
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 }
 
@@ -4789,6 +4792,69 @@
 
   .footer-dot {
     color: #CBD5CD !important;
+  }
+}
+
+/* ════════════════ MOBILE PERFORMANCE & BUTTERY-SMOOTH TOUCH ENGINE ════════════════ */
+@media (max-width: 860px) {
+  /* Prevent horizontal layout shifts / jank */
+  html, body {
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+  }
+
+  /* GPU Compositing for Floating / Fixed Navigation & Action Buttons */
+  .dark-nav-header,
+  .nav-call-btn,
+  .mobile-toggle,
+  .mobile-nav-popup,
+  .modal-backdrop,
+  .morphing-dialog-portal-wrapper {
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+  }
+
+  /* SVG Notch Masks GPU raster caching to eliminate scroll repaint lag */
+  .card-bg-svg--mobile {
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+    -webkit-backface-visibility: hidden !important;
+  }
+
+  /* Rotating Text Badge GPU offloading */
+  .rotating-text-ring {
+    will-change: transform !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    backface-visibility: hidden !important;
+  }
+
+  /* Reviews Slider Touch Physics & Containment */
+  .reviews-slider-track {
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-x !important;
+    overscroll-behavior-x: contain !important;
+    scroll-behavior: smooth !important;
+  }
+
+  /* Off-screen Content Visibility: browser skips layout/paint for offscreen sections */
+  .about-section,
+  .gallery-section,
+  .reviews-section,
+  .branches-section,
+  .footer-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+  }
+
+  /* Prevent tap delay and unwanted highlight */
+  a, button, input, select {
+    -webkit-tap-highlight-color: transparent !important;
+    touch-action: manipulation;
   }
 }
 

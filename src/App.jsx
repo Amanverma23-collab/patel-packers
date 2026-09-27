@@ -782,7 +782,7 @@ function ReviewsSlider() {
 
   const totalSnapPositions = Math.max(1, REAL_GOOGLE_REVIEWS.length - cardsVisible + 1)
 
-  // Scroll sync for dots
+  // Scroll sync for dots (deduplicated to prevent unnecessary re-renders)
   const handleScroll = () => {
     if (!trackRef.current) return
     const { scrollLeft, scrollWidth, clientWidth } = trackRef.current
@@ -790,7 +790,8 @@ function ReviewsSlider() {
     if (maxScroll > 0) {
       const progress = scrollLeft / maxScroll
       const targetDot = Math.round(progress * (totalSnapPositions - 1))
-      setActiveDot(Math.max(0, Math.min(targetDot, totalSnapPositions - 1)))
+      const nextDot = Math.max(0, Math.min(targetDot, totalSnapPositions - 1))
+      setActiveDot((prev) => (prev !== nextDot ? nextDot : prev))
     }
   }
 
@@ -922,7 +923,17 @@ export default function App() {
   const [movingType, setMovingType] = useState('')
   const [selectOpen, setSelectOpen] = useState(false)
   const selectRef = useRef(null)
-  const selectedMovingOption = MOVING_OPTIONS.find(opt => opt.value === movingType)
+  /* Mobile detection for high-performance touch & rendering optimizations */
+  const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth <= 860 : false))
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 860
+      setIsMobile((prev) => (prev !== mobile ? mobile : prev))
+    }
+    window.addEventListener('resize', handleResize, { passive: true })
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   /* Full-Page Loading Skeleton State */
   const [pageLoading, setPageLoading] = useState(true)
@@ -1129,6 +1140,8 @@ export default function App() {
                       className={`hero-inset-photo hero-inset-photo--desktop${slide.imageMobile ? ' hero-inset-photo--has-mobile' : ''} ${heroSlide === idx ? 'hero-inset-photo--active' : ''}`}
                       style={slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined}
                       loading={idx === 0 ? "eager" : "lazy"}
+                      fetchPriority={idx === 0 ? "high" : "low"}
+                      decoding="async"
                     />
                     {slide.imageMobile ? (
                       <img
@@ -1137,6 +1150,8 @@ export default function App() {
                         className={`hero-inset-photo hero-inset-photo--mobile ${heroSlide === idx ? 'hero-inset-photo--active' : ''}`}
                         style={slide.objectPositionMobile ? { objectPosition: slide.objectPositionMobile } : (slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined)}
                         loading={idx === 0 ? "eager" : "lazy"}
+                        fetchPriority={idx === 0 ? "high" : "low"}
+                        decoding="async"
                       />
                     ) : null}
                   </Fragment>
@@ -1305,12 +1320,11 @@ export default function App() {
                 {SERVICES_DATA.map((item) => (
                   <MorphingDialog
                     key={item.id}
-                    transition={{
-                      type: 'spring',
-                      stiffness: 380,
-                      damping: 32,
-                      mass: 0.6,
-                    }}
+                    transition={
+                      isMobile
+                        ? { duration: 0.26, ease: [0.16, 1, 0.3, 1] }
+                        : { type: 'spring', stiffness: 360, damping: 30, mass: 0.5 }
+                    }
                   >
                     <MorphingDialogTrigger
                       className="service-tile-card"
@@ -1598,26 +1612,28 @@ export default function App() {
 
             {/* Desktop: Interactive Accordion Gallery */}
             <div className="gallery-desktop-view">
-              <AccordionGallery
-                items={GALLERY_ITEMS}
-                defaultIndex={0}
-                expandRatio={0.48}
-                trigger="hover"
-                accentColor="#ffffff"
-                overlayColor="#060010"
-                textColor="#ffffff"
-                grayscale
-                showLabels
-                duration={0.6}
-                ease="power3.out"
-                parallax={0.5}
-                tilt={8}
-                stagger={0.06}
-                height={460}
-                gap={10}
-                radius={16}
-                orientation="horizontal"
-              />
+              {!isMobile && (
+                <AccordionGallery
+                  items={GALLERY_ITEMS}
+                  defaultIndex={0}
+                  expandRatio={0.48}
+                  trigger="hover"
+                  accentColor="#ffffff"
+                  overlayColor="#060010"
+                  textColor="#ffffff"
+                  grayscale
+                  showLabels
+                  duration={0.6}
+                  ease="power3.out"
+                  parallax={0.5}
+                  tilt={8}
+                  stagger={0.06}
+                  height={460}
+                  gap={10}
+                  radius={16}
+                  orientation="horizontal"
+                />
+              )}
             </div>
 
             {/* Mobile: Normal Grid Gallery with Clear Clean Photos (No overlay text) */}
