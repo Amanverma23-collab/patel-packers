@@ -923,6 +923,7 @@ export default function App() {
   const [movingType, setMovingType] = useState('')
   const [selectOpen, setSelectOpen] = useState(false)
   const selectRef = useRef(null)
+  const selectedMovingOption = MOVING_OPTIONS.find((opt) => opt.value === movingType) || null
   /* Mobile detection for high-performance touch & rendering optimizations */
   const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth <= 860 : false))
 
