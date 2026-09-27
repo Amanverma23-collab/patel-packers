@@ -2011,12 +2011,12 @@ export default function App() {
             <div className="footer-col footer-col--services">
               <h4 className="footer-col-title">Our Services</h4>
               <ul className="footer-links">
-                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('House Shifting') }}>House Shifting</a></li>
-                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Loading & Unloading') }}>Loading &amp; Unloading</a></li>
-                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Office Relocation') }}>Office Relocation</a></li>
-                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Vehicle Transport') }}>Vehicle Transport</a></li>
-                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('Warehouse Storage') }}>Warehouse &amp; Storage</a></li>
-                <li><a href="#" onClick={(e) => { e.preventDefault(); handleOpenQuote('International Shipping') }}>All India Express</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); handleOpenQuote('House Shifting') }}>House Shifting</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); handleOpenQuote('Loading & Unloading') }}>Loading &amp; Unloading</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); handleOpenQuote('Office Relocation') }}>Office Relocation</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); handleOpenQuote('Vehicle Transport') }}>Vehicle Transport</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); handleOpenQuote('Warehouse Storage') }}>Warehouse &amp; Storage</a></li>
+                <li><a href="#services" onClick={(e) => { e.preventDefault(); handleOpenQuote('International Shipping') }}>All India Express</a></li>
               </ul>
             </div>
 
@@ -2059,11 +2059,11 @@ export default function App() {
           <div className="footer-bottom">
             <p className="footer-copyright">© {new Date().getFullYear()} Patel Packers &amp; Movers. All Rights Reserved.</p>
             <div className="footer-bottom-links">
-              <a href="#">Privacy Policy</a>
+              <a href="#about">Privacy Policy</a>
               <span className="footer-dot">·</span>
-              <a href="#">Terms of Service</a>
+              <a href="#about">Terms of Service</a>
               <span className="footer-dot">·</span>
-              <a href="#">Sitemap</a>
+              <a href="/sitemap.xml" target="_blank" rel="noopener noreferrer">Sitemap</a>
             </div>
           </div>
         </footer>
